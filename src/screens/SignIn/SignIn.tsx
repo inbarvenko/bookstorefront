@@ -60,10 +60,7 @@ const SignIn: React.FC<Props> = ({navigation}) => {
 
   const checkSignIn = async (data: SignInData) => {
     try {
-      const res = await loginUser(data);
-      if(!res){
-        return;
-      }
+      await loginUser(data);
       
       await dispatch(setUser(data));
 
@@ -91,11 +88,13 @@ const SignIn: React.FC<Props> = ({navigation}) => {
             errors={errors.email}
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
+            hintColor={CustomTheme.colors.dark_blue}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
             textErrorStyle={styles.errorTextStyle}
             value={value}
+            image={require('../../../assets/img/Mail.png')}
             hint="Enter your email"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -110,12 +109,14 @@ const SignIn: React.FC<Props> = ({navigation}) => {
             placeholder="Password"
             errors={errors.password}
             type="default"
+            hintColor={CustomTheme.colors.dark_blue}
             underlineColorAndroid="transparent"
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
             textErrorStyle={styles.errorTextStyle}
             value={value}
+            image={require('../../../assets/img/View.png')}
             hint="Enter your password"
             onBlur={onBlur}
             onChangeText={onChange}

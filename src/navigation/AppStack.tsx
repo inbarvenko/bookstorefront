@@ -2,6 +2,7 @@ import React from 'react';
 import * as nativeStack from '@react-navigation/native-stack';
 import HomePage from '../screens/Home/Home';
 import { createStackNavigator } from '@react-navigation/stack';
+import HeaderAuthUser from '../screens/ui/Headers/HeaderAuthUser';
 
 type AppStackParamList = {
   Home: undefined;
@@ -18,12 +19,7 @@ const AppStack: React.FC = () => {
           name="Home"
           component={HomePage}
           options={({navigation}) => ({
-            headerStyle: {
-              backgroundColor: 'lightblue',
-            },
-            headerBackVisible: false,
-            // headerTitle: () => <HeaderTitle title={'main page'} />,
-            // headerRight: () => <HeaderButtons navigation={navigation} />,
+            // header: () => <HeaderAuthUser navigation={navigation}/>
           })}
         />
         {/* <Stack.Screen

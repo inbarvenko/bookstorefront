@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import CustomTheme from '../../../theme';
 
+
 const styles = StyleSheet.create({
   inputRowContainer: {
     backgroundColor: 'rgba(240, 244, 239, 1)',
@@ -11,8 +12,9 @@ const styles = StyleSheet.create({
     borderColor: CustomTheme.colors.light,
   },
   inputStyle: {
-    backgroundColor: 'red',
-    width: '80%',
+    // backgroundColor: 'red',
+    fontFamily: 'Poppins400',
+    width: '100%',
     marginLeft: 16,
   },
   inputFocusStyle: {
@@ -23,20 +25,25 @@ const styles = StyleSheet.create({
   containerPlaceholderFocus: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
   },
   hintText: {
+    color: CustomTheme.colors.dark_blue,
+
     marginTop: 5.61,
     fontSize: 12,
-    fontFamily: 'Poppins400',
+    fontFamily: 'Poppins500',
     paddingLeft: 10,
-    color: CustomTheme.colors.dark_blue,
   },
   touchableStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 10,
   },
+  img: {
+    width: 24,
+    height: 22,
+  }
 });
 
 export default styles;

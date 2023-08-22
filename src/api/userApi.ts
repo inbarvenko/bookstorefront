@@ -1,73 +1,85 @@
-import axios from "axios";
-import { SignInData, SignUpData } from "../types";
+import axios from 'axios';
+import {SignInData, SignUpData} from '../types';
+import { axiosInstance } from './axios';
 
 export const loginUser = (data: SignInData) => {
   // Request API.
   let res = false;
 
-  console.log(data.email, data.password)
+  console.log(data.email, data.password);
 
-  const jsonValue = JSON.stringify({identifier: data.email, password: data.password});
-  console.log(jsonValue)
+  const jsonValue = JSON.stringify({
+    "identifier": data.email,
+    "password": data.password
+});
+  console.log(jsonValue);
 
-   axios
-    .post("http://0.0.0.0:1337/api/auth/local", jsonValue)
-    .then((response) => {
+  axiosInstance
+    .post('/api/auth/local', jsonValue, {
+      "headers": {
+        'Content-Type': 'application/json',
+      }
+  })
+    .then(response => {
       // Handle success.
       res = true;
-      console.log("Well done!");
-      console.log("User profile", response.data.user);
+      console.log('Well done!');
+      console.log('User profile', response.data.user);
 
-      console.log("User token", response.data.jwt);
+      console.log('User token', response.data.jwt);
     })
-    .catch((error) => {
+    .catch(error => {
       // Handle error.
-      console.log("An error occurred:", error.response);
+      console.log('An error occurred:', error, error.message);
     });
 
-    return res;
+  return res;
 };
 
 export const authUserGetData = () => {
-  const token = "YOUR_TOKEN_HERE";
+  const token = 'YOUR_TOKEN_HERE';
 
   // Request API.
-  return axios
-    .get("http://localhost:1337/posts", {
+  return axiosInstance
+    .get('/posts', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => {
+    .then(response => {
       // Handle success.
-      console.log("Data: ", response.data);
+      console.log('Data: ', response.data);
     })
-    .catch((error) => {
+    .catch(error => {
       // Handle error.
-      console.log("An error occurred:", error.response);
+      console.log('An error occurred:', error.response);
     });
 };
 
 export const registrateUser = (data: SignInData) => {
   let res = false;
 
-  console.log(data.email, data.password)
+  console.log(data.email, data.password);
 
-  const jsonValue = JSON.stringify({identifier: data.email, password: data.password});
-  console.log(jsonValue)
+  const jsonValue = JSON.stringify({
+    identifier: data.email,
+    password: data.password,
+    role: 1,
+  });
+  console.log(jsonValue);
 
-  axios
-    .post('http://localhost:1337/api/auth/local/register', jsonValue)
-    .then((response) => {
+  axiosInstance
+    .post('/api/auth/local/register', jsonValue)
+    .then(response => {
       // Handle success.
       res = true;
-      console.log("Well done!");
-      console.log("User profile", response.data.user);
-      console.log("User token", response.data.jwt);
+      console.log('Well done!');
+      console.log('User profile', response.data.user);
+      console.log('User token', response.data.jwt);
     })
-    .catch((error) => {
+    .catch(error => {
       // Handle error.
-      console.log("An error occurred:", error.response);
+      console.log('An error occurred:', error.response);
     });
   return res;
 };

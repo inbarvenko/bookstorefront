@@ -66,7 +66,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
 
   return (
     <View style={styles.screenContainer}>
-      <Text style={styles.titleStyle}>Sign up please</Text>
+      <Text style={styles.titleStyle}>Sign Up</Text>
       <Controller
         control={control}
         name="email"
@@ -75,8 +75,10 @@ const SignUp: React.FC<Props> = ({navigation}) => {
             placeholder="Email"
             errors={errors.email}
             type="numbers-and-punctuation"
+            image={require('../../../assets/img/Mail.png')}
             containerStyle={styles.inputContainer}
             underlineColorAndroid="transparent"
+            hintColor={CustomTheme.colors.dark_blue}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
             textErrorStyle={styles.errorTextStyle}
@@ -95,7 +97,9 @@ const SignUp: React.FC<Props> = ({navigation}) => {
             placeholder="Password"
             errors={errors.password}
             type="default"
+            image={require('../../../assets/img/View.png')}
             underlineColorAndroid="transparent"
+            hintColor={CustomTheme.colors.dark_blue}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
@@ -116,13 +120,15 @@ const SignUp: React.FC<Props> = ({navigation}) => {
             placeholder="Password"
             errors={errors.password}
             type="default"
+            image={require('../../../assets/img/View.png')}
             underlineColorAndroid="transparent"
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
+            hintColor={CustomTheme.colors.dark_blue}
             containerErrorStyle={styles.errorSectionStyle}
             textErrorStyle={styles.errorTextStyle}
             value={value}
-            hint="Enter your password again"
+            hint="Repeat your password without errors"
             onBlur={onBlur}
             onChangeText={onChange}
             secure

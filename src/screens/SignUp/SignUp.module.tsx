@@ -1,24 +1,17 @@
 import {StyleSheet} from 'react-native';
+import CustomTheme from '../../theme';
 
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
-    padding: 50,
-    backgroundColor: 'lightblue',
-  },
-  titleStyle: {
-    fontSize: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 40,
-    alignSelf: 'center',
+    flexDirection: 'column',
+    
+    backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   buttonContainer: {
-    backgroundColor: '#000',
-    borderRadius: 10,
-    paddingVertical: 10,
-    marginHorizontal: 40,
+    marginHorizontal: 15,
+    marginVertical: 40.25,
   },
   buttonText: {
     fontSize: 18,
@@ -27,21 +20,45 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
+  
+  titleStyle: {
+    fontFamily: 'Poppins700',
+    fontSize: 18,
+    lineHeight: 27,
+    paddingStart: 15,
+    color: CustomTheme.colors.dark_blue,
+
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+
   errorTextStyle: {
-    color: 'red',
+    color: CustomTheme.colors.error_dark,
   },
   errorSectionStyle: {
-    borderColor: 'red',
-    backgroundColor: 'lightred',
+    borderColor: CustomTheme.colors.error_dark,
+    backgroundColor: CustomTheme.colors.error_light,
     opacity: 0.8,
   },
   inputContainer: {
-    marginBottom: 10,
+    marginBottom: 44,
+    // width: 290,
+    height: 48,
+    paddingHorizontal: 15,
   },
   inputText: {
-    fontSize: 18,
-    color: '#000',
+    fontSize: 14,
+    fontFamily: 'Poppins400',
+    letterSpacing: 0.75,
+    color: CustomTheme.colors.dark_blue,
+    paddingBottom: 7,
   },
+  image: {
+    width: '100%',
+    height: 247,
+    marginHorizontal: 15,
+  }
 });
 
 export default styles;

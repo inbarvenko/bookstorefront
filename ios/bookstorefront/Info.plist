@@ -53,8 +53,9 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Poppins400.ttf</string>
 		<string>Poppins700.ttf</string>
+		<string>Poppins400.ttf</string>
+		<string>Poppins500.ttf</string>
 	</array>
 </dict>
 </plist>

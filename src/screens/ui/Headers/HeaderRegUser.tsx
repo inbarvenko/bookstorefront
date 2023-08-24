@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Image, Text} from 'react-native';
+import {View, Image, Text, TouchableOpacity} from 'react-native';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import {styles} from './Header.module';
@@ -22,27 +22,36 @@ const HeaderAuthUser: React.FC<Props> = ({navigation}) => {
         />
         <Text
           style={styles.catalog}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => navigation.navigate('Catalog')}>
           Catalog
         </Text>
         <View style={styles.rightButtons}>
-            <Image 
-                source={require('../../../../assets/img/button_cart.png')}
-                style={styles.button}
+          <TouchableOpacity>
+            <Image
+              source={require('../../../../assets/img/button_cart.png')}
+              style={[styles.button, {height: 35, width: 35}]}
             />
-            <Image 
-                source={require('../../../../assets/img/button_save.png')}
-                style={styles.button}
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Image
+              source={require('../../../../assets/img/button_save.png')}
+              style={styles.button}
             />
-            <Image 
-                source={require('../../../../assets/img/button_user_profile.png')}
-                style={styles.button}
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image
+              source={require('../../../../assets/img/button_user_profile.png')}
+              style={styles.button}
             />
+          </TouchableOpacity>
         </View>
       </View>
       <Input
         image={require('../../../../assets/img/Search.png')}
         placeholder={'Search'}
+        containerStyle = {styles.input}
         hintColor={CustomTheme.colors.dark_grey}
         textStyle={{color: CustomTheme.colors.dark_blue}}
         onBlur={() => {}}

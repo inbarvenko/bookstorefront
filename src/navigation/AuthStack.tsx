@@ -3,7 +3,7 @@ import * as nativeStack from '@react-navigation/native-stack';
 import SignIn from '../screens/SignIn/SignIn';
 import SignUp from '../screens/SignUp/SignUp';
 import HeaderAuthUser from '../screens/ui/Headers/HeaderAuthUser';
-import HomePage from '../screens/Home/Home';
+import CatalogPage from '../screens/Catalog/Catalog';
 
 const Stack = nativeStack.createNativeStackNavigator();
 
@@ -26,8 +26,8 @@ const AuthStack: React.FC = () => {
           })}
         />
         <Stack.Screen
-          name="Home"
-          component={HomePage}
+          name="Catalog"
+          component={CatalogPage}
           options={({navigation}) => ({
             header: () => <HeaderAuthUser navigation={navigation}/>
           })}

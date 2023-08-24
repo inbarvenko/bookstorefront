@@ -2,11 +2,11 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   header: {
-    paddingTop: 30,
+    paddingTop: 20,
     paddingBottom: 30,
     paddingHorizontal: 15,
     width: '100%',
-    height: 115,
+    height: 140,
 
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
@@ -35,5 +35,8 @@ export const styles = StyleSheet.create({
     width: 135,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+  },
+  input: {
+    height: 64,
   }
 });

@@ -22,7 +22,7 @@ const HeaderAuthUser: React.FC<Props> = ({navigation}) => {
         />
         <Text
           style={styles.catalog}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => navigation.navigate('Catalog')}>
           Catalog
         </Text>
         <Button
@@ -39,6 +39,7 @@ const HeaderAuthUser: React.FC<Props> = ({navigation}) => {
         placeholder={'Search'}
         hintColor={CustomTheme.colors.dark_grey}
         textStyle={{color: CustomTheme.colors.dark_blue}}
+        containerStyle = {styles.input}
         onBlur={() => {}}
       />
     </View>

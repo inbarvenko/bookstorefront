@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import CustomTheme from '../../../theme';
-
 
 const styles = StyleSheet.create({
   inputRowContainer: {
@@ -20,7 +19,6 @@ const styles = StyleSheet.create({
   inputFocusStyle: {
     backgroundColor: CustomTheme.colors.light,
     borderColor: CustomTheme.colors.dark_blue,
-    
   },
   containerPlaceholderFocus: {
     flex: 1,
@@ -43,7 +41,7 @@ const styles = StyleSheet.create({
   img: {
     width: 24,
     height: 22,
-  }
+  },
 });
 
 export default styles;

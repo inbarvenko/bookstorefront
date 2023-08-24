@@ -5,7 +5,7 @@ import CustomTheme from '../../theme';
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     flexDirection: 'column',
     
     backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 27,
     paddingStart: 15,
+    paddingTop: 30,
     color: CustomTheme.colors.dark_blue,
 
     justifyContent: 'flex-start',
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 44,
     // width: 290,
-    height: 48,
+    height: 64,
     paddingHorizontal: 15,
   },
   inputText: {
@@ -56,8 +57,8 @@ const styles = StyleSheet.create({
     paddingBottom: 7,
   },
   image: {
-    width: '100%',
-    height: 247,
+    width: '90%',
+    height: 235,
     marginHorizontal: 15,
   }
 });

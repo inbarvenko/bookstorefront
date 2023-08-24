@@ -58,7 +58,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
       console.log("jsonValue set", jsonValue)
       await AsyncStorage.setItem('user', jsonValue);
 
-      await navigation.navigate('Home');
+      await navigation.navigate('Catalog');
     } catch (error) {
       console.log(error);
     }

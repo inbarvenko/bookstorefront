@@ -1,39 +1,35 @@
 import React from 'react';
-import * as nativeStack from '@react-navigation/native-stack';
-import HomePage from '../screens/Home/Home';
-import { createStackNavigator } from '@react-navigation/stack';
-import HeaderAuthUser from '../screens/ui/Headers/HeaderAuthUser';
+import CatalogPage from '../screens/Catalog/Catalog';
+import HeaderRegUser from '../screens/ui/Headers/HeaderRegUser';
+import {createStackNavigator} from '@react-navigation/stack';
+import ProfilePage from '../screens/Profile/Profile';
 
 type AppStackParamList = {
-  Home: undefined;
-  Profile: { userID: string };
+  Catalog: undefined;
+  Profile: undefined;
 };
 
 const Stack = createStackNavigator<AppStackParamList>();
 
 const AppStack: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Catalog">
       <Stack.Group>
         <Stack.Screen
-          name="Home"
-          component={HomePage}
+          name="Catalog"
+          component={CatalogPage}
           options={({navigation}) => ({
-            // header: () => <HeaderAuthUser navigation={navigation}/>
+            header: () => <HeaderRegUser navigation={navigation} />,
+            
           })}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Profile"
           component={ProfilePage}
-          initialParams={{ userId: user.id }}
           options={({navigation}) => ({
-            headerStyle: {
-              backgroundColor: 'lightblue',
-            },
-            headerBackVisible: false,
-            // headerTitle: () => <HeaderTitle title={'todos'} />,
-            // headerRight: () => <HeaderButtons navigation={navigation} />,
-          })} */}
+            header: () => <HeaderRegUser navigation={navigation} />,
+          })}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );

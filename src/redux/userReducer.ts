@@ -4,7 +4,8 @@ import {IUser} from '../types';
 
 const initialState: IUser = {
   username: null,
-  email: null,
+  email: undefined,
+  access_token: '',
 };
 
 const userData = createSlice({
@@ -14,10 +15,10 @@ const userData = createSlice({
     setUser: (state, action: PayloadAction<IUser>) => {
       state.email = action.payload.email;
       state.username = action.payload.username;
+      state.access_token = action.payload.access_token;
     },
     removeUser: (state) => {
-        state.email = null;
-        state.username= null;
+        state = initialState;
       },
   },
 });

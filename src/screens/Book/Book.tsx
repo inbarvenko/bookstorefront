@@ -5,11 +5,11 @@ import {getBookById} from '../../redux/booksReducer';
 import {styles} from './Book.module';
 import Rating from '../ui/Rating/Rating';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ParamListBase} from '@react-navigation/native';
+import {ParamListBase, useRoute} from '@react-navigation/native';
 import Footer from '../ui/Footer/Footer';
 import Banner from '../ui/Banner/Banner';
 import BookCard from '../ui/BookCard/BookCard';
-import { filteredRatingBooks } from '../../redux/selectors';
+import {filteredRatingBooks} from '../../redux/selectors';
 
 type Props = {
   route: any;
@@ -18,14 +18,10 @@ type Props = {
 
 const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
   const bookId = route.params.bookId;
-  const bookPhoto = route.params.bookPhoto;
   const dispatch = useAppDispatch();
   const book = useAppSelector(state => state.bookData.book);
   const userEmail = useAppSelector(state => state.userData.email);
   const recomendation = useAppSelector(filteredRatingBooks);
-
-  // console.log(userEmail)
-
 
   useEffect(() => {
     dispatch(getBookById(bookId));
@@ -35,7 +31,7 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
     <ScrollView style={{flex: 1, backgroundColor: 'rgba(255, 255, 255, 1)'}}>
       <View style={styles.screenContainer}>
         <View style={styles.title_book}>
-          <Image style={styles.photo} source={{uri: bookPhoto}} />
+          <Image style={styles.photo} source={{uri: book.photoUrl}} />
           <View style={styles.text_box}>
             <Text style={styles.name}>{book.name}</Text>
             <Text style={styles.author}>{book.author}</Text>
@@ -56,10 +52,23 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
           onButtonPress={() => navigation.navigate('SignIn')}
         />
       )}
-      <Text style={[styles.descr_title, styles.name, {paddingLeft: 15, paddingTop: 30}]}>Recommendations</Text>
+      <Text
+        style={[
+          styles.descr_title,
+          styles.name,
+          {paddingLeft: 15, paddingTop: 30},
+        ]}>
+        Recommendations
+      </Text>
       <View style={styles.bookList}>
-        {recomendation.map((item) => {
-          return <BookCard key={item.author + item.name} book={item} navigation={navigation}/>;
+        {recomendation.map(item => {
+          return (
+            <BookCard
+              key={item.author + item.name}
+              book={item}
+              navigation={navigation}
+            />
+          );
         })}
       </View>
       <Footer navigation={navigation} />

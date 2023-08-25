@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {Book} from '../types';
-import {getBookPhotoRequest, getBooksRequest} from '../api/bookApi';
+import {getBooksRequest} from '../api/bookApi';
 
 type InitialState = {
   bookList: Book[];
@@ -15,10 +15,14 @@ const initialState: InitialState = {
     author: '',
     description: '',
     name: '',
+    photoUrl: '',
   },
 };
 
-export const getAllBooks = createAsyncThunk('books/getTodos', getBooksRequest);
+export const getAllBooks = createAsyncThunk(
+  'books/getAllBooks',
+  getBooksRequest,
+);
 
 const bookData = createSlice({
   name: 'Book',

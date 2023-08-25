@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
     paddingBottom: 7,
   },
   image: {
-    width: '90%',
-    height: 235,
+    width: 290,
+    height: 247,
     marginHorizontal: 15,
-  },
+    alignSelf: 'center',
+  }
 });
 
 export default styles;

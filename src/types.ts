@@ -24,8 +24,7 @@ export type Book = {
   description: string;
 
   price?: string,
-  photo?: Blob;
-  photoStr?: string;
+  photoUrl?: string;
   rate?: number;
 
 }

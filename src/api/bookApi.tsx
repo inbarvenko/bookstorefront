@@ -2,42 +2,34 @@ import {PostgrestError} from '@supabase/supabase-js';
 import {Book} from '../types';
 import {supabase} from './initSupabase';
 
-type Props = {
-  book: Book;
-  parseBlob: (data: Blob) => void;
-};
-
-type getBooksResponse = {
+type GetBooksResponse = {
   data: Book[] | null;
   error: PostgrestError | null;
 };
 
-type getBooksProps = {
+type GetBooksProps = {
   page: number;
 };
 
-
-
-export const getBookPhotoRequest = async ({book, parseBlob}: Props) => {
-  try {
-
-    const {data, error} = await supabase.storage
-      .from('books')
-      .download(`photos/${book.author + ' ' + book.name}.jpg`);
-
-    
-    parseBlob(data!);
-    
-  } catch (error) {
-    console.log('error: ', error);
-  }
+type GetPhotoProps = {
+  author: string;
+  name: string;
+  id: string;
 };
 
-export const getBooksRequest = async (params: getBooksProps) => {
-  let {data, error}: getBooksResponse = await supabase.from('book').select('*');
-  // .range(--params.page * 5, params.page * 5 + 5);
+export const getBooksRequest = async (params: GetBooksProps) => {
+  let {data, error}: GetBooksResponse = await supabase.from('book').select('*');
+  // .range(--params.page * 6, params.page * 6 + 6);
 
   if (!data) return [];
+
+  data.forEach((book) => {
+    const {data: url} = supabase.storage
+      .from('books')
+      .getPublicUrl(`photos/${book.author + ' ' + book.name}.jpg`);
+
+      book.photoUrl = url.publicUrl;
+  });
 
   if (error) {
     console.log(error.message);

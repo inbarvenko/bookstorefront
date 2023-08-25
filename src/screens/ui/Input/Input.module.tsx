@@ -5,13 +5,13 @@ const styles = StyleSheet.create({
   inputRowContainer: {
     backgroundColor: 'rgba(240, 244, 239, 1)',
     flexDirection: 'row',
+
     paddingLeft: 8,
     borderRadius: 16,
     borderWidth: 2,
     borderColor: CustomTheme.colors.light,
   },
   inputStyle: {
-    // backgroundColor: 'red',
     fontFamily: 'Poppins400',
     width: '100%',
     marginLeft: 16,
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   containerPlaceholderFocus: {
     flex: 1,
     flexDirection: 'column',
-    // backgroundColor: 'green',
   },
   hintText: {
     color: CustomTheme.colors.dark_blue,

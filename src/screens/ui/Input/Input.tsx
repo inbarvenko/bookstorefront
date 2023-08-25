@@ -103,7 +103,7 @@ const Input: React.FC<Props> = ({
           )}
         </TouchableOpacity>
         <View
-          style={inputState.inputFocus && styles.containerPlaceholderFocus}>
+          style={[inputState.inputFocus && styles.containerPlaceholderFocus,{ width: '100%'}]}>
           {inputState.inputFocus && (
             <Text style={[styles.hintText, {color: hintColor}]}>{placeholder}</Text>
           )}

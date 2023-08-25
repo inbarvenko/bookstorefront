@@ -1,6 +1,7 @@
 import {Image, ImageSourcePropType, Text, View} from 'react-native';
 import {styles} from './Banner.module';
 import Button from '../Button/Button';
+import CustomTheme from '../../../theme';
 
 type Props = {
   back_image: ImageSourcePropType;
@@ -28,6 +29,7 @@ const Banner: React.FC<Props> = ({
           title={button_title}
           width={200}
           height={38}
+          colorText={CustomTheme.colors.light}
         />
       </View>
     </View>

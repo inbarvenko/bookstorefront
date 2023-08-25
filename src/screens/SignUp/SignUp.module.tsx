@@ -4,7 +4,6 @@ import CustomTheme from '../../theme';
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    justifyContent: 'center',
     flexDirection: 'column',
     
     backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -55,9 +54,10 @@ const styles = StyleSheet.create({
     paddingBottom: 7,
   },
   image: {
-    width: '100%',
+    width: 290,
     height: 247,
     marginHorizontal: 15,
+    alignSelf: 'center',
   }
 });
 

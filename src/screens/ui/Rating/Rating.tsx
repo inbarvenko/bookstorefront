@@ -38,7 +38,7 @@ const Rating = ({rate, bookPage, size}: Props) => {
 
     for (let j = userRate; j < num; j++) {
       components.push(
-        <TouchableOpacity onPress={() => setUserRate(j + 1)}>
+        <TouchableOpacity key={j} onPress={() => setUserRate(j + 1)}>
           <Image
             key={j}
             style={styles.star}

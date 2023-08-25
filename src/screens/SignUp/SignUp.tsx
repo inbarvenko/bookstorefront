@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, ScrollView} from 'react-native';
+import {View, Text, TextInput, ScrollView, Image} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -141,11 +141,15 @@ const SignUp: React.FC<Props> = ({navigation}) => {
         styleButton={styles.buttonContainer}
         width={151}
         height={44}
-        colorText={CustomTheme.colors.dark_grey}
+        colorText={CustomTheme.colors.light}
         fontSize={16}
         onPress={handleSubmit(checkSignUp)}
         title="Sign in"
       />
+      <Image
+          style={styles.image}
+          source={require('../../../assets/img/personLogin.png')}
+        />
       <Footer navigation={navigation}/>
       </ScrollView>
     </View>

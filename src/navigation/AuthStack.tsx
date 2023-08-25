@@ -4,6 +4,7 @@ import SignIn from '../screens/SignIn/SignIn';
 import SignUp from '../screens/SignUp/SignUp';
 import HeaderAuthUser from '../screens/ui/Headers/HeaderAuthUser';
 import CatalogPage from '../screens/Catalog/Catalog';
+import BookScreen from '../screens/Book/Book';
 
 const Stack = nativeStack.createNativeStackNavigator();
 
@@ -30,6 +31,13 @@ const AuthStack: React.FC = () => {
           component={CatalogPage}
           options={({navigation}) => ({
             header: () => <HeaderAuthUser navigation={navigation}/>
+          })}
+        />
+        <Stack.Screen
+          name="Book"
+          component={BookScreen}
+          options={({navigation}) => ({
+            header: () => <HeaderAuthUser navigation={navigation} />,
           })}
         />
       </Stack.Group>

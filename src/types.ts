@@ -18,12 +18,14 @@ export type SignUpData = {
 };
 
 export type Book = {
+  id: string;
   author: string;
   name: string;
   description: string;
 
   price?: string,
-  photo?: string;
+  photo?: Blob;
+  photoStr?: string;
   rate?: number;
 
 }

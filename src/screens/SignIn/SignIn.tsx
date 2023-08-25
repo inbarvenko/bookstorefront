@@ -19,7 +19,7 @@ import Footer from '../ui/Footer/Footer';
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
-const SignIn: React.FC<Props> = ({navigation}) => {
+const SignIn: React.FC<Props> = ({navigation}: Props) => {
   const dispatch = useAppDispatch();
 
   const checkPrevSignIn = async () => {
@@ -36,7 +36,7 @@ const SignIn: React.FC<Props> = ({navigation}) => {
   };
 
   useEffect(() => {
-    checkPrevSignIn();
+    // checkPrevSignIn();
   }, []);
 
   const schema = yup.object({
@@ -66,6 +66,8 @@ const SignIn: React.FC<Props> = ({navigation}) => {
       if (!userInfo) {
         return;
       }
+
+      console.log(userInfo)
 
       await dispatch(setUser(userInfo));
 
@@ -140,7 +142,7 @@ const SignIn: React.FC<Props> = ({navigation}) => {
           style={styles.image}
           source={require('../../../assets/img/personLogin.png')}
         />
-        <Footer />
+        <Footer navigation={navigation}/>
       </ScrollView>
     </View>
   );

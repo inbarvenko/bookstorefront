@@ -1,25 +1,33 @@
 import {StyleSheet} from 'react-native';
+import CustomTheme from '../../../theme';
 
 export const styles = StyleSheet.create({
   container: {
-    // flex: 0.5,
-    width: '46%',
-    height: 300,
-    backgroundColor: 'green',
-    // paddingHorizontal: 5,
-    margin: 5,
+    width: '43%',
+    height: 350,
+    marginVertical: 20,
+    marginHorizontal: 10,
   },
   photo: {
-    width: '100%',
-    height: 192,
+    width: 150,
+    height: 210,
     borderRadius: 16,
+
+    alignSelf: 'center',
   },
   text:{
     fontFamily: 'Poppins500',
     fontSize: 14,
+    lineHeight: 21,
     paddingBottom: 3,
+    paddingLeft: 5,
+
+    height: 23,
+
+    color: CustomTheme.colors.dark_blue,
   },
   text_container: {
-    marginBottom: 11.86,
+    marginTop: 15,
+    marginBottom: 7,
   }
 });

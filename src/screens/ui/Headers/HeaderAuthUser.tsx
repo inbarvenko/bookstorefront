@@ -5,12 +5,15 @@ import Input from '../Input/Input';
 import {styles} from './Header.module';
 import CustomTheme from '../../../theme';
 import {useRoute} from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ParamListBase } from '@react-navigation/native';
 
 interface Props {
-  navigation: any;
+  navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
+  
 }
 
-const HeaderAuthUser: React.FC<Props> = ({navigation}) => {
+const HeaderAuthUser: React.FC<Props> = ({navigation}: Props) => {
   const route = useRoute();
 
   return (

@@ -1,13 +1,11 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import CustomTheme from '../../theme';
-
 
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    // justifyContent: 'center',
     flexDirection: 'column',
-    
+
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   buttonContainer: {
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
-  
+
   titleStyle: {
     fontFamily: 'Poppins700',
     fontSize: 18,
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 235,
     marginHorizontal: 15,
-  }
+  },
 });
 
 export default styles;

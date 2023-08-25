@@ -4,16 +4,16 @@ import CustomTheme from '../../../theme';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 650,
-    marginTop: 70,
+    height: 550,
+    marginTop: 50,
 
     backgroundColor: CustomTheme.colors.dark,
 
     paddingHorizontal: 15,
-    paddingTop: 73,
+    paddingTop: 50,
 
     flexDirection: 'column',
-    gap: 40,
+    gap: 30,
   },
   logo: {
     width: 88,
@@ -25,10 +25,10 @@ export const styles = StyleSheet.create({
   },
   navigation: {
     flexDirection: 'column',
-    gap: 11,
+    gap: 8,
   },
   container_map: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
   map_image: {
     alignSelf: 'center',

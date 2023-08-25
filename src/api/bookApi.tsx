@@ -3,8 +3,8 @@ import {Book} from '../types';
 import {supabase} from './initSupabase';
 
 type Props = {
-  name: string;
-  author: string;
+  book: Book;
+  parseBlob: (data: Blob) => void;
 };
 
 type getBooksResponse = {
@@ -16,27 +16,27 @@ type getBooksProps = {
   page: number;
 };
 
-export const getBookPhoto = async (book: Props) => {
-  const {data, error} = await supabase.storage.from('books').list('/', {
-    search: book.author + ' ' + book.name,
-  });
 
-  console.log('photo', data);
 
-  if (error) {
-    console.log(error.message);
-  } else {
-    return data;
+export const getBookPhotoRequest = async ({book, parseBlob}: Props) => {
+  try {
+
+    const {data, error} = await supabase.storage
+      .from('books')
+      .download(`photos/${book.author + ' ' + book.name}.jpg`);
+
+    
+    parseBlob(data!);
+    
+  } catch (error) {
+    console.log('error: ', error);
   }
 };
 
 export const getBooksRequest = async (params: getBooksProps) => {
-  let {data, error}: getBooksResponse = await supabase
-    .from('book')
-    .select('*');
-    // .range(--params.page * 5, params.page * 5 + 5);
+  let {data, error}: getBooksResponse = await supabase.from('book').select('*');
+  // .range(--params.page * 5, params.page * 5 + 5);
 
-  console.log('data', data);
   if (!data) return [];
 
   if (error) {

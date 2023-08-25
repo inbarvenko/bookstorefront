@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, ScrollView} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -11,11 +11,11 @@ import styles from './SignUp.module';
 import Button from '../ui/Button/Button';
 import {SignUpData} from '../../types';
 import {useAppDispatch} from '../../redux/hooks';
-import {setUser} from '../../redux/userReducer';
 import Input from '../ui/Input/Input';
-import { registrateUser } from '../../api/userApi';
+import { userRegister } from '../../api/userApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomTheme from '../../theme';
+import Footer from '../ui/Footer/Footer';
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
@@ -48,11 +48,11 @@ const SignUp: React.FC<Props> = ({navigation}) => {
       
       if(data.repeatPassword !== data.password) {return ;}
 
-      const res = await registrateUser({email: data.email, password: data.password});
+      const res = await userRegister({email: data.email, password: data.password});
       if(!res){
         return;
       }
-      await dispatch(setUser(data));
+      // await dispatch(setUser(data));
 
       const jsonValue = await JSON.stringify(data);
       console.log("jsonValue set", jsonValue)
@@ -65,7 +65,8 @@ const SignUp: React.FC<Props> = ({navigation}) => {
   };
 
   return (
-    <View style={styles.screenContainer}>
+    <View style={{flex: 1}}>
+      <ScrollView style={styles.screenContainer}>
       <Text style={styles.titleStyle}>Sign Up</Text>
       <Controller
         control={control}
@@ -145,6 +146,8 @@ const SignUp: React.FC<Props> = ({navigation}) => {
         onPress={handleSubmit(checkSignUp)}
         title="Sign in"
       />
+      <Footer navigation={navigation}/>
+      </ScrollView>
     </View>
   );
 };

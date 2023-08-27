@@ -13,4 +13,11 @@ export const styles = StyleSheet.create({
 
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
+  title: {
+    fontFamily: 'Poppins700',
+    margin: 15,
+    fontSize: 18,
+    lineHeight: 27,
+    color: CustomTheme.colors.dark_blue
+  },
 });

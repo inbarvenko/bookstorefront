@@ -33,16 +33,21 @@ const CatalogPage: React.FC<Props> = ({navigation}: Props) => {
         button_title="Choose a book"
         onButtonPress={() => {}}
       />
+      <Text style={styles.title}>Catalog</Text>
+      <View>
+        
+      </View>
       <View style={styles.bookList}>
-        {bookList.map((item) => {
-          return (
-            <BookCard
-              key={item.author + item.name + route.name}
-              book={item}
-              navigation={navigation}
-            />
-          );
-        })}
+        {bookList.length > 0 &&
+          bookList.map(item => {
+            return (
+              <BookCard
+                key={item.author + item.name + route.name}
+                book={item}
+                navigation={navigation}
+              />
+            );
+          })}
       </View>
       {!userEmail && (
         <Banner

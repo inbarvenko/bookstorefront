@@ -6,6 +6,7 @@ const initialState: IUser = {
   username: null,
   email: undefined,
   access_token: '',
+  photoUrl: undefined,
 };
 
 const userData = createSlice({
@@ -14,14 +15,13 @@ const userData = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUser>) => {
       state.email = action.payload.email;
-      state.username = action.payload.username;
       state.access_token = action.payload.access_token;
     },
-    removeUser: (state) => {
-        state = initialState;
-      },
+    setPhoto: (state, action: PayloadAction<string>) => {
+      state.photoUrl = action.payload;
+    }
   },
 });
 
 export default userData.reducer;
-export const {setUser, removeUser} = userData.actions;
+export const {setUser, setPhoto} = userData.actions;

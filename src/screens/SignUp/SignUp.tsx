@@ -12,10 +12,11 @@ import Button from '../ui/Button/Button';
 import {SignUpData} from '../../types';
 import {useAppDispatch} from '../../redux/hooks';
 import Input from '../ui/Input/Input';
-import { userRegister } from '../../api/userApi';
+import {userRegister} from '../../api/userApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomTheme from '../../theme';
 import Footer from '../ui/Footer/Footer';
+import {setUser} from '../../redux/userReducer';
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
@@ -45,17 +46,23 @@ const SignUp: React.FC<Props> = ({navigation}) => {
 
   const checkSignUp = async (data: SignUpData) => {
     try {
-      
-      if(data.repeatPassword !== data.password) {return ;}
-
-      const res = await userRegister({email: data.email, password: data.password});
-      if(!res){
+      if (data.repeatPassword !== data.password) {
         return;
       }
-      // await dispatch(setUser(data));
+
+      const res = await userRegister({
+        email: data.email,
+        password: data.password,
+        repeatPassword: data.repeatPassword,
+      });
+
+      if (res!.error) {
+        return res!.error;
+      }
+      await dispatch(setUser(res!.data));
 
       const jsonValue = await JSON.stringify(data);
-      console.log("jsonValue set", jsonValue)
+      console.log('jsonValue set', jsonValue);
       await AsyncStorage.setItem('user', jsonValue);
 
       await navigation.navigate('Catalog');
@@ -67,90 +74,93 @@ const SignUp: React.FC<Props> = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <ScrollView style={styles.screenContainer}>
-      <Text style={styles.titleStyle}>Sign Up</Text>
-      <Controller
-        control={control}
-        name="email"
-        render={({field: {onChange, onBlur, value}}) => (
-          <Input
-            placeholder="Email"
-            errors={errors.email}
-            type="numbers-and-punctuation"
-            image={require('../../../assets/img/Mail.png')}
-            containerStyle={styles.inputContainer}
-            underlineColorAndroid="transparent"
-            hintColor={CustomTheme.colors.dark_blue}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
-            value={value}
-            hint="Enter your email"
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="password"
-        render={({field: {onChange, onBlur, value}}) => (
-          <Input
-            placeholder="Password"
-            errors={errors.password}
-            type="default"
-            image={require('../../../assets/img/View.png')}
-            underlineColorAndroid="transparent"
-            hintColor={CustomTheme.colors.dark_blue}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
-            value={value}
-            hint="Enter your password"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            secure
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="repeatPassword"
-        render={({field: {onChange, onBlur, value}}) => (
-          <Input
-            placeholder="Password"
-            errors={errors.password}
-            type="default"
-            image={require('../../../assets/img/View.png')}
-            underlineColorAndroid="transparent"
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            hintColor={CustomTheme.colors.dark_blue}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
-            value={value}
-            hint="Repeat your password without errors"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            secure
-          />
-        )}
-      />
-      <Button
-        activeOpacity={0.8}
-        styleButton={styles.buttonContainer}
-        width={151}
-        height={44}
-        colorText={CustomTheme.colors.light}
-        fontSize={16}
-        onPress={handleSubmit(checkSignUp)}
-        title="Sign in"
-      />
-      <Image
+        <Text style={styles.titleStyle}>Sign Up</Text>
+        <Controller
+          control={control}
+          name="email"
+          render={({field: {onChange, onBlur, value}}) => (
+            <Input
+              placeholder="Email"
+              errors={errors.email}
+              type="numbers-and-punctuation"
+              image={require('../../../assets/img/Mail.png')}
+              containerStyle={styles.inputContainer}
+              underlineColorAndroid="transparent"
+              hintColor={CustomTheme.colors.dark_blue}
+              textStyle={styles.inputText}
+              upPlaceholder={true}
+              containerErrorStyle={styles.errorSectionStyle}
+              textErrorStyle={styles.errorTextStyle}
+              value={value}
+              hint="Enter your email"
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({field: {onChange, onBlur, value}}) => (
+            <Input
+              placeholder="Password"
+              errors={errors.password}
+              type="default"
+              image={require('../../../assets/img/View.png')}
+              underlineColorAndroid="transparent"
+              hintColor={CustomTheme.colors.dark_blue}
+              containerStyle={styles.inputContainer}
+              textStyle={styles.inputText}
+              upPlaceholder={true}
+              containerErrorStyle={styles.errorSectionStyle}
+              textErrorStyle={styles.errorTextStyle}
+              value={value}
+              hint="Enter your password"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              secure
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="repeatPassword"
+          render={({field: {onChange, onBlur, value}}) => (
+            <Input
+              placeholder="Password"
+              errors={errors.password}
+              type="default"
+              image={require('../../../assets/img/View.png')}
+              underlineColorAndroid="transparent"
+              containerStyle={styles.inputContainer}
+              textStyle={styles.inputText}
+              upPlaceholder={true}
+              hintColor={CustomTheme.colors.dark_blue}
+              containerErrorStyle={styles.errorSectionStyle}
+              textErrorStyle={styles.errorTextStyle}
+              value={value}
+              hint="Repeat your password without errors"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              secure
+            />
+          )}
+        />
+        <Button
+          activeOpacity={0.8}
+          styleButton={styles.buttonContainer}
+          width={151}
+          height={44}
+          colorText={CustomTheme.colors.light}
+          fontSize={16}
+          onPress={handleSubmit(checkSignUp)}
+          title="Sign Up"
+        />
+        <Image
           style={styles.image}
           source={require('../../../assets/img/personLogin.png')}
         />
-      <Footer navigation={navigation}/>
+        <Footer navigation={navigation} />
       </ScrollView>
     </View>
   );

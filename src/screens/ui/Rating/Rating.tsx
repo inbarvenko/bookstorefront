@@ -10,19 +10,15 @@ type Props = {
 
 const Rating = ({rate, bookPage, size}: Props) => {
   const [userRate, setUserRate] = useState(0);
-  // console.log(userRate);
 
   const rating = (num: number) => {
     const components = [];
 
-    // console.log(num)
-
     const end = bookPage ? userRate : Math.ceil(num);
 
     for (let i = 0; i < end; i++) {
-      // console.log('i', i);
       components.push(
-        <TouchableOpacity onPress={() => setUserRate(i + 1)}>
+        <TouchableOpacity key={i + end} onPress={() => setUserRate(i + 1)}>
           <Image
             key={i}
             style={styles.star}
@@ -38,7 +34,7 @@ const Rating = ({rate, bookPage, size}: Props) => {
 
     for (let j = userRate; j < num; j++) {
       components.push(
-        <TouchableOpacity key={j} onPress={() => setUserRate(j + 1)}>
+        <TouchableOpacity key={j + userRate} onPress={() => setUserRate(j + 1)}>
           <Image
             key={j}
             style={styles.star}

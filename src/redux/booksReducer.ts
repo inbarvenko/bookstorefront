@@ -1,15 +1,17 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
-import {Book} from '../types';
-import {getBooksRequest} from '../api/bookApi';
+import {Book, Comment} from '../types';
+import {getBooksRequest, getCommentsRequest} from '../api/bookApi';
 
 type InitialState = {
   bookList: Book[];
   book: Book;
+  comments: Comment[];
 };
 
 const initialState: InitialState = {
   bookList: [],
+  comments: [],
   book: {
     id: '',
     author: '',
@@ -22,6 +24,11 @@ const initialState: InitialState = {
 export const getAllBooks = createAsyncThunk(
   'books/getAllBooks',
   getBooksRequest,
+);
+
+export const getComments = createAsyncThunk(
+  'books/getComments',
+  getCommentsRequest,
 );
 
 const bookData = createSlice({
@@ -44,6 +51,15 @@ const bookData = createSlice({
     });
     builder.addCase(getAllBooks.rejected, (state, action) => {
       console.log(`Error! Unable to get books!`);
+    });
+    builder.addCase(getComments.fulfilled, (state, action) => {
+      if (!action.payload) {
+        state.comments = [];
+      }
+      state.comments = action.payload || [];
+    });
+    builder.addCase(getComments.rejected, (state, action) => {
+      console.log(`Error! Unable to get comments!`);
     });
   },
 });

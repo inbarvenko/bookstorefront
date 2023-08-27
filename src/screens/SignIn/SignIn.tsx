@@ -67,8 +67,6 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
         return;
       }
 
-      console.log(userInfo)
-
       await dispatch(setUser(userInfo));
 
       await AsyncStorage.setItem('access_token', userInfo.access_token);
@@ -90,6 +88,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
             <Input
               placeholder="Email"
               errors={errors.email}
+              upPlaceholder={true}
               type="numbers-and-punctuation"
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors.dark_blue}
@@ -113,6 +112,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
               placeholder="Password"
               errors={errors.password}
               type="default"
+              upPlaceholder={true}
               hintColor={CustomTheme.colors.dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
@@ -142,7 +142,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
           style={styles.image}
           source={require('../../../assets/img/personLogin.png')}
         />
-        <Footer navigation={navigation}/>
+        <Footer navigation={navigation} />
       </ScrollView>
     </View>
   );

@@ -28,9 +28,10 @@ type Props = {
   containerErrorStyle?: StyleProp<ViewStyle>;
   textErrorStyle?: StyleProp<TextStyle>;
   value?: string;
-  hintColor: string;
-  image: ImageSourcePropType;
+  hintColor?: string;
+  image?: ImageSourcePropType;
   hint?: string;
+  upPlaceholder: boolean;
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 } & TextInputProps;
 
@@ -44,6 +45,7 @@ const Input: React.FC<Props> = ({
   image,
   secure,
   hint,
+  upPlaceholder,
   hintColor,
   onBlur,
   ...props
@@ -82,7 +84,7 @@ const Input: React.FC<Props> = ({
           inputState.inputFocus && styles.inputFocusStyle,
           !!errors?.message && containerErrorStyle,
         ]}>
-        <TouchableOpacity
+        {image && <TouchableOpacity
           onPress={handleVisibleText}
           disabled={!secure}
           style={styles.touchableStyle}>
@@ -95,23 +97,23 @@ const Input: React.FC<Props> = ({
             />
           ) : (
             <Image
-              source={image}
+              source={image!}
               style={
                 styles.img
               }
             />
           )}
-        </TouchableOpacity>
+        </TouchableOpacity>}
         <View
           style={[inputState.inputFocus && styles.containerPlaceholderFocus,{ width: '100%'}]}>
-          {inputState.inputFocus && (
+          {inputState.inputFocus && upPlaceholder && (
             <Text style={[styles.hintText, {color: hintColor}]}>{placeholder}</Text>
           )}
           <TextInput
             {...props}
             placeholder={inputState.inputFocus ? '' : placeholder}
             secureTextEntry={secure && inputState.visiblePassword}
-            style={[styles.inputStyle, textStyle, inputState.inputFocus && {fontSize: 12, paddingVertical: 0}]}
+            style={[styles.inputStyle, textStyle, inputState.inputFocus && upPlaceholder && {fontSize: 12, paddingVertical: 0}, upPlaceholder && {paddingTop: 20, paddingLeft: 24}]}
             onBlur={handleBlur}
             placeholderTextColor={CustomTheme.colors.dark_grey}
             onFocus={handleFocus}

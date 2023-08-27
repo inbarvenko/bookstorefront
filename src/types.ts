@@ -4,9 +4,9 @@ export type SignInData = {
 };
 
 export interface IUser {
-  id?: number | null;
   username?: string | null;
   email: string | undefined;
+  photoUrl?: string;
   access_token: string;
 }
 
@@ -23,8 +23,19 @@ export type Book = {
   name: string;
   description: string;
 
-  price?: string,
+  price?: string;
   photoUrl?: string;
   rate?: number;
 
-}
+  comments?: string[];
+};
+
+export type Comment = {
+  author: {
+    first_name: string;
+    last_name: string;
+    photoUrl?: string;
+  };
+  comment_text: string;
+  created_at: string;
+};

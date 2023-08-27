@@ -53,6 +53,7 @@ const HeaderAuthUser: React.FC<Props> = ({navigation}: Props) => {
       <Input
         image={require('../../../../assets/img/Search.png')}
         placeholder={'Search'}
+        upPlaceholder={true}
         containerStyle = {styles.input}
         hintColor={CustomTheme.colors.dark_grey}
         textStyle={{color: CustomTheme.colors.dark_blue}}

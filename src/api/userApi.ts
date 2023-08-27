@@ -10,7 +10,7 @@ export const signInWithEmail = async (info: SignInData) => {
   if (error) {
     console.log(error.message);
   } else {
-    return {email: data.user.email, access_token: data.session.access_token, };
+    return {email: data.user.email, access_token: data.session.access_token};
   }
 };
 
@@ -20,7 +20,13 @@ export const signOut = async () => {
 
 export const userRegister = async (info: SignUpData) => {
   if (info.password !== info.repeatPassword) {
-    return 'Passwords are not the same. Repeat please!';
+    return {
+      error: 'Passwords are not the same. Repeat please!',
+      data: {
+        email: '',
+        access_token: '',
+      },
+    };
   }
 
   const {data, error} = await supabase.auth.signUp({
@@ -32,8 +38,11 @@ export const userRegister = async (info: SignUpData) => {
     console.log(error.message);
   } else {
     return {
-      email: data.user?.email,
-      access_token: data.session?.access_token,
+      error: null,
+      data: {
+        email: data.user?.email!,
+        access_token: data.session?.access_token!,
+      },
     };
   }
 };

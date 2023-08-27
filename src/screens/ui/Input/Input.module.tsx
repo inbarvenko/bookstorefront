@@ -3,8 +3,9 @@ import CustomTheme from '../../../theme';
 
 const styles = StyleSheet.create({
   inputRowContainer: {
-    backgroundColor: 'rgba(240, 244, 239, 1)',
+    backgroundColor: CustomTheme.colors.light,
     flexDirection: 'row',
+    height: '100%',
 
     paddingLeft: 8,
     borderRadius: 16,

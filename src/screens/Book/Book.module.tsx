@@ -12,6 +12,22 @@ export const styles = StyleSheet.create({
     height: '100%',
     
   },
+  input: {
+    height: 100,
+    textAlignVertical: 'top',
+
+    backgroundColor: CustomTheme.colors.light,
+    marginVertical: 10,
+    marginHorizontal: 15,
+    
+    borderRadius: 16,
+    
+  },
+  inputText:{
+    fontFamily: 'Poppins400',
+    color: CustomTheme.colors.dark_blue,
+    
+  },
   photo: {
     width: '45%',
     height: 230,

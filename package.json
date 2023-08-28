@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.8",
     "@supabase/supabase-js": "^2.33.1",
     "axios": "^1.4.0",
     "cors": "^2.8.5",

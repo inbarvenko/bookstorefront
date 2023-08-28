@@ -41,6 +41,9 @@ const bookData = createSlice({
     getBookById: (state, action: PayloadAction<string>) => {
       state.book = state.bookList.filter(t => t.id === action.payload)[0];
     },
+    addComment: (state, action: PayloadAction<Comment>) => {
+      state.comments.push(action.payload!);
+    },
   },
   extraReducers: builder => {
     builder.addCase(getAllBooks.fulfilled, (state, action) => {
@@ -65,4 +68,4 @@ const bookData = createSlice({
 });
 
 export default bookData.reducer;
-export const {setBooks, getBookById} = bookData.actions;
+export const {setBooks, getBookById, addComment} = bookData.actions;

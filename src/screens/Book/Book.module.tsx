@@ -6,11 +6,18 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
 
-
     padding: 15,
     paddingTop: 30,
     height: '100%',
-    
+  },
+  variants_container: {
+    paddingHorizontal: 15,
+    paddingVertical: 20,
+
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
   },
   input: {
     height: 100,
@@ -19,14 +26,12 @@ export const styles = StyleSheet.create({
     backgroundColor: CustomTheme.colors.light,
     marginVertical: 10,
     marginHorizontal: 15,
-    
+
     borderRadius: 16,
-    
   },
-  inputText:{
+  inputText: {
     fontFamily: 'Poppins400',
     color: CustomTheme.colors.dark_blue,
-    
   },
   photo: {
     width: '45%',

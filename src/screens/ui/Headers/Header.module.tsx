@@ -11,9 +11,11 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   container: {
+    width: '100%',
     paddingBottom: 17,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    
     alignItems: 'center',
   },
   logo: {

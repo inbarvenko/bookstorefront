@@ -146,21 +146,32 @@ const SignUp: React.FC<Props> = ({navigation}) => {
             />
           )}
         />
-        <Button
-          activeOpacity={0.8}
-          styleButton={styles.buttonContainer}
-          width={151}
-          height={44}
-          colorText={CustomTheme.colors.light}
-          fontSize={16}
-          onPress={handleSubmit(checkSignUp)}
-          title="Sign Up"
-        />
+        <View style={styles.buttonsSection}>
+          <Button
+            activeOpacity={0.8}
+            styleButton={styles.buttonContainer}
+            width={151}
+            height={44}
+            colorText={CustomTheme.colors.light}
+            fontSize={16}
+            onPress={handleSubmit(checkSignUp)}
+            title="Sign Up"
+          />
+          <Button
+            activeOpacity={0.8}
+            styleButton={styles.buttonContainer}
+            width={151}
+            height={44}
+            colorText={CustomTheme.colors.light}
+            fontSize={16}
+            onPress={() => navigation.navigate('SignIn')}
+            title="Log In"
+          />
+        </View>
         <Image
           style={styles.image}
           source={require('../../../assets/img/personLogin.png')}
         />
-        <Footer navigation={navigation} />
       </ScrollView>
     </View>
   );

@@ -19,7 +19,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
-
+  buttonsSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
   titleStyle: {
     fontFamily: 'Poppins700',
     fontSize: 18,

@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
 
     backgroundColor: 'rgba(255, 255, 255, 1)',
+
   },
   title: {
     fontFamily: 'Poppins700',
@@ -21,3 +22,4 @@ export const styles = StyleSheet.create({
     color: CustomTheme.colors.dark_blue
   },
 });
+

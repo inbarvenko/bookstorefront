@@ -58,7 +58,6 @@ const CatalogPage: React.FC<Props> = ({navigation}: Props) => {
           onButtonPress={() => navigation.navigate('SignIn')}
         />
       )}
-      <Footer navigation={navigation} />
     </ScrollView>
   );
 };

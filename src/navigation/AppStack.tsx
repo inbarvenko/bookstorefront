@@ -1,17 +1,13 @@
 import React from 'react';
-import CatalogPage from '../screens/Catalog/Catalog';
-import HeaderRegUser from '../screens/ui/Headers/HeaderRegUser';
+import CatalogPage from '../screens/Catalog/CatalogPage';
 import {createStackNavigator} from '@react-navigation/stack';
-import ProfilePage from '../screens/Profile/Profile';
-import BookScreen from '../screens/Book/Book';
+import BookScreen from '../screens/Book/BookPage';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParamListBase} from '@react-navigation/native';
+import HeaderAuthUser from '../screens/ui/Headers/HeaderAuthUser';
 
 type AppStackParamList = {
   Catalog: {
-    navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
-  };
-  Profile: {
     navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
   };
   Book: {
@@ -23,29 +19,12 @@ const Stack = createStackNavigator<AppStackParamList>();
 
 const AppStack: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName="Catalog">
+    <Stack.Navigator
+      initialRouteName="Catalog"
+      screenOptions={{headerShown: false}}>
       <Stack.Group>
-        <Stack.Screen
-          name="Catalog"
-          component={CatalogPage}
-          options={({navigation}) => ({
-            header: () => <HeaderRegUser navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={ProfilePage}
-          options={({navigation}) => ({
-            header: () => <HeaderRegUser navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Book"
-          component={BookScreen}
-          options={({navigation}) => ({
-            header: () => <HeaderRegUser navigation={navigation} />,
-          })}
-        />
+        <Stack.Screen name="Catalog" component={CatalogPage} />
+        <Stack.Screen name="Book" component={BookScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

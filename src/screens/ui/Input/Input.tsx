@@ -113,7 +113,7 @@ const Input: React.FC<Props> = ({
             {...props}
             placeholder={inputState.inputFocus ? '' : placeholder}
             secureTextEntry={secure && inputState.visiblePassword}
-            style={[styles.inputStyle, textStyle, inputState.inputFocus && upPlaceholder && {fontSize: 12, paddingVertical: 0}, upPlaceholder && {paddingTop: 20, paddingLeft: 24}]}
+            style={[styles.inputStyle, textStyle,  upPlaceholder ? {height: '100%'} : {paddingTop: 20, paddingLeft: 24}, inputState.inputFocus && upPlaceholder && {fontSize: 12, paddingVertical: 0, height: '50%'}]}
             onBlur={handleBlur}
             placeholderTextColor={CustomTheme.colors.dark_grey}
             onFocus={handleFocus}

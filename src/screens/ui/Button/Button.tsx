@@ -10,6 +10,7 @@ type Props = {
   colorText?: string;
   styleButton?: any;
   title: string;
+  backColor?: string;
 } & TouchableOpacityProps;
 
 const Button: React.FC<Props> = ({
@@ -19,10 +20,12 @@ const Button: React.FC<Props> = ({
   styleButton,
   colorText,
   title,
+  backColor,
   ...props
 }) => {
+
   return (
-    <View style={[styles({width, height}).appButtonContainer, styleButton]}>
+    <View style={[styles({width, height, backColor}).appButtonContainer, styleButton]}>
       <TouchableOpacity {...props}>
         <Text style={styles({fontSize, colorText}).appButtonText}>{title}</Text>
       </TouchableOpacity>

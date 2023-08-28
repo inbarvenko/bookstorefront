@@ -28,7 +28,7 @@ const BookCard = ({book, navigation}: Props) => {
           </Text>
         </View>
         <Rating size={103} rate={book.rate || 0} />
-        <Button styleButton={{marginTop: 10}} title={'$ ' + book.price + ' URD'} />
+        <Button styleButton={{marginTop: 10}} colorText={CustomTheme.colors.light} title={'$ ' + book.price + ' URD'} />
       </TouchableOpacity>
     </View>
   );

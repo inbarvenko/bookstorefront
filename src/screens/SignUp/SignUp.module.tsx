@@ -3,6 +3,9 @@ import CustomTheme from '../../theme';
 
 const styles = StyleSheet.create({
   screenContainer: {
+
+    paddingTop: 40,
+
     flex: 1,
     flexDirection: 'column',
     
@@ -52,6 +55,10 @@ const styles = StyleSheet.create({
     letterSpacing: 0.75,
     color: CustomTheme.colors.dark_blue,
     paddingBottom: 7,
+  },
+  buttonsSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
   },
   image: {
     width: 290,

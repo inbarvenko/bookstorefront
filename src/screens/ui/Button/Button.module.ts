@@ -6,11 +6,12 @@ type Props = {
     width?: number;
     height?: number;
     colorText?: string;
+    backColor?: string;
 }
 
 const styles = (props: Props) => StyleSheet.create({
   appButtonContainer: {
-    backgroundColor: CustomTheme.colors.dark_blue,
+    backgroundColor: props.backColor ? props.backColor : CustomTheme.colors.dark_blue,
     borderRadius: 16,
     width: props.width,
     height: props.height,

@@ -21,6 +21,8 @@ import {filteredRatingBooks} from '../../redux/selectors';
 import CommentComponent from '../ui/Comment/Comment';
 import CustomTheme from '../../theme';
 import Input from '../ui/Input/Input';
+import {sendCommentRequest} from '../../api/bookApi';
+import Button from '../ui/Button/Button';
 
 type Props = {
   route: any;
@@ -32,7 +34,7 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
   const dispatch = useAppDispatch();
   const book = useAppSelector(state => state.bookData.book);
   const comments = useAppSelector(state => state.bookData.comments);
-  const userEmail = useAppSelector(state => state.userData.email);
+  const user = useAppSelector(state => state.userData);
   const recomendation = useAppSelector(filteredRatingBooks);
 
   useEffect(() => {
@@ -41,7 +43,11 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
   }, []);
 
   const sendComments = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    
+    const res = sendCommentRequest({
+      bookId: book.id,
+      authorToken: user.access_token,
+      commentText: e.nativeEvent.text,
+    });
   };
 
   return (
@@ -60,13 +66,34 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
           <Text style={styles.descr_text}>{book.description}</Text>
         </View>
       </View>
+      <View style={styles.variants_container}>
+        <View>
+          <Text style={[styles.descr_text, {paddingBottom: 15}]}>Paperback</Text>
+          <Button
+            backColor={CustomTheme.colors.dark_grey}
+            width={150}
+            height={38}
+            colorText={CustomTheme.colors.light}
+            title="Not available"
+          />
+        </View>
+        <View>
+          <Text style={[styles.descr_text, {paddingBottom: 15}]}>Hardcover</Text>
+          <Button
+            width={150}
+            height={38}
+            colorText={CustomTheme.colors.light}
+            title={'$ ' + book.price! + ' USD'}
+          />
+        </View>
+      </View>
       {comments.length > 0 &&
         comments.map(item => {
           return (
             <CommentComponent key={book.id + item.created_at} comment={item} />
           );
         })}
-      {!userEmail ? (
+      {!user.email ? (
         <Banner
           back_image={require('../../../assets/img/sing_in_banner.png')}
           title="Authorize now"
@@ -95,14 +122,14 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
         {recomendation.map(item => {
           return (
             <BookCard
-              key={item.author + item.name}
+              key={Math.random() + item.name + user.email}
               book={item}
               navigation={navigation}
             />
           );
         })}
       </View>
-      <Footer navigation={navigation} />
+      {/* <Footer navigation={navigation} /> */}
     </ScrollView>
   );
 };

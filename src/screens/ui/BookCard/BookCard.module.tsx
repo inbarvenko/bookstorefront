@@ -15,7 +15,19 @@ export const styles = StyleSheet.create({
 
     alignSelf: 'center',
   },
-  text:{
+  like_container: {
+    position: 'absolute',
+    left: 19,
+    top: 16,
+
+    width: 40,
+    height: 40,
+  },
+  like: {
+    width: 25,
+    height: 25,
+  },
+  text: {
     fontFamily: 'Poppins500',
     fontSize: 14,
     lineHeight: 21,
@@ -29,5 +41,5 @@ export const styles = StyleSheet.create({
   text_container: {
     marginTop: 15,
     marginBottom: 7,
-  }
+  },
 });

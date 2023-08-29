@@ -12,12 +12,13 @@ interface Props {
 
 const FavoritesPage: React.FC<Props> = ({navigation}: Props) => {
   return (
-    <ScrollView style={{flex: 1, backgroundColor: 'rgba(255, 255, 255, 1)'}}>
+    <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.textTitle}>Your favorites is empty</Text>
           <Text style={styles.text}>
-            Add items to your favorites to save them for future. Go to the catalogue now.
+            Add items to your favorites to save them for future. Go to the
+            catalogue now.
           </Text>
           <Button
             onPress={() => navigation.navigate('Home')}
@@ -26,8 +27,9 @@ const FavoritesPage: React.FC<Props> = ({navigation}: Props) => {
           />
         </View>
         <Image
-          style={[styles.img, {height: 210}]}
-          source={require('../../../assets/img/books_fav.png')}></Image>
+          style={[styles.img, styles.big_img]}
+          source={require('../../../assets/img/books_fav.png')}
+        />
       </View>
     </ScrollView>
   );

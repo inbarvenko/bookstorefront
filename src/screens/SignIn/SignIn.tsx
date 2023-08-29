@@ -97,7 +97,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
-              image={require('../../../assets/img/Mail.png')}
+              image={require('../../../assets/img/Mail_disabled.png')}
               hint="Enter your email"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -143,6 +143,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
             activeOpacity={0.8}
             styleButton={styles.buttonContainer}
             width={151}
+            backColor={CustomTheme.colors.dark_grey}
             height={44}
             colorText={CustomTheme.colors.light}
             fontSize={16}

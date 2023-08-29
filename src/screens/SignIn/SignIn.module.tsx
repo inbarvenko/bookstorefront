@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 44,
-    // width: 290,
     height: 64,
     paddingHorizontal: 15,
   },

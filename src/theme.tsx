@@ -12,6 +12,7 @@ const CustomTheme = {
     dark: '#0D1821',
     error_dark: 'rgba(195, 0, 82, 1)',
     error_light: 'rgba(255, 242, 247, 1)',
+    dark_green: 'rgba(141, 159, 79, 1)',
   },
 };
 

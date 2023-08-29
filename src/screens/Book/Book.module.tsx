@@ -24,10 +24,12 @@ export const styles = StyleSheet.create({
     textAlignVertical: 'top',
 
     backgroundColor: CustomTheme.colors.light,
-    marginVertical: 10,
-    marginHorizontal: 15,
+    marginBottom: 20,
 
     borderRadius: 16,
+  },
+  favoritebook: {
+
   },
   inputText: {
     fontFamily: 'Poppins400',

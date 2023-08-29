@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, TextInput, TouchableOpacity, Text, ImageSourcePropType} from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  ImageSourcePropType,
+} from 'react-native';
 
 import type {ReactNode} from 'react';
 import {
@@ -15,7 +21,6 @@ import {
 import type {FieldError} from 'react-hook-form';
 
 import styles from './Input.module';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomTheme from '../../../theme';
 
 type Props = {
@@ -31,6 +36,7 @@ type Props = {
   hintColor?: string;
   image?: ImageSourcePropType;
   hint?: string;
+  info?: boolean;
   upPlaceholder: boolean;
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 } & TextInputProps;
@@ -42,6 +48,7 @@ const Input: React.FC<Props> = ({
   containerErrorStyle,
   textErrorStyle,
   errors,
+  info,
   image,
   secure,
   hint,
@@ -84,37 +91,49 @@ const Input: React.FC<Props> = ({
           inputState.inputFocus && styles.inputFocusStyle,
           !!errors?.message && containerErrorStyle,
         ]}>
-        {image && <TouchableOpacity
-          onPress={handleVisibleText}
-          disabled={!secure}
-          style={styles.touchableStyle}>
-          {secure && inputState.visiblePassword ? (
-            <Image
-              source={require('../../../../assets/img/Hide.png')}
-              style={
-                styles.img
-              }
-            />
-          ) : (
-            <Image
-              source={image!}
-              style={
-                styles.img
-              }
-            />
-          )}
-        </TouchableOpacity>}
+        {image && (
+          <TouchableOpacity
+            onPress={handleVisibleText}
+            disabled={!secure}
+            style={styles.touchableStyle}>
+            {secure && inputState.visiblePassword ? (
+              <Image
+                source={require('../../../../assets/img/Hide.png')}
+                style={styles.img}
+              />
+            ) : (
+              <Image source={image!} style={styles.img} />
+            )}
+          </TouchableOpacity>
+        )}
         <View
-          style={[inputState.inputFocus && styles.containerPlaceholderFocus,{ width: '100%'}]}>
-          {inputState.inputFocus && upPlaceholder && (
-            <Text style={[styles.hintText, {color: hintColor}]}>{placeholder}</Text>
+          style={[
+            inputState.inputFocus && styles.containerPlaceholderFocus,
+            {width: '100%'},
+          ]}>
+          {((inputState.inputFocus && upPlaceholder) || info) && (
+            <Text style={[styles.hintText, {color: hintColor}]}>
+              {placeholder}
+            </Text>
           )}
           <TextInput
             {...props}
             placeholder={inputState.inputFocus ? '' : placeholder}
             secureTextEntry={secure && inputState.visiblePassword}
-            style={[styles.inputStyle, textStyle,  upPlaceholder ? {height: '100%'} : {paddingTop: 20, paddingLeft: 24}, inputState.inputFocus && upPlaceholder && {fontSize: 12, paddingVertical: 0, height: '50%'}]}
+            style={[
+              styles.inputStyle,
+              textStyle,
+              upPlaceholder
+                ? {height: '100%'}
+                : {paddingTop: 20, paddingLeft: 24},
+              ((inputState.inputFocus && upPlaceholder) || info) && {
+                fontSize: 12,
+                paddingVertical: 0,
+                height: '50%',
+              },
+            ]}
             onBlur={handleBlur}
+            // editable={inputState.editInfo}
             placeholderTextColor={CustomTheme.colors.dark_grey}
             onFocus={handleFocus}
           />

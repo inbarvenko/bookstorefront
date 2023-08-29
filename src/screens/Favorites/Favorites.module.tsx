@@ -10,6 +10,10 @@ export const styles = StyleSheet.create({
     paddingTop: 30,
     height: '100%',
   },
+  scroll: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+  },
   text: {
     fontFamily: 'Poppins500',
     fontSize: 12,
@@ -17,11 +21,14 @@ export const styles = StyleSheet.create({
     lineHeight: 18,
     width: 310,
   },
+  big_img: {
+    height: 210,
+  },
   textTitle: {
     fontFamily: 'Poppins700',
     fontSize: 18,
     color: CustomTheme.colors.dark_blue,
-    lineHeight: 21
+    lineHeight: 21,
   },
   titleContainer: {
     gap: 20,

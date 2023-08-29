@@ -83,7 +83,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
               placeholder="Email"
               errors={errors.email}
               type="numbers-and-punctuation"
-              image={require('../../../assets/img/Mail.png')}
+              image={require('../../../assets/img/Mail_disabled.png')}
               containerStyle={styles.inputContainer}
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors.dark_blue}
@@ -166,6 +166,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
             fontSize={16}
             onPress={() => navigation.navigate('SignIn')}
             title="Log In"
+            backColor={CustomTheme.colors.dark_grey}
           />
         </View>
         <Image

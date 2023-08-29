@@ -68,7 +68,9 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
       </View>
       <View style={styles.variants_container}>
         <View>
-          <Text style={[styles.descr_text, {paddingBottom: 15}]}>Paperback</Text>
+          <Text style={[styles.descr_text, {paddingBottom: 15}]}>
+            Paperback
+          </Text>
           <Button
             backColor={CustomTheme.colors.dark_grey}
             width={150}
@@ -78,7 +80,9 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
           />
         </View>
         <View>
-          <Text style={[styles.descr_text, {paddingBottom: 15}]}>Hardcover</Text>
+          <Text style={[styles.descr_text, {paddingBottom: 15}]}>
+            Hardcover
+          </Text>
           <Button
             width={150}
             height={38}
@@ -102,13 +106,16 @@ const BookScreen: React.FC<Props> = ({route, navigation}: Props) => {
           onButtonPress={() => navigation.navigate('SignIn')}
         />
       ) : (
-        <Input
-          containerStyle={styles.input}
-          textStyle={styles.inputText}
-          placeholder="Share a comment"
-          upPlaceholder={false}
-          onBlur={sendComments}
-        />
+        <View style={{padding: 15}}>
+          <Input
+            containerStyle={styles.input}
+            textStyle={styles.inputText}
+            placeholder="Share a comment"
+            upPlaceholder={false}
+            onBlur={sendComments}
+          />
+          <Button colorText={CustomTheme.colors.light} title="Post a comment" width={210} />
+        </View>
       )}
       <Text
         style={[

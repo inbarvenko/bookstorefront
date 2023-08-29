@@ -1,5 +1,5 @@
-import {SignInData, SignUpData} from '../types';
-import {supabase} from './initSupabase';
+import {SignInData, SignUpData} from 'src/types/auth';
+import {supabase} from './supabase';
 
 export const signInWithEmail = async (info: SignInData) => {
   const {data, error} = await supabase.auth.signInWithPassword({
@@ -16,6 +16,10 @@ export const signInWithEmail = async (info: SignInData) => {
 
 export const signOut = async () => {
   const {error} = await supabase.auth.signOut();
+
+  if (error) {
+    console.log(error.message);
+  }
 };
 
 export const userRegister = async (info: SignUpData) => {

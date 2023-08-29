@@ -1,43 +1,30 @@
-import React, {ReactNode, useEffect} from 'react';
-import {View, Text, TextInput, Image, ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text, Image, ScrollView} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import type {ParamListBase} from '@react-navigation/native';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from './SignIn.module';
-import Button from '../ui/Button/Button';
-import {signInWithEmail} from '../../api/userApi';
-import {IUser, SignInData} from '../../types';
-import {useAppDispatch} from '../../redux/hooks';
-import {setUser} from '../../redux/userReducer';
-import Input from '../ui/Input/Input';
-import CustomTheme from '../../theme';
-import Footer from '../ui/Footer/Footer';
+import styles from './SignIn.styles';
+import Button from 'src/components/Button';
+import {signInWithEmail} from 'src/api/userApi';
+import {SignInData} from 'src/types/auth';
+import {useAppDispatch} from 'src/redux/hooks';
+import {setUser} from 'src/redux/slices/userReducer';
+import Input from 'src/components/Input';
+import CustomTheme from 'src/theme';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-type Props = NativeStackScreenProps<ParamListBase>;
+type RootStackParamList = {
+  Catalog: undefined;
+  SignUp: undefined;
+};
 
-const SignIn: React.FC<Props> = ({navigation}: Props) => {
+const SignIn: React.FC = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   const dispatch = useAppDispatch();
-
-  const checkPrevSignIn = async () => {
-    const access_token = await AsyncStorage.getItem('access_token');
-
-    if (access_token === null) {
-      return;
-    }
-
-    console.log('access_token get', access_token);
-
-    // dispatch(setUser());
-    navigation.navigate('Catalog');
-  };
-
-  useEffect(() => {
-    // checkPrevSignIn();
-  }, []);
 
   const schema = yup.object({
     email: yup
@@ -78,7 +65,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.flex}>
       <ScrollView style={styles.screenContainer}>
         <Text style={styles.titleStyle}>Log In</Text>
         <Controller
@@ -97,7 +84,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
-              image={require('../../../assets/img/Mail_disabled.png')}
+              image={require('src/assets/img/Mail.png')}
               hint="Enter your email"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -120,7 +107,7 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
-              image={require('../../../assets/img/View.png')}
+              image={require('src/assets/img/View.png')}
               hint="Enter your password"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -153,9 +140,8 @@ const SignIn: React.FC<Props> = ({navigation}: Props) => {
         </View>
         <Image
           style={styles.image}
-          source={require('../../../assets/img/personLogin.png')}
+          source={require('src/assets/img/personLogin.png')}
         />
-        {/* <Footer navigation={navigation} /> */}
       </ScrollView>
     </View>
   );

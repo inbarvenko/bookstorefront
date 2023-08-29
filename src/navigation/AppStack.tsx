@@ -1,7 +1,7 @@
 import React from 'react';
-import CatalogPage from '../screens/Catalog/Catalog';
+import CatalogPage from 'src/screens/Catalog';
 import {createStackNavigator} from '@react-navigation/stack';
-import BookScreen from '../screens/Book/Book';
+import BookScreen from 'src/screens/Book/Book';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParamListBase} from '@react-navigation/native';
 

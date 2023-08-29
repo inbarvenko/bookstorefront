@@ -1,32 +1,44 @@
 import React, {useEffect} from 'react';
 import {ScrollView, Text, View} from 'react-native';
-import {getAllBooks} from '../../redux/booksReducer';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import BookCard from '../ui/BookCard/BookCard';
-import {styles} from './Catalog.module';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ParamListBase, useRoute} from '@react-navigation/native';
-import Banner from '../ui/Banner/Banner';
+import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
+import BookCard from 'src/components/BookCard';
+import {styles} from './Catalog.styles';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import Banner from 'src/components/Banner';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {getBooksRequest} from 'src/api/bookApi';
+import {setBooks} from 'src/redux/slices/booksReducer';
 
-interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
-}
+type RootStackParamList = {
+  SignIn: undefined;
+};
 
-const CatalogPage: React.FC<Props> = ({navigation}: Props) => {
+const CatalogPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const bookList = useAppSelector(state => state.bookData.bookList);
   const userEmail = useAppSelector(state => state.userData.email);
 
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const route = useRoute();
 
   useEffect(() => {
-    dispatch(getAllBooks({page: 1}));
-  }, [dispatch]);
+    try {
+      const res = getBooksRequest({page: 1});
+      res.then(data => {
+        if (!data) {
+          return;
+        }
+        dispatch(setBooks(data));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, bookList.length]);
 
   return (
     <ScrollView style={styles.screenContainer}>
       <Banner
-        back_image={require('../../../assets/img/catalog_banner.png')}
+        back_image={require('src/assets/img/catalog_banner.png')}
         title="Build your library with us"
         description="Buy two books and get one for free"
         button_title="Choose a book"
@@ -40,14 +52,13 @@ const CatalogPage: React.FC<Props> = ({navigation}: Props) => {
               <BookCard
                 key={item.author + item.name + route.name}
                 book={item}
-                navigation={navigation}
               />
             );
           })}
       </View>
       {!userEmail && (
         <Banner
-          back_image={require('../../../assets/img/sing_in_banner.png')}
+          back_image={require('src/assets/img/sing_in_banner.png')}
           title="Authorize now"
           description="Authorize now and discover the fabulous world of books"
           button_title="Log In/ Sing Up"

@@ -1,26 +1,28 @@
 import React from 'react';
-import {View, Text, TextInput, ScrollView, Image} from 'react-native';
+import {View, Text, ScrollView, Image} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import type {ParamListBase} from '@react-navigation/native';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-
-import styles from './SignUp.module';
-import Button from '../ui/Button/Button';
-import {SignUpData} from '../../types';
-import {useAppDispatch} from '../../redux/hooks';
-import Input from '../ui/Input/Input';
-import {userRegister} from '../../api/userApi';
+import styles from './SignUp.styles';
+import Button from 'src/components/Button';
+import {SignUpData} from 'src/types/auth';
+import {useAppDispatch} from 'src/redux/hooks';
+import Input from 'src/components/Input';
+import {userRegister} from 'src/api/userApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CustomTheme from '../../theme';
-import Footer from '../ui/Footer/Footer';
-import {setUser} from '../../redux/userReducer';
+import CustomTheme from 'src/theme';
+import {setUser} from 'src/redux/slices/userReducer';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-type Props = NativeStackScreenProps<ParamListBase>;
+type RootStackParamList = {
+  Catalog: undefined;
+  SignIn: undefined;
+};
 
-const SignUp: React.FC<Props> = ({navigation}) => {
+const SignUp: React.FC = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const dispatch = useAppDispatch();
 
   const schema = yup.object({
@@ -72,7 +74,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.flex}>
       <ScrollView style={styles.screenContainer}>
         <Text style={styles.titleStyle}>Sign Up</Text>
         <Controller
@@ -83,7 +85,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
               placeholder="Email"
               errors={errors.email}
               type="numbers-and-punctuation"
-              image={require('../../../assets/img/Mail_disabled.png')}
+              image={require('src/assets/img/Mail.png')}
               containerStyle={styles.inputContainer}
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors.dark_blue}
@@ -106,7 +108,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
               placeholder="Password"
               errors={errors.password}
               type="default"
-              image={require('../../../assets/img/View.png')}
+              image={require('src/assets/img/View.png')}
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors.dark_blue}
               containerStyle={styles.inputContainer}
@@ -130,7 +132,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
               placeholder="Password"
               errors={errors.password}
               type="default"
-              image={require('../../../assets/img/View.png')}
+              image={require('src/assets/img/View.png')}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
@@ -171,7 +173,7 @@ const SignUp: React.FC<Props> = ({navigation}) => {
         </View>
         <Image
           style={styles.image}
-          source={require('../../../assets/img/personLogin.png')}
+          source={require('src/assets/img/personLogin.png')}
         />
       </ScrollView>
     </View>

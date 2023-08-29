@@ -1,4 +1,3 @@
-
 const CustomTheme = {
   phone: {
     marginHorizontal: '15px',

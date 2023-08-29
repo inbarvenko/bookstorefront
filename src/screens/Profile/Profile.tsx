@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './Profile.module';
-import Input from '../ui/Input/Input';
-import {useAppSelector} from '../../redux/hooks';
-import CustomTheme from '../../theme';
+import {styles} from './Profile.styles';
+import Input from 'src/components/Input';
+import {useAppSelector} from 'src/redux/hooks';
+import CustomTheme from 'src/theme';
 
 const ProfilePage: React.FC = () => {
   const user = useAppSelector(state => state.userData);
@@ -13,27 +13,29 @@ const ProfilePage: React.FC = () => {
     editPassword: false,
   });
 
+  // console.log(editState);
+
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
         <View style={styles.images}>
           <Image
             style={styles.photo}
-            source={require('../../../assets/img/userlogo.png')}
+            source={require('src/assets/img/userlogo.png')}
           />
           <TouchableOpacity style={styles.photo_button_container}>
             <Image
               style={styles.photo_button}
-              source={require('../../../assets/img/button_photo.png')}
+              source={require('src/assets/img/button_photo.png')}
             />
           </TouchableOpacity>
         </View>
         <View>
           <Text style={styles.title}>Personal information</Text>
           <Text
-            onPress={() =>
-              setEditState({...editState, editInfo: !editState.editInfo})
-            }
+            onPress={() => {
+              setEditState({...editState, editInfo: !editState.editInfo});
+            }}
             style={styles.text_link}>
             Change information
           </Text>
@@ -45,8 +47,10 @@ const ProfilePage: React.FC = () => {
             textStyle={styles.inputText}
             placeholder="Your email"
             containerStyle={styles.inputContainer}
-            onBlur={() => {}}
-            image={require('../../../assets/img/Mail_disabled.png')}
+            onBlur={() => {
+              //На блюр сохраняет значение инпута
+            }}
+            image={require('src/assets/img/Mail_disabled.png')}
             upPlaceholder={true}
             info={true}
             editable={editState.editInfo}
@@ -59,8 +63,10 @@ const ProfilePage: React.FC = () => {
             textStyle={styles.inputText}
             placeholder="Your first name"
             containerStyle={styles.inputContainer}
-            onBlur={() => {}}
-            image={require('../../../assets/img/userprofile.png')}
+            onBlur={() => {
+              //На блюр сохраняет значение инпута
+            }}
+            image={require('src/assets/img/userprofile.png')}
             upPlaceholder={true}
             editable={editState.editInfo}
             info={true}
@@ -73,8 +79,10 @@ const ProfilePage: React.FC = () => {
             textStyle={styles.inputText}
             placeholder="Your last name"
             containerStyle={styles.inputContainer}
-            onBlur={() => {}}
-            image={require('../../../assets/img/userprofile.png')}
+            onBlur={() => {
+              //На блюр сохраняет значение инпута
+            }}
+            image={require('src/assets/img/userprofile.png')}
             upPlaceholder={true}
             info={true}
             editable={editState.editInfo}

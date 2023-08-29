@@ -1,16 +1,18 @@
 import React from 'react';
 import {Image, ScrollView, Text, View} from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ParamListBase} from '@react-navigation/native';
-import {styles} from './Favorites.module';
-import Button from '../ui/Button/Button';
-import CustomTheme from '../../theme';
+import {useNavigation} from '@react-navigation/native';
+import {styles} from './Favorites.styles';
+import Button from 'src/components/Button';
+import CustomTheme from 'src/theme';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
-}
+type RootStackParamList = {
+  Home: undefined;
+};
 
-const FavoritesPage: React.FC<Props> = ({navigation}: Props) => {
+const FavoritesPage: React.FC = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
@@ -28,7 +30,7 @@ const FavoritesPage: React.FC<Props> = ({navigation}: Props) => {
         </View>
         <Image
           style={[styles.img, styles.big_img]}
-          source={require('../../../assets/img/books_fav.png')}
+          source={require('src/assets/img/books_fav.png')}
         />
       </View>
     </ScrollView>

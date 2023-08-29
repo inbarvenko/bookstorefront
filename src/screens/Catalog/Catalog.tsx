@@ -34,9 +34,6 @@ const CatalogPage: React.FC<Props> = ({navigation}: Props) => {
         onButtonPress={() => {}}
       />
       <Text style={styles.title}>Catalog</Text>
-      <View>
-        
-      </View>
       <View style={styles.bookList}>
         {bookList.length > 0 &&
           bookList.map(item => {

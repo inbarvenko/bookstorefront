@@ -4,9 +4,9 @@ import HeaderAuthUser from '../screens/ui/Headers/HeaderAuthUser';
 import AppStack from './AppStack';
 import AuthStack from './AuthStack';
 import {useAppSelector} from '../redux/hooks';
-import ProfilePage from '../screens/Profile/ProfilePage';
-import BusketPage from '../screens/Busket/BusketPage';
-import FavoritesPage from '../screens/Favorites/FavoritesPage';
+import ProfilePage from '../screens/Profile/Profile';
+import BusketPage from '../screens/Busket/Busket';
+import FavoritesPage from '../screens/Favorites/Favorites';
 import TabBar from '../screens/ui/TabBar/TabBar';
 
 const Tab = createBottomTabNavigator();

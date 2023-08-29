@@ -17,6 +17,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
+  row: {
+    paddingTop: 15,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
   photo: {
     width: '100%',
     height: 310,

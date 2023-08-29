@@ -3,6 +3,11 @@ import {View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {styles} from './TabBar.module';
 import {useAppSelector} from 'src/redux/hooks';
+import Home from 'src/assets/icons/home.svg';
+import Heart from 'src/assets/icons/Heart.svg';
+import UserProfile from 'src/assets/icons/UserProfile.svg';
+import Cart from 'src/assets/icons/Cart.svg';
+import CustomTheme from 'src/theme';
 
 const TabBar = ({state, navigation}: BottomTabBarProps) => {
   const index = state.index;
@@ -15,13 +20,14 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
         accessibilityRole="button"
         accessibilityState={index === 0 ? {selected: true} : {}}
         onPress={() => navigation.navigate('Catalog')}>
-        <Image
-          source={
+        <Home
+          width={27}
+          height={27}
+          fill={
             index === 0
-              ? require('src/assets/img/fill_home.png')
-              : require('src/assets/img/Home.png')
+              ? CustomTheme.colors.dark_blue
+              : CustomTheme.colors.light
           }
-          style={[styles.imageHome]}
         />
       </TouchableOpacity>
       {userEmail && (
@@ -30,13 +36,14 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
           accessibilityRole="button"
           accessibilityState={index === 3 ? {selected: true} : {}}
           onPress={() => navigation.navigate('Busket')}>
-          <Image
-            source={
+          <Heart
+            width={28}
+            height={28}
+            fill={
               index === 3
-                ? require('src/assets/img/fill_cart.png')
-                : require('src/assets/img/Cart.png')
+                ? CustomTheme.colors.dark_blue
+                : CustomTheme.colors.light
             }
-            style={[styles.img]}
           />
         </TouchableOpacity>
       )}
@@ -47,13 +54,14 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
           accessibilityRole="button"
           accessibilityState={index === 2 ? {selected: true} : {}}
           onPress={() => navigation.navigate('Favorites')}>
-          <Image
-            source={
+          <Cart
+            width={28}
+            height={28}
+            fill={
               index === 2
-                ? require('src/assets/img/fill_heart.png')
-                : require('src/assets/img/Union.png')
+                ? CustomTheme.colors.dark_blue
+                : CustomTheme.colors.light
             }
-            style={styles.img}
           />
         </TouchableOpacity>
       )}
@@ -63,13 +71,14 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
         accessibilityRole="button"
         accessibilityState={index === 1 ? {selected: true} : {}}
         onPress={() => navigation.navigate(userEmail ? 'Profile' : 'Auth')}>
-        <Image
-          source={
+        <UserProfile
+          width={28}
+          height={28}
+          fill={
             index === 1
-              ? require('src/assets/img/fill_userprofile.png')
-              : require('src/assets/img/blue_userprofile.png')
+              ? CustomTheme.colors.dark_blue
+              : CustomTheme.colors.light
           }
-          style={styles.img}
         />
       </TouchableOpacity>
     </View>

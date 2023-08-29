@@ -4,6 +4,7 @@ import {styles} from './Profile.styles';
 import Input from 'src/components/Input';
 import {useAppSelector} from 'src/redux/hooks';
 import CustomTheme from 'src/theme';
+import Button from 'src/components/Button/Button';
 
 const ProfilePage: React.FC = () => {
   const user = useAppSelector(state => state.userData);
@@ -88,6 +89,93 @@ const ProfilePage: React.FC = () => {
             editable={editState.editInfo}
           />
         </View>
+        <View style={styles.row}>
+          <Text style={styles.title}>Password</Text>
+          <Text
+            onPress={() => {
+              setEditState({
+                ...editState,
+                editPassword: !editState.editPassword,
+              });
+            }}
+            style={styles.text_link}>
+            Change password
+          </Text>
+        </View>
+        {editState.editPassword ? (
+          <View>
+            <Input
+              placeholder="Your old password"
+              type="default"
+              upPlaceholder={true}
+              hintColor={CustomTheme.colors.dark_blue}
+              underlineColorAndroid="transparent"
+              containerStyle={styles.inputContainer}
+              textStyle={styles.inputText}
+              value={'your old password'}
+              image={require('src/assets/img/View.png')}
+              onBlur={() => {
+                //На блюр сохраняет значение инпута
+              }}
+              secure
+            />
+            <Input
+              placeholder="New password"
+              type="default"
+              upPlaceholder={true}
+              hintColor={CustomTheme.colors.dark_blue}
+              underlineColorAndroid="transparent"
+              containerStyle={styles.inputContainer}
+              textStyle={styles.inputText}
+              image={require('src/assets/img/View.png')}
+              hint="Enter your password"
+              onBlur={() => {
+                //На блюр сохраняет значение инпута
+              }}
+              secure
+            />
+            <Input
+              placeholder="Password replay"
+              type="default"
+              upPlaceholder={true}
+              hintColor={CustomTheme.colors.dark_blue}
+              underlineColorAndroid="transparent"
+              containerStyle={styles.inputContainer}
+              textStyle={styles.inputText}
+              image={require('src/assets/img/View.png')}
+              hint="Repeat your password without errors"
+              onBlur={() => {
+                //На блюр сохраняет значение инпута
+              }}
+              secure
+            />
+            <Button
+              title="Confirm"
+              width={170}
+              height={44}
+              colorText={CustomTheme.colors.light}
+              onPress={() => {
+                // Написать логику change password для user
+              }}
+            />
+          </View>
+        ) : (
+          <Input
+            placeholder="Your password"
+            type="default"
+            upPlaceholder={true}
+            hintColor={CustomTheme.colors.dark_blue}
+            underlineColorAndroid="transparent"
+            containerStyle={styles.inputContainer}
+            textStyle={styles.inputText}
+            value={'your password'}
+            image={require('src/assets/img/View.png')}
+            onBlur={() => {
+              //На блюр сохраняет значение инпута
+            }}
+            secure
+          />
+        )}
       </View>
     </ScrollView>
   );

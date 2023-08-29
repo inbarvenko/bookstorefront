@@ -1,6 +1,5 @@
 import React from 'react';
 import CatalogPage from '../screens/Catalog/Catalog';
-import HeaderRegUser from '../screens/ui/Headers/HeaderRegUser';
 import {createStackNavigator} from '@react-navigation/stack';
 import ProfilePage from '../screens/Profile/Profile';
 import BookScreen from '../screens/Book/Book';
@@ -25,27 +24,9 @@ const AppStack: React.FC = () => {
   return (
     <Stack.Navigator initialRouteName="Catalog">
       <Stack.Group>
-        <Stack.Screen
-          name="Catalog"
-          component={CatalogPage}
-          options={({navigation}) => ({
-            header: () => <HeaderRegUser navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={ProfilePage}
-          options={({navigation}) => ({
-            header: () => <HeaderRegUser navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Book"
-          component={BookScreen}
-          options={({navigation}) => ({
-            header: () => <HeaderRegUser navigation={navigation} />,
-          })}
-        />
+        <Stack.Screen name="Catalog" component={CatalogPage} />
+        <Stack.Screen name="Profile" component={ProfilePage} />
+        <Stack.Screen name="Book" component={BookScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

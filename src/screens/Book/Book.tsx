@@ -14,7 +14,6 @@ import {styles} from './Book.module';
 import Rating from '../ui/Rating/Rating';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParamListBase} from '@react-navigation/native';
-import Footer from '../ui/Footer/Footer';
 import Banner from '../ui/Banner/Banner';
 import BookCard from '../ui/BookCard/BookCard';
 import {filteredRatingBooks} from '../../redux/selectors';

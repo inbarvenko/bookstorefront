@@ -1,13 +1,12 @@
-import React, {useEffect, useMemo} from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {ScrollView, Text, View} from 'react-native';
 import {getAllBooks} from '../../redux/booksReducer';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import BookCard from '../ui/BookCard/BookCard';
 import {styles} from './Catalog.module';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ParamListBase, RouteProp, useRoute} from '@react-navigation/native';
+import {ParamListBase, useRoute} from '@react-navigation/native';
 import Banner from '../ui/Banner/Banner';
-import Footer from '../ui/Footer/Footer';
 
 interface Props {
   navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
@@ -22,7 +21,7 @@ const CatalogPage: React.FC<Props> = ({navigation}: Props) => {
 
   useEffect(() => {
     dispatch(getAllBooks({page: 1}));
-  }, []);
+  }, [dispatch]);
 
   return (
     <ScrollView style={styles.screenContainer}>

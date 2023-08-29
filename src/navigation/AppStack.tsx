@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import BookScreen from '../screens/Book/Book';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParamListBase} from '@react-navigation/native';
-import HeaderAuthUser from '../screens/ui/Headers/HeaderAuthUser';
 
 type AppStackParamList = {
   Catalog: {

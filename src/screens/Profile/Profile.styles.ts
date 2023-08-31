@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   photo: {
-    width: '100%',
+    width: 310,
     height: 310,
 
     borderRadius: 16,

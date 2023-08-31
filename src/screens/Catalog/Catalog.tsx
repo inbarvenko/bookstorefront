@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {RefreshControl, ScrollView, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import BookCard from 'src/components/BookCard';
 import {styles} from './Catalog.styles';
@@ -8,12 +8,15 @@ import Banner from 'src/components/Banner';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {getBooksRequest} from 'src/api/bookApi';
 import {setBooks} from 'src/redux/slices/booksReducer';
+import {cannotGetData} from 'src/utils/notifications';
 
 type RootStackParamList = {
   SignIn: undefined;
 };
 
 const CatalogPage: React.FC = () => {
+  const [refreshing, setRefreshing] = useState(false);
+
   const dispatch = useAppDispatch();
   const bookList = useAppSelector(state => state.bookData.bookList);
   const userEmail = useAppSelector(state => state.userData.email);
@@ -26,17 +29,37 @@ const CatalogPage: React.FC = () => {
       const res = getBooksRequest({page: 1});
       res.then(data => {
         if (!data) {
-          return;
+          cannotGetData('books');
         }
-        dispatch(setBooks(data));
+        dispatch(setBooks(data!));
       });
     } catch (error) {
       console.log(error);
     }
   }, [dispatch, bookList.length]);
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    const res = getBooksRequest({page: 1});
+    res.then(data => {
+      if (!data) {
+        cannotGetData('books');
+      }
+      dispatch(setBooks(data!));
+    });
+
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  }, [dispatch]);
+
   return (
-    <ScrollView style={styles.screenContainer}>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={styles.screenContainer}>
       <Banner
         back_image={require('src/assets/img/catalog_banner.png')}
         title="Build your library with us"

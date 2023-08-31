@@ -18,14 +18,13 @@ import {
   StyleProp,
   Image,
 } from 'react-native';
-import type {FieldError} from 'react-hook-form';
 
 import styles from './Input.styles';
 import CustomTheme from 'src/theme';
 
 type Props = {
   placeholder: string;
-  errors?: FieldError | undefined;
+  errors?: string | undefined;
   type?: KeyboardTypeOptions | undefined;
   secure?: boolean | undefined;
   containerStyle?: StyleProp<ViewStyle>;
@@ -92,7 +91,7 @@ const Input: React.FC<Props> = ({
           styles.inputRowContainer,
           info && editable && styles.border,
           inputState.inputFocus && styles.inputFocusStyle,
-          !!errors?.message && containerErrorStyle,
+          !!errors! && containerErrorStyle,
         ]}>
         {image && (
           <TouchableOpacity
@@ -137,8 +136,8 @@ const Input: React.FC<Props> = ({
           />
         </View>
       </View>
-      <Text style={[styles.hintText, !!errors?.message && textErrorStyle]}>
-        {(errors?.message || hint) as ReactNode}
+      <Text style={[styles.hintText, !!errors! && textErrorStyle]}>
+        {(errors! || hint) as ReactNode}
       </Text>
     </View>
   );

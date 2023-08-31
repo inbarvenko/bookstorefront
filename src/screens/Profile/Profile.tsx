@@ -5,6 +5,7 @@ import Input from 'src/components/Input';
 import {useAppSelector} from 'src/redux/hooks';
 import CustomTheme from 'src/theme';
 import Button from 'src/components/Button/Button';
+import Modals from 'src/components/Modals/Modals';
 
 const ProfilePage: React.FC = () => {
   const user = useAppSelector(state => state.userData);
@@ -14,17 +15,34 @@ const ProfilePage: React.FC = () => {
     editPassword: false,
   });
 
-  // console.log(editState);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  console.log(user);
 
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
+        <Modals
+          title="Hello world!"
+          isVisible={modalVisible}
+          toClose={changeModalState}
+        />
         <View style={styles.images}>
           <Image
             style={styles.photo}
-            source={require('src/assets/img/userlogo.png')}
+            source={
+              user.photoUrl
+                ? {uri: user.photoUrl}
+                : require('src/assets/img/userlogo.png')
+            }
           />
-          <TouchableOpacity style={styles.photo_button_container}>
+          <TouchableOpacity
+            onPress={() => setModalVisible(!modalVisible)}
+            style={styles.photo_button_container}>
             <Image
               style={styles.photo_button}
               source={require('src/assets/img/button_photo.png')}
@@ -59,7 +77,7 @@ const ProfilePage: React.FC = () => {
           <Input
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
-            value={'name'}
+            value={user.first_name!}
             hintColor={CustomTheme.colors.dark_blue}
             textStyle={styles.inputText}
             placeholder="Your first name"
@@ -75,7 +93,7 @@ const ProfilePage: React.FC = () => {
           <Input
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
-            value={'surname'}
+            value={user.last_name!}
             hintColor={CustomTheme.colors.dark_blue}
             textStyle={styles.inputText}
             placeholder="Your last name"
@@ -93,6 +111,7 @@ const ProfilePage: React.FC = () => {
           <Text style={styles.title}>Password</Text>
           <Text
             onPress={() => {
+              console.log(editState.editPassword);
               setEditState({
                 ...editState,
                 editPassword: !editState.editPassword,
@@ -169,6 +188,8 @@ const ProfilePage: React.FC = () => {
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             value={'your password'}
+            info={true}
+            editable={editState.editPassword}
             image={require('src/assets/img/View.png')}
             onBlur={() => {
               //На блюр сохраняет значение инпута

@@ -1,13 +1,14 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
-import {View, Image, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {styles} from './TabBar.module';
 import {useAppSelector} from 'src/redux/hooks';
+import CustomTheme from 'src/theme';
+
 import Home from 'src/assets/icons/home.svg';
 import Heart from 'src/assets/icons/Heart.svg';
 import UserProfile from 'src/assets/icons/UserProfile.svg';
 import Cart from 'src/assets/icons/Cart.svg';
-import CustomTheme from 'src/theme';
 
 const TabBar = ({state, navigation}: BottomTabBarProps) => {
   const index = state.index;

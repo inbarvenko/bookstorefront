@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, ScrollView, Image} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
@@ -10,11 +10,16 @@ import {SignUpData} from 'src/types/auth';
 import {useAppDispatch} from 'src/redux/hooks';
 import Input from 'src/components/Input';
 import {userRegister} from 'src/api/userApi';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomTheme from 'src/theme';
 import {setUser} from 'src/redux/slices/userReducer';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {
+  emailValidation,
+  passwordValidation,
+  repeatPasswordValidation,
+} from 'src/utils/schemas';
+import {setAsyncStorageItem} from 'src/utils/asyncStorage';
 
 type RootStackParamList = {
   Catalog: undefined;
@@ -25,13 +30,15 @@ const SignUp: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const dispatch = useAppDispatch();
 
+  const [apiError, setApiError] = useState({
+    code: 0,
+    message: '',
+  });
+
   const schema = yup.object({
-    email: yup
-      .string()
-      .email('This is not a valid email.')
-      .required('This field is required!'),
-    password: yup.string().required('This field is required!'),
-    repeatPassword: yup.string().required('This field is required!'),
+    email: emailValidation,
+    password: passwordValidation,
+    repeatPassword: repeatPasswordValidation,
   });
 
   const {
@@ -43,33 +50,28 @@ const SignUp: React.FC = () => {
     defaultValues: {
       email: '',
       password: '',
+      repeatPassword: '',
     },
   });
 
   const checkSignUp = async (data: SignUpData) => {
     try {
-      if (data.repeatPassword !== data.password) {
-        return;
-      }
+      console.log('Hello');
 
       const res = await userRegister({
         email: data.email,
         password: data.password,
-        repeatPassword: data.repeatPassword,
       });
 
-      if (res!.error) {
-        return res!.error;
-      }
-      await dispatch(setUser(res!.data));
-
-      const jsonValue = await JSON.stringify(data);
-      console.log('jsonValue set', jsonValue);
-      await AsyncStorage.setItem('user', jsonValue);
+      await dispatch(setUser(res!));
+      setAsyncStorageItem('theme', 'light');
 
       await navigation.navigate('Catalog');
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log('throw ', error);
+      //Если код 422, на почту не ставить ошибку
+      setApiError(error);
+      console.log(apiError.code);
     }
   };
 
@@ -83,7 +85,10 @@ const SignUp: React.FC = () => {
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               placeholder="Email"
-              errors={errors.email}
+              errors={
+                (apiError.code !== 422 && apiError.message) ||
+                errors.email?.message
+              }
               type="numbers-and-punctuation"
               image={require('src/assets/img/Mail.png')}
               containerStyle={styles.inputContainer}
@@ -106,7 +111,10 @@ const SignUp: React.FC = () => {
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               placeholder="Password"
-              errors={errors.password}
+              errors={
+                (apiError.code !== 400 && apiError.message) ||
+                errors.password?.message
+              }
               type="default"
               image={require('src/assets/img/View.png')}
               underlineColorAndroid="transparent"
@@ -130,7 +138,10 @@ const SignUp: React.FC = () => {
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               placeholder="Password"
-              errors={errors.password}
+              errors={
+                (apiError.code !== 400 && apiError.message) ||
+                errors.repeatPassword?.message
+              }
               type="default"
               image={require('src/assets/img/View.png')}
               underlineColorAndroid="transparent"

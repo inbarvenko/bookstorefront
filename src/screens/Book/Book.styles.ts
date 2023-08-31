@@ -19,7 +19,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  paddingBottom: {paddingBottom: 15},
+  paddingBottom: {
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+  },
   paddings: {paddingLeft: 15, paddingTop: 30},
   input: {
     height: 100,

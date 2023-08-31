@@ -25,6 +25,7 @@ import {getCommentsRequest, sendCommentRequest} from 'src/api/bookApi';
 import {StackNavigationProp} from '@react-navigation/stack';
 import CustomTheme from 'src/theme';
 import Button from 'src/components/Button';
+import {cannotGetData, cannotSendData} from 'src/utils/notifications';
 
 type ParamList = {
   Detail: {
@@ -54,9 +55,9 @@ const BookScreen: React.FC = () => {
       const res = getCommentsRequest(bookId);
       res.then(data => {
         if (!data) {
-          return;
+          cannotGetData('comments');
         }
-        dispatch(setCommets(data));
+        dispatch(setCommets(data!));
       });
     } catch (error) {
       console.log(error);
@@ -67,16 +68,16 @@ const BookScreen: React.FC = () => {
     try {
       const res = sendCommentRequest({
         bookId: book.id,
-        authorToken: user.access_token,
         commentText: e.nativeEvent.text,
       });
       res.then(data => {
         if (!data) {
-          return;
+          cannotSendData('comment');
         }
-        dispatch(addComment(data));
+        dispatch(addComment(data!));
       });
     } catch (error) {
+      cannotSendData('comment');
       console.log(error);
     }
   };

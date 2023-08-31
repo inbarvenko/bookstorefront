@@ -2,6 +2,7 @@ import {PostgrestError} from '@supabase/supabase-js';
 import {Book} from 'src/types/book';
 import {supabase} from './supabase';
 import {Comment} from 'src/types/comment';
+import {getAsyncStorageItem} from 'src/utils/asyncStorage';
 
 type GetBooksResponse = {
   data: Book[] | null;
@@ -20,7 +21,6 @@ type GetBooksProps = {
 type newCommentProps = {
   commentText: string;
   bookId: string;
-  authorToken: string;
 };
 
 export const getBooksRequest = async (params: GetBooksProps) => {
@@ -60,9 +60,11 @@ export const getCommentsRequest = async (bookId: string) => {
 export const sendCommentRequest = async ({
   commentText,
   bookId,
-  authorToken,
 }: newCommentProps) => {
-  const authorId = (await supabase.auth.getUser(authorToken)).data.user?.id;
+  const authorToken = getAsyncStorageItem('session');
+
+  const authorId = (await supabase.auth.getUser(await authorToken)).data.user
+    ?.id;
 
   const {data, error} = await supabase
     .from('comments')

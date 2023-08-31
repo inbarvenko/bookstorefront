@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './SignIn.styles';
 import Button from 'src/components/Button';
 import {signInWithEmail} from 'src/api/userApi';
@@ -15,6 +14,7 @@ import {setUser} from 'src/redux/slices/userReducer';
 import Input from 'src/components/Input';
 import CustomTheme from 'src/theme';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {emailValidation, passwordValidation} from 'src/utils/schemas';
 
 type RootStackParamList = {
   Catalog: undefined;
@@ -24,14 +24,13 @@ type RootStackParamList = {
 const SignIn: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
+  const [apiError, setApiError] = useState('');
+
   const dispatch = useAppDispatch();
 
   const schema = yup.object({
-    email: yup
-      .string()
-      .email('This is not a valid email.')
-      .required('This field is required!'),
-    password: yup.string().required('This field is required!'),
+    emailIn: emailValidation,
+    passwordIn: passwordValidation,
   });
 
   const {
@@ -41,8 +40,8 @@ const SignIn: React.FC = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      email: '',
-      password: '',
+      emailIn: '',
+      passwordIn: '',
     },
   });
 
@@ -56,11 +55,10 @@ const SignIn: React.FC = () => {
 
       await dispatch(setUser(userInfo));
 
-      await AsyncStorage.setItem('access_token', userInfo.access_token);
-
       await navigation.navigate('Catalog');
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log('throw ', error);
+      setApiError(error);
     }
   };
 
@@ -70,11 +68,11 @@ const SignIn: React.FC = () => {
         <Text style={styles.titleStyle}>Log In</Text>
         <Controller
           control={control}
-          name="email"
+          name="emailIn"
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               placeholder="Email"
-              errors={errors.email}
+              errors={apiError || errors.emailIn?.message}
               upPlaceholder={true}
               type="numbers-and-punctuation"
               underlineColorAndroid="transparent"
@@ -93,11 +91,11 @@ const SignIn: React.FC = () => {
         />
         <Controller
           control={control}
-          name="password"
+          name="passwordIn"
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               placeholder="Password"
-              errors={errors.password}
+              errors={apiError || errors.passwordIn?.message}
               type="default"
               upPlaceholder={true}
               hintColor={CustomTheme.colors.dark_blue}

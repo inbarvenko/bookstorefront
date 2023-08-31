@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   buttonsSection: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
   },
   titleStyle: {
     fontFamily: 'Poppins700',

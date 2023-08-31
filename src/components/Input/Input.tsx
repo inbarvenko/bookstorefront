@@ -22,6 +22,7 @@ import {
 import getStyle from './Input.styles';
 import CustomTheme from 'src/theme';
 import {useAppSelector} from 'src/redux/hooks';
+import {images} from 'src/constants/images';
 
 type Props = {
   placeholder: string;
@@ -103,10 +104,7 @@ const Input: React.FC<Props> = ({
             disabled={!secure}
             style={styles.touchableStyle}>
             {secure && inputState.visiblePassword ? (
-              <Image
-                source={require('src/assets/img/Hide.png')}
-                style={styles.img}
-              />
+              <Image source={images.closed_eye} style={styles.img} />
             ) : (
               <Image source={image!} style={styles.img} />
             )}

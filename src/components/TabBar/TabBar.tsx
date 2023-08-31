@@ -25,7 +25,7 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
       <TouchableOpacity
         style={styles.opasity}
         accessibilityRole="button"
-        accessibilityState={index === 0 ? {selected: true} : {}}
+        accessibilityState={index === 1 ? {selected: true} : {}}
         onPress={() => navigation.navigate('Catalog')}>
         {theme === 'light' ? (
           <Home
@@ -33,7 +33,7 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
             height={27}
             stroke={CustomTheme.colors[theme].dark_blue}
             fill={
-              index === 0
+              index === 1
                 ? CustomTheme.colors[theme].dark_blue
                 : CustomTheme.colors[theme].light
             }
@@ -44,7 +44,7 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
             height={27}
             stroke={CustomTheme.colors[theme].dark_blue}
             fill={
-              index === 0
+              index === 1
                 ? CustomTheme.colors[theme].dark_blue
                 : CustomTheme.colors[theme].light
             }
@@ -114,14 +114,14 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
       <TouchableOpacity
         style={styles.opasity}
         accessibilityRole="button"
-        accessibilityState={index === 1 ? {selected: true} : {}}
+        accessibilityState={index === 0 ? {selected: true} : {}}
         onPress={() => navigation.navigate(userEmail ? 'Profile' : 'Auth')}>
         {theme === 'light' ? (
           <UserProfile
             width={28}
             height={28}
             fill={
-              index === 1
+              index === 0
                 ? CustomTheme.colors[theme].dark_blue
                 : CustomTheme.colors[theme].light
             }
@@ -131,7 +131,7 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
             width={28}
             height={28}
             fill={
-              index === 1
+              index === 0
                 ? CustomTheme.colors[theme].dark_blue
                 : CustomTheme.colors[theme].light
             }

@@ -6,13 +6,11 @@ import Button from 'src/components/Button';
 import CustomTheme from 'src/theme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useAppSelector} from 'src/redux/hooks';
-
-type RootStackParamList = {
-  Home: undefined;
-};
+import {images} from 'src/constants/images';
+import {TabParamList} from 'src/navigation/TabNavigation';
 
 const FavoritesPage: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<TabParamList>>();
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 
@@ -26,14 +24,14 @@ const FavoritesPage: React.FC = () => {
             catalogue now.
           </Text>
           <Button
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Catalog')}
             title="Go to catalog"
             colorText={CustomTheme.colors[theme].light}
           />
         </View>
         <Image
           style={[styles.img, styles.big_img]}
-          source={require('src/assets/img/books_fav.png')}
+          source={images.books_favorite}
         />
       </View>
     </ScrollView>

@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
-import TabNavigation from './TabNavigation';
 import BootSplash from 'react-native-bootsplash';
+import AppStack from './AppStack';
 
 const RootStackComponent: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const RootStackComponent: React.FC = () => {
       onReady={() => {
         BootSplash.hide();
       }}>
-      <TabNavigation />
+      <AppStack />
     </NavigationContainer>
   );
 };

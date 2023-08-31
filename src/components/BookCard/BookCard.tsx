@@ -8,17 +8,15 @@ import {useNavigation} from '@react-navigation/native';
 import {Book} from 'src/types/book';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useAppSelector} from 'src/redux/hooks';
+import {images} from 'src/constants/images';
+import {AppStackParamList} from 'src/navigation/AppStack';
 
 type Props = {
   book: Book;
 };
 
-type RootStackParamList = {
-  Book: {bookId: string} | undefined;
-};
-
 const BookCard: React.FC<Props> = ({book}: Props) => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<AppStackParamList>>();
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 
@@ -35,11 +33,7 @@ const BookCard: React.FC<Props> = ({book}: Props) => {
             style={styles.like_container}>
             <Image
               style={styles.like}
-              source={
-                isLiked
-                  ? require('src/assets/img/button_save_active.png')
-                  : require('src/assets/img/button_save.png')
-              }
+              source={isLiked ? images.button_heart_saved : images.button_heart}
             />
           </TouchableOpacity>
         </View>

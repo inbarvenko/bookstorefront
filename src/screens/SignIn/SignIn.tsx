@@ -15,14 +15,13 @@ import Input from 'src/components/Input';
 import CustomTheme from 'src/theme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {emailValidation, passwordValidation} from 'src/utils/schemas';
-
-type RootStackParamList = {
-  Catalog: undefined;
-  SignUp: undefined;
-};
+import {images} from 'src/constants/images';
+import {AuthStackParamList} from 'src/navigation/AuthStack';
+import {TabParamList} from 'src/navigation/TabNavigation';
 
 const SignIn: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<StackNavigationProp<AuthStackParamList & TabParamList>>();
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 
@@ -51,16 +50,16 @@ const SignIn: React.FC = () => {
     try {
       const userInfo = await signInWithEmail(data);
 
-      if (!userInfo) {
+      if (userInfo.error) {
+        setApiError(userInfo.error);
         return;
       }
 
-      await dispatch(setUser(userInfo));
+      await dispatch(setUser(userInfo.userInfo!));
 
       await navigation.navigate('Catalog');
     } catch (error: any) {
       console.log('throw ', error);
-      setApiError(error);
     }
   };
 
@@ -84,7 +83,7 @@ const SignIn: React.FC = () => {
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
-              image={require('src/assets/img/Mail_disabled.png')}
+              image={images.mail_grey}
               hint="Enter your email"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -107,7 +106,7 @@ const SignIn: React.FC = () => {
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
-              image={require('src/assets/img/View.png')}
+              image={images.open_eye}
               hint="Enter your password"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -138,10 +137,7 @@ const SignIn: React.FC = () => {
             title="Sign Up"
           />
         </View>
-        <Image
-          style={styles.image}
-          source={require('src/assets/img/personLogin.png')}
-        />
+        <Image style={styles.image} source={images.picture_auth} />
       </ScrollView>
     </View>
   );

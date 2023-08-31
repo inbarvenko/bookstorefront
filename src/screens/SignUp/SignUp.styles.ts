@@ -48,7 +48,6 @@ export const getStyle = (props: Theme) =>
     },
     inputContainer: {
       marginBottom: 44,
-      // width: 290,
       height: 64,
       paddingHorizontal: 15,
     },

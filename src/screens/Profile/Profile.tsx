@@ -6,6 +6,7 @@ import {useAppSelector} from 'src/redux/hooks';
 import CustomTheme from 'src/theme';
 import Button from 'src/components/Button/Button';
 import Modals from 'src/components/Modals/Modals';
+import {images} from 'src/constants/images';
 
 const ProfilePage: React.FC = () => {
   const user = useAppSelector(state => state.userData);
@@ -23,8 +24,6 @@ const ProfilePage: React.FC = () => {
     setModalVisible(!modalVisible);
   };
 
-  console.log(user);
-
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
@@ -36,19 +35,12 @@ const ProfilePage: React.FC = () => {
         <View style={styles.images}>
           <Image
             style={styles.photo}
-            source={
-              user.photoUrl
-                ? {uri: user.photoUrl}
-                : require('src/assets/img/userlogo.png')
-            }
+            source={user.photoUrl ? {uri: user.photoUrl} : images.user_logo}
           />
           <TouchableOpacity
             onPress={() => setModalVisible(!modalVisible)}
             style={styles.photo_button_container}>
-            <Image
-              style={styles.photo_button}
-              source={require('src/assets/img/button_photo.png')}
-            />
+            <Image style={styles.photo_button} source={images.camera_button} />
           </TouchableOpacity>
         </View>
         <View>
@@ -69,9 +61,9 @@ const ProfilePage: React.FC = () => {
             placeholder="Your email"
             containerStyle={styles.inputContainer}
             onBlur={() => {
-              //На блюр сохраняет значение инпута
+              //TODO: На блюр сохраняет значение инпута
             }}
-            image={require('src/assets/img/Mail_disabled.png')}
+            image={images.mail_grey}
             upPlaceholder={true}
             withLabel={true}
             isEditable={editState.editInfo}
@@ -85,9 +77,9 @@ const ProfilePage: React.FC = () => {
             placeholder="Your first name"
             containerStyle={styles.inputContainer}
             onBlur={() => {
-              //На блюр сохраняет значение инпута
+              //TODO: На блюр сохраняет значение инпута
             }}
-            image={require('src/assets/img/userprofile.png')}
+            image={images.user_grey}
             upPlaceholder={true}
             isEditable={editState.editInfo}
             withLabel={true}
@@ -101,9 +93,9 @@ const ProfilePage: React.FC = () => {
             placeholder="Your last name"
             containerStyle={styles.inputContainer}
             onBlur={() => {
-              //На блюр сохраняет значение инпута
+              //TODO: На блюр сохраняет значение инпута
             }}
-            image={require('src/assets/img/userprofile.png')}
+            image={images.user_grey}
             upPlaceholder={true}
             withLabel={true}
             isEditable={editState.editInfo}
@@ -113,7 +105,6 @@ const ProfilePage: React.FC = () => {
           <Text style={styles.title}>Password</Text>
           <Text
             onPress={() => {
-              console.log(editState.editPassword);
               setEditState({
                 ...editState,
                 editPassword: !editState.editPassword,
@@ -134,9 +125,9 @@ const ProfilePage: React.FC = () => {
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
               value={'your old password'}
-              image={require('src/assets/img/View.png')}
+              image={images.open_eye}
               onBlur={() => {
-                //На блюр сохраняет значение инпута
+                //TODO: На блюр сохраняет значение инпута
               }}
               secure
             />
@@ -148,10 +139,10 @@ const ProfilePage: React.FC = () => {
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
-              image={require('src/assets/img/View.png')}
+              image={images.open_eye}
               hint="Enter your password"
               onBlur={() => {
-                //На блюр сохраняет значение инпута
+                //TODO: На блюр сохраняет значение инпута
               }}
               secure
             />
@@ -163,10 +154,10 @@ const ProfilePage: React.FC = () => {
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
-              image={require('src/assets/img/View.png')}
+              image={images.open_eye}
               hint="Repeat your password without errors"
               onBlur={() => {
-                //На блюр сохраняет значение инпута
+                //TODO: На блюр сохраняет значение инпута
               }}
               secure
             />
@@ -176,7 +167,7 @@ const ProfilePage: React.FC = () => {
               height={44}
               colorText={CustomTheme.colors[theme].light}
               onPress={() => {
-                // Написать логику change password для user
+                //TODO:  Написать логику change password для user
               }}
             />
           </View>
@@ -192,9 +183,9 @@ const ProfilePage: React.FC = () => {
             value={'your password'}
             withLabel={true}
             isEditable={editState.editPassword}
-            image={require('src/assets/img/View.png')}
+            image={images.open_eye}
             onBlur={() => {
-              //На блюр сохраняет значение инпута
+              //TODO: На блюр сохраняет значение инпута
             }}
             secure
           />

@@ -20,14 +20,13 @@ import {
   repeatPasswordValidation,
 } from 'src/utils/schemas';
 import {setAsyncStorageItem} from 'src/utils/asyncStorage';
-
-type RootStackParamList = {
-  Catalog: undefined;
-  SignIn: undefined;
-};
+import {images} from 'src/constants/images';
+import {AuthStackParamList} from 'src/navigation/AuthStack';
+import {TabParamList} from 'src/navigation/TabNavigation';
 
 const SignUp: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<StackNavigationProp<TabParamList & AuthStackParamList>>();
   const dispatch = useAppDispatch();
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
@@ -58,22 +57,26 @@ const SignUp: React.FC = () => {
 
   const checkSignUp = async (data: SignUpData) => {
     try {
-      console.log('Hello');
-
-      const res = await userRegister({
+      const userInfo = await userRegister({
         email: data.email,
         password: data.password,
       });
 
-      await dispatch(setUser(res!));
+      if (userInfo.error) {
+        setApiError({
+          code: userInfo.error.status!,
+          message: userInfo.error.message,
+        });
+        console.log(apiError.code);
+      }
+
+      await dispatch(setUser({email: userInfo.email!}));
       setAsyncStorageItem('theme', 'light');
 
       await navigation.navigate('Catalog');
     } catch (error: any) {
       console.log('throw ', error);
-      //Если код 422, на почту не ставить ошибку
-      setApiError(error);
-      console.log(apiError.code);
+      //TODO: Если код 422, на почту не ставить ошибку
     }
   };
 
@@ -92,7 +95,7 @@ const SignUp: React.FC = () => {
                 errors.email?.message
               }
               type="numbers-and-punctuation"
-              image={require('src/assets/img/Mail_disabled.png')}
+              image={images.mail_grey}
               containerStyle={styles.inputContainer}
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors[theme].dark_blue}
@@ -118,7 +121,7 @@ const SignUp: React.FC = () => {
                 errors.password?.message
               }
               type="default"
-              image={require('src/assets/img/View.png')}
+              image={images.open_eye}
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors[theme].dark_blue}
               containerStyle={styles.inputContainer}
@@ -145,7 +148,7 @@ const SignUp: React.FC = () => {
                 errors.repeatPassword?.message
               }
               type="default"
-              image={require('src/assets/img/View.png')}
+              image={images.open_eye}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
@@ -184,10 +187,7 @@ const SignUp: React.FC = () => {
             backColor={CustomTheme.colors[theme].dark_grey}
           />
         </View>
-        <Image
-          style={styles.image}
-          source={require('src/assets/img/personLogin.png')}
-        />
+        <Image style={styles.image} source={images.picture_auth} />
       </ScrollView>
     </View>
   );

@@ -9,10 +9,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {getBooksRequest} from 'src/api/bookApi';
 import {setBooks} from 'src/redux/slices/booksReducer';
 import {cannotGetData} from 'src/utils/notifications';
-
-type RootStackParamList = {
-  SignIn: undefined;
-};
+import {images} from 'src/constants/images';
+import {AuthStackParamList} from 'src/navigation/AuthStack';
 
 const CatalogPage: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -21,36 +19,38 @@ const CatalogPage: React.FC = () => {
   const bookList = useAppSelector(state => state.bookData.bookList);
   const userEmail = useAppSelector(state => state.userData.email);
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<AuthStackParamList>>();
   const route = useRoute();
 
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 
+  const handleBooks = async () => {
+    const data = await getBooksRequest({page: 1});
+
+    if (!data) {
+      cannotGetData('books');
+    }
+    dispatch(setBooks(data!));
+  };
+
   useEffect(() => {
     try {
-      const res = getBooksRequest({page: 1});
-      res.then(data => {
-        if (!data) {
-          cannotGetData('books');
-        }
-        dispatch(setBooks(data!));
-      });
+      handleBooks();
     } catch (error) {
       console.log(error);
     }
   }, [dispatch, bookList.length]);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = useCallback(async () => {
     setRefreshing(true);
 
-    const res = getBooksRequest({page: 1});
-    res.then(data => {
-      if (!data) {
-        cannotGetData('books');
-      }
-      dispatch(setBooks(data!));
-    });
+    const data = await getBooksRequest({page: 1});
+
+    if (!data) {
+      cannotGetData('books');
+    }
+    dispatch(setBooks(data!));
 
     setTimeout(() => {
       setRefreshing(false);
@@ -65,7 +65,7 @@ const CatalogPage: React.FC = () => {
       style={styles.scroll}>
       <View style={styles.screenContainer}>
         <Banner
-          back_image={require('src/assets/img/catalog_banner.png')}
+          back_image={images.catalog_banner}
           title="Build your library with us"
           description="Buy two books and get one for free"
           button_title="Choose a book"
@@ -85,7 +85,7 @@ const CatalogPage: React.FC = () => {
         </View>
         {!userEmail && (
           <Banner
-            back_image={require('src/assets/img/sing_in_banner.png')}
+            back_image={images.sing_in_banner}
             title="Authorize now"
             description="Authorize now and discover the fabulous world of books"
             button_title="Log In/ Sing Up"

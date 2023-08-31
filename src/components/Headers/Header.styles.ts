@@ -7,16 +7,15 @@ export const getStyle = (props: Theme) =>
   StyleSheet.create({
     header: {
       paddingTop: 20,
-      paddingBottom: 30,
       paddingHorizontal: 15,
       width: '100%',
-      height: 140,
+      height: 120,
 
       backgroundColor: CustomTheme.colors[props.theme].background,
     },
     container: {
       width: '100%',
-      paddingBottom: 17,
+      paddingBottom: 10,
       flexDirection: 'row',
       justifyContent: 'space-between',
 

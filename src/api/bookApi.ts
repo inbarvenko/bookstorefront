@@ -73,7 +73,6 @@ export const sendCommentRequest = async ({
   if (error) {
     throw Error(error.message);
   } else {
-    console.log(data);
     return data;
   }
 };

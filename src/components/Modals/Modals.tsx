@@ -18,7 +18,7 @@ export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
   const styles = getStyle({theme});
 
   const openCamera = () => {
-    launchCamera({mediaType: 'photo'}, response => {
+    launchCamera({mediaType: 'photo'}, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker from camera');
       } else if (response.errorCode) {
@@ -31,12 +31,12 @@ export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
         console.log('Image taken: ', response.assets![0].fileName);
 
         try {
-          sentUserPhoto(response.assets![0].uri!).then(data => {
-            if (!data) {
-              throw 'Cannot get photo from camera';
-            }
-            dispatch(setPhoto(response.assets![0].uri!));
-          });
+          const data = await sentUserPhoto(response.assets![0].uri!);
+
+          if (!data) {
+            throw 'Cannot get photo from camera';
+          }
+          dispatch(setPhoto(response.assets![0].uri!));
         } catch (error) {
           console.log(error);
         }
@@ -45,30 +45,32 @@ export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
   };
 
   const openGallery = () => {
-    launchImageLibrary({mediaType: 'photo', includeBase64: false}, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker from gallery');
-      } else if (response.errorCode) {
-        console.log(
-          'ImagePicker Error: ',
-          response.errorCode,
-          response.errorMessage,
-        );
-      } else {
-        console.log('Image taken: ', response.assets![0].uri);
+    launchImageLibrary(
+      {mediaType: 'photo', includeBase64: false},
+      async response => {
+        if (response.didCancel) {
+          console.log('User cancelled image picker from gallery');
+        } else if (response.errorCode) {
+          console.log(
+            'ImagePicker Error: ',
+            response.errorCode,
+            response.errorMessage,
+          );
+        } else {
+          console.log('Image taken: ', response.assets![0].uri);
 
-        try {
-          sentUserPhoto(response.assets![0].uri!).then(data => {
+          try {
+            const data = await sentUserPhoto(response.assets![0].uri!);
             if (!data) {
               throw 'Cannot get photo from gallery';
             }
             dispatch(setPhoto(response.assets![0].uri!));
-          });
-        } catch (error) {
-          console.log(error);
+          } catch (error) {
+            console.log(error);
+          }
         }
-      }
-    });
+      },
+    );
   };
 
   return (

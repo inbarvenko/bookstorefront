@@ -68,8 +68,6 @@ export const getStyle = (props: Theme) =>
       fontFamily: 'Poppins700',
       fontSize: 20,
 
-      // backgroundColor: 'red',
-
       paddingBottom: 7,
     },
     bookList: {
@@ -85,9 +83,7 @@ export const getStyle = (props: Theme) =>
 
       paddingBottom: 20,
     },
-    descr_container: {
-      // backgroundColor: 'red',
-    },
+    descr_container: {},
     descr_title: {
       fontFamily: 'Poppins500',
       fontSize: 16,

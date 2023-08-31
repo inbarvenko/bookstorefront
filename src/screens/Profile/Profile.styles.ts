@@ -63,7 +63,6 @@ export const getStyle = (props: Theme) =>
     inputContainer: {
       marginBottom: 10,
       height: 64,
-      // paddingHorizontal: 15,
     },
     inputText: {
       fontSize: 14,

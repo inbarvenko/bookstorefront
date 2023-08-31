@@ -22,9 +22,9 @@ const Toggler: React.FC = () => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleSwitchTheme}>
       {theme === 'light' ? (
-        <Configure width={40} height={40} />
+        <Configure width={30} height={30} />
       ) : (
-        <ConfigureLight width={40} height={40} />
+        <ConfigureLight width={30} height={30} />
       )}
     </TouchableOpacity>
   );

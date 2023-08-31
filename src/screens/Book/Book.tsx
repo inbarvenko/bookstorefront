@@ -26,6 +26,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import CustomTheme from 'src/theme';
 import Button from 'src/components/Button';
 import {cannotGetData, cannotSendData} from 'src/utils/notifications';
+import {images} from 'src/constants/images';
+import {AuthStackParamList} from 'src/navigation/AuthStack';
 
 type ParamList = {
   Detail: {
@@ -33,13 +35,9 @@ type ParamList = {
   };
 };
 
-type RootStackParamList = {
-  SignIn: undefined;
-};
-
 const BookScreen: React.FC = () => {
   const route = useRoute<RouteProp<ParamList, 'Detail'>>();
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<AuthStackParamList>>();
 
   const bookId = route.params!.bookId;
   const dispatch = useAppDispatch();
@@ -50,34 +48,37 @@ const BookScreen: React.FC = () => {
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 
+  const handleComments = async () => {
+    const data = await getCommentsRequest(bookId);
+
+    if (!data) {
+      cannotGetData('comments');
+    }
+    dispatch(setCommets(data!));
+  };
+
   useEffect(() => {
     try {
       dispatch(getBookById(bookId));
 
-      const res = getCommentsRequest(bookId);
-      res.then(data => {
-        if (!data) {
-          cannotGetData('comments');
-        }
-        dispatch(setCommets(data!));
-      });
+      handleComments();
     } catch (error) {
       console.log(error);
     }
   }, [bookId, dispatch]);
 
-  const sendComments = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+  const sendComments = async (
+    e: NativeSyntheticEvent<TextInputFocusEventData>,
+  ) => {
     try {
-      const res = sendCommentRequest({
+      const data = await sendCommentRequest({
         bookId: book.id,
         commentText: e.nativeEvent.text,
       });
-      res.then(data => {
-        if (!data) {
-          cannotSendData('comment');
-        }
-        dispatch(addComment(data!));
-      });
+      if (!data) {
+        cannotSendData('comment');
+      }
+      dispatch(addComment(data!));
     } catch (error) {
       cannotSendData('comment');
       console.log(error);
@@ -133,7 +134,7 @@ const BookScreen: React.FC = () => {
         })}
       {!user.email ? (
         <Banner
-          back_image={require('src/assets/img/sing_in_banner.png')}
+          back_image={images.sing_in_banner}
           title="Authorize now"
           description="Authorize now and discover the fabulous world of books"
           button_title="Log In/ Sing Up"

@@ -5,8 +5,8 @@ import {Theme} from 'src/types/theme';
 export const getStyle = (props: Theme) =>
   StyleSheet.create({
     container: {
-      height: 50,
-      width: 50,
+      height: 35,
+      width: 35,
       alignSelf: 'center',
     },
   });

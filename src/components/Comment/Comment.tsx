@@ -1,13 +1,17 @@
 import React from 'react';
 import {Image, Text, View} from 'react-native';
-import {styles} from './Comment.styles';
+import {getStyle} from './Comment.styles';
 import {Comment} from 'src/types/comment';
+import {useAppSelector} from 'src/redux/hooks';
 
 type Props = {
   comment: Comment;
 };
 
 const CommentComponent: React.FC<Props> = ({comment}: Props) => {
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
+
   return (
     <View style={styles.container}>
       <View style={styles.title}>

@@ -19,8 +19,9 @@ import {
   Image,
 } from 'react-native';
 
-import styles from './Input.styles';
+import getStyle from './Input.styles';
 import CustomTheme from 'src/theme';
+import {useAppSelector} from 'src/redux/hooks';
 
 type Props = {
   placeholder: string;
@@ -35,8 +36,8 @@ type Props = {
   hintColor?: string;
   image?: ImageSourcePropType;
   hint?: string;
-  editable?: boolean;
-  info?: boolean;
+  isEditable?: boolean;
+  withLabel?: boolean;
   upPlaceholder: boolean;
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 } & TextInputProps;
@@ -48,16 +49,19 @@ const Input: React.FC<Props> = ({
   containerErrorStyle,
   textErrorStyle,
   errors,
-  info,
+  withLabel,
   image,
   secure,
   hint,
   upPlaceholder,
   hintColor,
   onBlur,
-  editable,
+  isEditable,
   ...props
 }) => {
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
+
   const [inputState, setInputState] = React.useState({
     visiblePassword: true,
     inputFocus: false,
@@ -89,7 +93,7 @@ const Input: React.FC<Props> = ({
       <View
         style={[
           styles.inputRowContainer,
-          info && editable && styles.border,
+          withLabel && isEditable && styles.border,
           inputState.inputFocus && styles.inputFocusStyle,
           !!errors! && containerErrorStyle,
         ]}>
@@ -113,7 +117,7 @@ const Input: React.FC<Props> = ({
             inputState.inputFocus && styles.containerPlaceholderFocus,
             styles.fullWidth,
           ]}>
-          {((inputState.inputFocus && upPlaceholder) || info) && (
+          {((inputState.inputFocus && upPlaceholder) || withLabel) && (
             <Text style={[styles.hintText, {color: hintColor}]}>
               {placeholder}
             </Text>
@@ -126,12 +130,12 @@ const Input: React.FC<Props> = ({
               styles.inputStyle,
               textStyle,
               upPlaceholder ? styles.fullHeight : styles.paddings,
-              ((inputState.inputFocus && upPlaceholder) || info) &&
+              ((inputState.inputFocus && upPlaceholder) || withLabel) &&
                 styles.textInput,
             ]}
-            editable={editable}
+            editable={isEditable}
             onBlur={handleBlur}
-            placeholderTextColor={CustomTheme.colors.dark_grey}
+            placeholderTextColor={CustomTheme.colors[theme].dark_grey}
             onFocus={handleFocus}
           />
         </View>

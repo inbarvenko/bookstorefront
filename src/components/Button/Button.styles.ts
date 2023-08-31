@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import CustomTheme from 'src/theme';
+import {Theme} from 'src/types/theme';
 
 type Props = {
   fontSize?: number;
@@ -7,6 +8,7 @@ type Props = {
   height?: number;
   colorText?: string;
   backColor?: string;
+  theme: Theme;
 };
 
 const styles = (props: Props) =>
@@ -14,7 +16,7 @@ const styles = (props: Props) =>
     appButtonContainer: {
       backgroundColor: props.backColor
         ? props.backColor
-        : CustomTheme.colors.dark_blue,
+        : CustomTheme.colors[props.theme.theme].dark_blue,
       borderRadius: 16,
       width: props.width,
       height: props.height,

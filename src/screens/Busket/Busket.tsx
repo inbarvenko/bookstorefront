@@ -2,15 +2,19 @@ import React from 'react';
 import {ScrollView, Text, View, Image} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParamListBase} from '@react-navigation/native';
-import {styles} from './Busket.styles';
+import {getStyle} from './Busket.styles';
 import Button from 'src/components/Button';
 import CustomTheme from 'src/theme';
+import {useAppSelector} from 'src/redux/hooks';
 
 interface Props {
   navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
 }
 
 const BusketPage: React.FC<Props> = ({navigation}: Props) => {
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
+
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
@@ -22,7 +26,7 @@ const BusketPage: React.FC<Props> = ({navigation}: Props) => {
           <Button
             onPress={() => navigation.navigate('Home')}
             title="Go to catalog"
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
           />
         </View>
         <Image

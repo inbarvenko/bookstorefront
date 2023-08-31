@@ -1,7 +1,8 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import type {TouchableOpacityProps} from 'react-native';
-import styles from './Button.styles';
+import getStyle from './Button.styles';
+import {useAppSelector} from 'src/redux/hooks';
 
 type Props = {
   fontSize?: number;
@@ -23,14 +24,22 @@ const Button: React.FC<Props> = ({
   backColor,
   ...props
 }) => {
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({
+    fontSize,
+    colorText,
+    width,
+    height,
+    backColor,
+    theme: {
+      theme: theme,
+    },
+  });
+
   return (
-    <View
-      style={[
-        styles({width, height, backColor}).appButtonContainer,
-        styleButton,
-      ]}>
+    <View style={[styles.appButtonContainer, styleButton]}>
       <TouchableOpacity {...props}>
-        <Text style={styles({fontSize, colorText}).appButtonText}>{title}</Text>
+        <Text style={styles.appButtonText}>{title}</Text>
       </TouchableOpacity>
     </View>
   );

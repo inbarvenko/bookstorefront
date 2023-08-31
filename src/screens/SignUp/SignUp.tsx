@@ -4,10 +4,10 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import styles from './SignUp.styles';
+import getStyle from './SignUp.styles';
 import Button from 'src/components/Button';
 import {SignUpData} from 'src/types/auth';
-import {useAppDispatch} from 'src/redux/hooks';
+import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import Input from 'src/components/Input';
 import {userRegister} from 'src/api/userApi';
 import CustomTheme from 'src/theme';
@@ -29,6 +29,8 @@ type RootStackParamList = {
 const SignUp: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const dispatch = useAppDispatch();
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   const [apiError, setApiError] = useState({
     code: 0,
@@ -90,10 +92,10 @@ const SignUp: React.FC = () => {
                 errors.email?.message
               }
               type="numbers-and-punctuation"
-              image={require('src/assets/img/Mail.png')}
+              image={require('src/assets/img/Mail_disabled.png')}
               containerStyle={styles.inputContainer}
               underlineColorAndroid="transparent"
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               textStyle={styles.inputText}
               upPlaceholder={true}
               containerErrorStyle={styles.errorSectionStyle}
@@ -118,7 +120,7 @@ const SignUp: React.FC = () => {
               type="default"
               image={require('src/assets/img/View.png')}
               underlineColorAndroid="transparent"
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
               upPlaceholder={true}
@@ -148,7 +150,7 @@ const SignUp: React.FC = () => {
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
               upPlaceholder={true}
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
@@ -165,7 +167,7 @@ const SignUp: React.FC = () => {
             styleButton={styles.buttonContainer}
             width={151}
             height={44}
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
             fontSize={16}
             onPress={handleSubmit(checkSignUp)}
             title="Sign Up"
@@ -175,11 +177,11 @@ const SignUp: React.FC = () => {
             styleButton={styles.buttonContainer}
             width={151}
             height={44}
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
             fontSize={16}
             onPress={() => navigation.navigate('SignIn')}
             title="Log In"
-            backColor={CustomTheme.colors.dark_grey}
+            backColor={CustomTheme.colors[theme].dark_grey}
           />
         </View>
         <Image

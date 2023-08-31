@@ -13,7 +13,7 @@ import {
   getBookById,
   setCommets,
 } from 'src/redux/slices/booksReducer';
-import {styles} from './Book.styles';
+import {getStyle} from './Book.styles';
 import Rating from 'src/components/Rating';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import Banner from 'src/components/Banner';
@@ -47,6 +47,8 @@ const BookScreen: React.FC = () => {
   const comments = useAppSelector(state => state.bookData.comments);
   const user = useAppSelector(state => state.userData);
   const recomendation = useAppSelector(filteredRatingBooks);
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   useEffect(() => {
     try {
@@ -104,10 +106,10 @@ const BookScreen: React.FC = () => {
             Paperback
           </Text>
           <Button
-            backColor={CustomTheme.colors.dark_grey}
+            backColor={CustomTheme.colors[theme].dark_grey}
             width={150}
             height={38}
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
             title="Not available"
           />
         </View>
@@ -118,7 +120,7 @@ const BookScreen: React.FC = () => {
           <Button
             width={150}
             height={38}
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
             title={'$ ' + book.price! + ' USD'}
           />
         </View>
@@ -147,7 +149,7 @@ const BookScreen: React.FC = () => {
             onBlur={sendComments}
           />
           <Button
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
             title="Post a comment"
             width={210}
           />

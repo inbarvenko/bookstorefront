@@ -1,8 +1,9 @@
 import React from 'react';
 import {Image, ImageSourcePropType, Text, View} from 'react-native';
-import {styles} from './Banner.styles';
+import {getStyle} from './Banner.styles';
 import Button from 'src/components/Button';
 import CustomTheme from 'src/theme';
+import {useAppSelector} from 'src/redux/hooks';
 
 type Props = {
   back_image: ImageSourcePropType;
@@ -19,6 +20,9 @@ const Banner: React.FC<Props> = ({
   button_title,
   onButtonPress,
 }: Props) => {
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
+
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={back_image} />
@@ -29,8 +33,9 @@ const Banner: React.FC<Props> = ({
           onPress={onButtonPress}
           title={button_title}
           width={200}
+          backColor={CustomTheme.colors['light'].dark_blue}
           height={38}
-          colorText={CustomTheme.colors.light}
+          colorText={CustomTheme.colors['light'].light}
         />
       </View>
     </View>

@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {RefreshControl, ScrollView, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import BookCard from 'src/components/BookCard';
-import {styles} from './Catalog.styles';
+import {getStyle} from './Catalog.styles';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Banner from 'src/components/Banner';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -23,6 +23,9 @@ const CatalogPage: React.FC = () => {
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const route = useRoute();
+
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   useEffect(() => {
     try {
@@ -59,35 +62,37 @@ const CatalogPage: React.FC = () => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      style={styles.screenContainer}>
-      <Banner
-        back_image={require('src/assets/img/catalog_banner.png')}
-        title="Build your library with us"
-        description="Buy two books and get one for free"
-        button_title="Choose a book"
-        onButtonPress={() => {}}
-      />
-      <Text style={styles.title}>Catalog</Text>
-      <View style={styles.bookList}>
-        {bookList.length > 0 &&
-          bookList.map(item => {
-            return (
-              <BookCard
-                key={item.author + item.name + route.name}
-                book={item}
-              />
-            );
-          })}
-      </View>
-      {!userEmail && (
+      style={styles.scroll}>
+      <View style={styles.screenContainer}>
         <Banner
-          back_image={require('src/assets/img/sing_in_banner.png')}
-          title="Authorize now"
-          description="Authorize now and discover the fabulous world of books"
-          button_title="Log In/ Sing Up"
-          onButtonPress={() => navigation.navigate('SignIn')}
+          back_image={require('src/assets/img/catalog_banner.png')}
+          title="Build your library with us"
+          description="Buy two books and get one for free"
+          button_title="Choose a book"
+          onButtonPress={() => {}}
         />
-      )}
+        <Text style={styles.title}>Catalog</Text>
+        <View style={styles.bookList}>
+          {bookList.length > 0 &&
+            bookList.map(item => {
+              return (
+                <BookCard
+                  key={item.author + item.name + route.name}
+                  book={item}
+                />
+              );
+            })}
+        </View>
+        {!userEmail && (
+          <Banner
+            back_image={require('src/assets/img/sing_in_banner.png')}
+            title="Authorize now"
+            description="Authorize now and discover the fabulous world of books"
+            button_title="Log In/ Sing Up"
+            onButtonPress={() => navigation.navigate('SignIn')}
+          />
+        )}
+      </View>
     </ScrollView>
   );
 };

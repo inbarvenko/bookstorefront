@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
-import {styles} from './Modals.styles';
+import {getStyle} from './Modals.styles';
 import Camera from 'src/assets/icons/Camera.svg';
 import Picture from 'src/assets/icons/Image.svg';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useAppDispatch} from 'src/redux/hooks';
+import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import {sentUserPhoto} from 'src/api/userApi';
 import {setPhoto} from 'src/redux/slices/userReducer';
 
@@ -13,6 +13,9 @@ type Props = {title: string; isVisible: boolean; toClose: () => void};
 
 export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
   const dispatch = useAppDispatch();
+
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   const openCamera = () => {
     launchCamera({mediaType: 'photo'}, response => {

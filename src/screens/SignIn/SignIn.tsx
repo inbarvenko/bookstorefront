@@ -5,11 +5,11 @@ import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import {useNavigation} from '@react-navigation/native';
-import styles from './SignIn.styles';
+import getStyle from './SignIn.styles';
 import Button from 'src/components/Button';
 import {signInWithEmail} from 'src/api/userApi';
 import {SignInData} from 'src/types/auth';
-import {useAppDispatch} from 'src/redux/hooks';
+import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import {setUser} from 'src/redux/slices/userReducer';
 import Input from 'src/components/Input';
 import CustomTheme from 'src/theme';
@@ -23,6 +23,8 @@ type RootStackParamList = {
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   const [apiError, setApiError] = useState('');
 
@@ -76,13 +78,13 @@ const SignIn: React.FC = () => {
               upPlaceholder={true}
               type="numbers-and-punctuation"
               underlineColorAndroid="transparent"
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
-              image={require('src/assets/img/Mail.png')}
+              image={require('src/assets/img/Mail_disabled.png')}
               hint="Enter your email"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -98,7 +100,7 @@ const SignIn: React.FC = () => {
               errors={apiError || errors.passwordIn?.message}
               type="default"
               upPlaceholder={true}
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
@@ -119,7 +121,7 @@ const SignIn: React.FC = () => {
             styleButton={styles.buttonContainer}
             width={151}
             height={44}
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
             fontSize={16}
             onPress={handleSubmit(checkSignInWithEmail)}
             title="Log In"
@@ -128,9 +130,9 @@ const SignIn: React.FC = () => {
             activeOpacity={0.8}
             styleButton={styles.buttonContainer}
             width={151}
-            backColor={CustomTheme.colors.dark_grey}
+            backColor={CustomTheme.colors[theme].dark_grey}
             height={44}
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
             fontSize={16}
             onPress={() => navigation.navigate('SignUp')}
             title="Sign Up"

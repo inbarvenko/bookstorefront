@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './Rating.styles';
+import {getStyle} from './Rating.styles';
+import {useAppSelector} from 'src/redux/hooks';
 
 type Props = {
   rate: number;
@@ -10,6 +11,8 @@ type Props = {
 
 const Rating = ({rate, bookPage, size}: Props) => {
   const [userRate, setUserRate] = useState(0);
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   const rating = (num: number) => {
     const components = [];

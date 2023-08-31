@@ -1,10 +1,11 @@
 import React from 'react';
 import {Image, ScrollView, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {styles} from './Favorites.styles';
+import {getStyle} from './Favorites.styles';
 import Button from 'src/components/Button';
 import CustomTheme from 'src/theme';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useAppSelector} from 'src/redux/hooks';
 
 type RootStackParamList = {
   Home: undefined;
@@ -12,6 +13,8 @@ type RootStackParamList = {
 
 const FavoritesPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   return (
     <ScrollView style={styles.scroll}>
@@ -25,7 +28,7 @@ const FavoritesPage: React.FC = () => {
           <Button
             onPress={() => navigation.navigate('Home')}
             title="Go to catalog"
-            colorText={CustomTheme.colors.light}
+            colorText={CustomTheme.colors[theme].light}
           />
         </View>
         <Image

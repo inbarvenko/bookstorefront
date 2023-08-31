@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './Profile.styles';
+import {getStyle} from './Profile.styles';
 import Input from 'src/components/Input';
 import {useAppSelector} from 'src/redux/hooks';
 import CustomTheme from 'src/theme';
@@ -9,6 +9,8 @@ import Modals from 'src/components/Modals/Modals';
 
 const ProfilePage: React.FC = () => {
   const user = useAppSelector(state => state.userData);
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   const [editState, setEditState] = useState({
     editInfo: false,
@@ -62,7 +64,7 @@ const ProfilePage: React.FC = () => {
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
             value={user.email}
-            hintColor={CustomTheme.colors.dark_blue}
+            hintColor={CustomTheme.colors[theme].dark_blue}
             textStyle={styles.inputText}
             placeholder="Your email"
             containerStyle={styles.inputContainer}
@@ -71,14 +73,14 @@ const ProfilePage: React.FC = () => {
             }}
             image={require('src/assets/img/Mail_disabled.png')}
             upPlaceholder={true}
-            info={true}
-            editable={editState.editInfo}
+            withLabel={true}
+            isEditable={editState.editInfo}
           />
           <Input
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
             value={user.first_name!}
-            hintColor={CustomTheme.colors.dark_blue}
+            hintColor={CustomTheme.colors[theme].dark_blue}
             textStyle={styles.inputText}
             placeholder="Your first name"
             containerStyle={styles.inputContainer}
@@ -87,14 +89,14 @@ const ProfilePage: React.FC = () => {
             }}
             image={require('src/assets/img/userprofile.png')}
             upPlaceholder={true}
-            editable={editState.editInfo}
-            info={true}
+            isEditable={editState.editInfo}
+            withLabel={true}
           />
           <Input
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
             value={user.last_name!}
-            hintColor={CustomTheme.colors.dark_blue}
+            hintColor={CustomTheme.colors[theme].dark_blue}
             textStyle={styles.inputText}
             placeholder="Your last name"
             containerStyle={styles.inputContainer}
@@ -103,8 +105,8 @@ const ProfilePage: React.FC = () => {
             }}
             image={require('src/assets/img/userprofile.png')}
             upPlaceholder={true}
-            info={true}
-            editable={editState.editInfo}
+            withLabel={true}
+            isEditable={editState.editInfo}
           />
         </View>
         <View style={styles.row}>
@@ -127,7 +129,7 @@ const ProfilePage: React.FC = () => {
               placeholder="Your old password"
               type="default"
               upPlaceholder={true}
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
@@ -142,7 +144,7 @@ const ProfilePage: React.FC = () => {
               placeholder="New password"
               type="default"
               upPlaceholder={true}
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
@@ -157,7 +159,7 @@ const ProfilePage: React.FC = () => {
               placeholder="Password replay"
               type="default"
               upPlaceholder={true}
-              hintColor={CustomTheme.colors.dark_blue}
+              hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
@@ -172,7 +174,7 @@ const ProfilePage: React.FC = () => {
               title="Confirm"
               width={170}
               height={44}
-              colorText={CustomTheme.colors.light}
+              colorText={CustomTheme.colors[theme].light}
               onPress={() => {
                 // Написать логику change password для user
               }}
@@ -183,13 +185,13 @@ const ProfilePage: React.FC = () => {
             placeholder="Your password"
             type="default"
             upPlaceholder={true}
-            hintColor={CustomTheme.colors.dark_blue}
+            hintColor={CustomTheme.colors[theme].dark_blue}
             underlineColorAndroid="transparent"
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             value={'your password'}
-            info={true}
-            editable={editState.editPassword}
+            withLabel={true}
+            isEditable={editState.editPassword}
             image={require('src/assets/img/View.png')}
             onBlur={() => {
               //На блюр сохраняет значение инпута

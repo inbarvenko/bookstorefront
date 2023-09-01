@@ -4,140 +4,74 @@ import React from 'react';
 import {getStyle} from './TabBar.styles';
 import {useAppSelector} from 'src/redux/hooks';
 import CustomTheme from 'src/theme';
-
-import Home from 'src/assets/icons/dark/home.svg';
-import Heart from 'src/assets/icons/dark/Heart.svg';
-import UserProfile from 'src/assets/icons/dark/UserProfile.svg';
-import Cart from 'src/assets/icons/dark/Cart.svg';
-import Home_light from 'src/assets/icons/light/Home_light.svg';
-import Heart_light from 'src/assets/icons/light/Heart_light.svg';
-import UserProfile_light from 'src/assets/icons/light/UserProfile_light.svg';
-import Cart_light from 'src/assets/icons/light/Cart_light.svg';
+import {icons} from 'src/constants/icons';
 
 const TabBar = ({state, navigation}: BottomTabBarProps) => {
-  const index = state.index;
-  const userEmail = useAppSelector(state => state.userData.email);
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 
   return (
     <View style={styles.back}>
-      <TouchableOpacity
-        style={styles.opasity}
-        accessibilityRole="button"
-        accessibilityState={index === 1 ? {selected: true} : {}}
-        onPress={() => navigation.navigate('Catalog')}>
-        {theme === 'light' ? (
-          <Home
-            width={27}
-            height={27}
-            stroke={CustomTheme.colors[theme].dark_blue}
-            fill={
-              index === 1
-                ? CustomTheme.colors[theme].dark_blue
-                : CustomTheme.colors[theme].light
-            }
-          />
-        ) : (
-          <Home_light
-            width={27}
-            height={27}
-            stroke={CustomTheme.colors[theme].dark_blue}
-            fill={
-              index === 1
-                ? CustomTheme.colors[theme].dark_blue
-                : CustomTheme.colors[theme].light
-            }
-          />
-        )}
-      </TouchableOpacity>
-      {userEmail && (
-        <TouchableOpacity
-          style={styles.opasity}
-          accessibilityRole="button"
-          accessibilityState={index === 3 ? {selected: true} : {}}
-          onPress={() => navigation.navigate('Busket')}>
-          {theme === 'light' ? (
-            <Heart
-              width={28}
-              height={28}
-              fill={
-                index === 3
-                  ? CustomTheme.colors[theme].dark_blue
-                  : CustomTheme.colors[theme].light
-              }
-            />
-          ) : (
-            <Heart_light
-              width={28}
-              height={28}
-              fill={
-                index === 3
-                  ? CustomTheme.colors[theme].dark_blue
-                  : CustomTheme.colors[theme].light
-              }
-            />
-          )}
-        </TouchableOpacity>
-      )}
+      {state.routes.map((route, index) => {
+        const isFocused = state.index === index;
 
-      {userEmail && (
-        <TouchableOpacity
-          style={styles.opasity}
-          accessibilityRole="button"
-          accessibilityState={index === 2 ? {selected: true} : {}}
-          onPress={() => navigation.navigate('Favorites')}>
-          {theme === 'light' ? (
-            <Cart
-              width={28}
-              height={28}
-              fill={
-                index === 2
-                  ? CustomTheme.colors[theme].dark_blue
-                  : CustomTheme.colors[theme].light
-              }
-            />
-          ) : (
-            <Cart_light
-              width={28}
-              height={28}
-              fill={
-                index === 2
-                  ? CustomTheme.colors[theme].dark_blue
-                  : CustomTheme.colors[theme].light
-              }
-            />
-          )}
-        </TouchableOpacity>
-      )}
+        const onPress = () => {
+          navigation.navigate(route.name);
+        };
 
-      <TouchableOpacity
-        style={styles.opasity}
-        accessibilityRole="button"
-        accessibilityState={index === 0 ? {selected: true} : {}}
-        onPress={() => navigation.navigate(userEmail ? 'Profile' : 'Auth')}>
-        {theme === 'light' ? (
-          <UserProfile
-            width={28}
-            height={28}
-            fill={
-              index === 0
-                ? CustomTheme.colors[theme].dark_blue
-                : CustomTheme.colors[theme].light
-            }
-          />
-        ) : (
-          <UserProfile_light
-            width={28}
-            height={28}
-            fill={
-              index === 0
-                ? CustomTheme.colors[theme].dark_blue
-                : CustomTheme.colors[theme].light
-            }
-          />
-        )}
-      </TouchableOpacity>
+        const svg_props = {
+          width: 27,
+          height: 27,
+          fill: isFocused
+            ? CustomTheme.colors[theme].dark_blue
+            : CustomTheme.colors[theme].light,
+        };
+
+        let svg_icon = <icons.Home {...svg_props} />;
+
+        if (theme === 'light') {
+          switch (route.name) {
+            case 'Busket':
+              svg_icon = <icons.Busket {...svg_props} />;
+              break;
+            case 'Favorites':
+              svg_icon = <icons.Favorites {...svg_props} />;
+              break;
+            case 'Profile':
+              svg_icon = <icons.UserProfile {...svg_props} />;
+              break;
+            case 'Auth':
+              svg_icon = <icons.UserProfile {...svg_props} />;
+              break;
+          }
+        } else {
+          svg_icon = <icons.Home_light {...svg_props} />;
+          switch (route.name) {
+            case 'Busket':
+              svg_icon = <icons.Busket_light {...svg_props} />;
+              break;
+            case 'Favorites':
+              svg_icon = <icons.Favorites_light {...svg_props} />;
+              break;
+            case 'Auth':
+              svg_icon = <icons.UserProfile_light {...svg_props} />;
+              break;
+            case 'Profile':
+              svg_icon = <icons.UserProfile_light {...svg_props} />;
+              break;
+          }
+        }
+
+        return (
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityState={isFocused ? {selected: true} : {}}
+            onPress={onPress}
+            style={styles.opasity}>
+            {svg_icon}
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };

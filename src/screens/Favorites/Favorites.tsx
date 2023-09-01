@@ -7,10 +7,10 @@ import CustomTheme from 'src/theme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useAppSelector} from 'src/redux/hooks';
 import {images} from 'src/constants/images';
-import {TabParamList} from 'src/navigation/TabNavigation';
+import {TabParamListLog} from 'src/navigation/TabNavigation';
 
 const FavoritesPage: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp<TabParamList>>();
+  const navigation = useNavigation<StackNavigationProp<TabParamListLog>>();
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 

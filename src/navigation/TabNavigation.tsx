@@ -1,10 +1,8 @@
 import React from 'react';
 import {
   BottomTabBarProps,
-  BottomTabHeaderProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import HeaderAuthUser from 'src/components/Headers';
 import AuthStack from './AuthStack';
 import {useAppSelector} from 'src/redux/hooks';
 import ProfilePage from 'src/screens/Profile';
@@ -13,15 +11,19 @@ import FavoritesPage from 'src/screens/Favorites';
 import TabBar from 'src/components/TabBar';
 import CatalogPage from 'src/screens/Catalog/Catalog';
 
-export type TabParamList = {
-  Profile: undefined;
-  Auth: undefined;
+export type TabParamListLog = {
+  Catalog: undefined;
   Favorites: undefined;
   Busket: undefined;
+  Profile: undefined;
+  Auth: undefined;
+};
+
+export type TabParamListAuth = {
   Catalog: undefined;
 };
 
-const Tab = createBottomTabNavigator<TabParamList>();
+const Tab = createBottomTabNavigator<TabParamListLog>();
 
 const TabNavigation = () => {
   const userEmail = useAppSelector(state => state.userData.email);
@@ -32,14 +34,14 @@ const TabNavigation = () => {
 
   return (
     <Tab.Navigator screenOptions={{headerShown: false}} tabBar={tabBarReturn}>
-      <Tab.Screen
-        name={userEmail ? 'Profile' : 'Auth'}
-        component={userEmail ? ProfilePage : AuthStack}
-      />
       <Tab.Screen name="Catalog" component={CatalogPage} />
 
       {userEmail && <Tab.Screen name="Favorites" component={FavoritesPage} />}
       {userEmail && <Tab.Screen name="Busket" component={BusketPage} />}
+      <Tab.Screen
+        name={userEmail ? 'Profile' : 'Auth'}
+        component={userEmail ? ProfilePage : AuthStack}
+      />
     </Tab.Navigator>
   );
 };

@@ -22,11 +22,11 @@ import {
 import {setAsyncStorageItem} from 'src/utils/asyncStorage';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
-import {TabParamList} from 'src/navigation/TabNavigation';
+import {TabParamListLog} from 'src/navigation/TabNavigation';
 
 const SignUp: React.FC = () => {
   const navigation =
-    useNavigation<StackNavigationProp<TabParamList & AuthStackParamList>>();
+    useNavigation<StackNavigationProp<TabParamListLog & AuthStackParamList>>();
   const dispatch = useAppDispatch();
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});

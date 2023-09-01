@@ -5,12 +5,12 @@ import {getStyle} from './Header.styles';
 import CustomTheme from 'src/theme';
 import {useAppSelector} from 'src/redux/hooks';
 import Toggler from '../Toggler/Toggler';
-import Logo from 'src/assets/icons/logo.svg';
 import {images} from 'src/constants/images';
 import {StackHeaderProps} from '@react-navigation/stack';
+import {icons} from 'src/constants/icons';
 
 const HeaderAuthUser: React.FC<StackHeaderProps> = (
-  _props: StackHeaderProps,
+  props: StackHeaderProps,
 ) => {
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
@@ -21,7 +21,7 @@ const HeaderAuthUser: React.FC<StackHeaderProps> = (
         {theme !== 'light' ? (
           <Image style={styles.logo} source={images.logo_white} />
         ) : (
-          <Logo width={62} height={31} />
+          <icons.Logo width={62} height={31} />
         )}
         <Toggler />
       </View>

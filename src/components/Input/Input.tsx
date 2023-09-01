@@ -89,6 +89,8 @@ const Input: React.FC<Props> = ({
     });
   };
 
+  const isLabelFocused = (inputState.inputFocus && upPlaceholder) || withLabel;
+
   return (
     <View style={containerStyle}>
       <View
@@ -115,7 +117,7 @@ const Input: React.FC<Props> = ({
             inputState.inputFocus && styles.containerPlaceholderFocus,
             styles.fullWidth,
           ]}>
-          {((inputState.inputFocus && upPlaceholder) || withLabel) && (
+          {isLabelFocused && (
             <Text style={[styles.hintText, {color: hintColor}]}>
               {placeholder}
             </Text>
@@ -128,8 +130,7 @@ const Input: React.FC<Props> = ({
               styles.inputStyle,
               textStyle,
               upPlaceholder ? styles.fullHeight : styles.paddings,
-              ((inputState.inputFocus && upPlaceholder) || withLabel) &&
-                styles.textInput,
+              isLabelFocused && styles.textInput,
             ]}
             editable={isEditable}
             onBlur={handleBlur}

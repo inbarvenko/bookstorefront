@@ -17,11 +17,11 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {emailValidation, passwordValidation} from 'src/utils/schemas';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
-import {TabParamList} from 'src/navigation/TabNavigation';
+import {TabParamListLog} from 'src/navigation/TabNavigation';
 
 const SignIn: React.FC = () => {
   const navigation =
-    useNavigation<StackNavigationProp<AuthStackParamList & TabParamList>>();
+    useNavigation<StackNavigationProp<AuthStackParamList & TabParamListLog>>();
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 

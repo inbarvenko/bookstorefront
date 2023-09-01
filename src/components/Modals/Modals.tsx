@@ -1,21 +1,17 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
-import {getStyle} from './Modals.styles';
-import Camera from 'src/assets/icons/Camera.svg';
-import Picture from 'src/assets/icons/Image.svg';
+import {styles} from './Modals.styles';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
+import {useAppDispatch} from 'src/redux/hooks';
 import {sentUserPhoto} from 'src/api/userApi';
 import {setPhoto} from 'src/redux/slices/userReducer';
+import {icons} from 'src/constants/icons';
 
 type Props = {title: string; isVisible: boolean; toClose: () => void};
 
 export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
   const dispatch = useAppDispatch();
-
-  const theme = useAppSelector(state => state.appData.theme);
-  const styles = getStyle({theme});
 
   const openCamera = () => {
     launchCamera({mediaType: 'photo'}, async response => {
@@ -82,10 +78,10 @@ export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
         <Text style={styles.title}>{title}</Text>
         <View style={styles.buttons}>
           <TouchableOpacity onPress={openCamera} style={styles.circle}>
-            <Camera width={35} height={35} />
+            <icons.Camera width={35} height={35} />
           </TouchableOpacity>
           <TouchableOpacity onPress={openGallery} style={styles.circle}>
-            <Picture width={35} height={35} />
+            <icons.Picture width={35} height={35} />
           </TouchableOpacity>
         </View>
       </View>

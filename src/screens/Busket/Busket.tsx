@@ -7,11 +7,11 @@ import CustomTheme from 'src/theme';
 import {useAppSelector} from 'src/redux/hooks';
 import {images} from 'src/constants/images';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {TabParamList} from 'src/navigation/TabNavigation';
+import {TabParamListLog} from 'src/navigation/TabNavigation';
 
 const BusketPage: React.FC = () => {
   const theme = useAppSelector(state => state.appData.theme);
-  const navigation = useNavigation<StackNavigationProp<TabParamList>>();
+  const navigation = useNavigation<StackNavigationProp<TabParamListLog>>();
   const styles = getStyle({theme});
 
   return (

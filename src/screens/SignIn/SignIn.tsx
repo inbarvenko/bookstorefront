@@ -3,7 +3,6 @@ import {View, Text, Image, ScrollView} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
-
 import {useNavigation} from '@react-navigation/native';
 import getStyle from './SignIn.styles';
 import Button from 'src/components/Button';
@@ -18,6 +17,8 @@ import {emailValidation, passwordValidation} from 'src/utils/schemas';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
 import {TabParamListLog} from 'src/navigation/TabNavigation';
+import crashlytics from '@react-native-firebase/crashlytics';
+import analytics from '@react-native-firebase/analytics';
 
 const SignIn: React.FC = () => {
   const navigation =
@@ -55,11 +56,18 @@ const SignIn: React.FC = () => {
         return;
       }
 
+      analytics().logScreenView({
+        screen_class: 'Component',
+        screen_name: 'Sign_In',
+      });
+      analytics().setUserProperty('email', userInfo.userInfo?.email!);
+
       await dispatch(setUser(userInfo.userInfo!));
 
       await navigation.navigate('Catalog');
     } catch (error: any) {
-      console.log('throw ', error);
+      crashlytics().log('error sign in');
+      crashlytics().recordError(Error(error));
     }
   };
 

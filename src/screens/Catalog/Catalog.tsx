@@ -36,10 +36,13 @@ const CatalogPage: React.FC = () => {
 
   useEffect(() => {
     try {
-      handleBooks();
+      if (!bookList.length) {
+        handleBooks();
+      }
     } catch (error) {
       console.log(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, bookList.length]);
 
   const onRefresh = useCallback(async () => {

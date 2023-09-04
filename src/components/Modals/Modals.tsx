@@ -74,7 +74,7 @@ export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
       isVisible={isVisible}
       onBackdropPress={toClose}
       hideModalContentWhileAnimating={true}>
-      <View style={styles.container}>
+      <View style={[styles.container, styles.modal]}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.buttons}>
           <TouchableOpacity onPress={openCamera} style={styles.circle}>

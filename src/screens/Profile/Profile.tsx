@@ -28,7 +28,7 @@ const ProfilePage: React.FC = () => {
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
         <Modals
-          title="Hello world!"
+          title="Choose variant to upload"
           isVisible={modalVisible}
           toClose={changeModalState}
         />

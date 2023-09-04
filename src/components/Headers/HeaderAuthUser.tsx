@@ -8,6 +8,7 @@ import Toggler from '../Toggler/Toggler';
 import {images} from 'src/constants/images';
 import {StackHeaderProps} from '@react-navigation/stack';
 import {icons} from 'src/constants/icons';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const HeaderAuthUser: React.FC<StackHeaderProps> = (
   props: StackHeaderProps,
@@ -18,11 +19,13 @@ const HeaderAuthUser: React.FC<StackHeaderProps> = (
   return (
     <View style={styles.header}>
       <View style={styles.container}>
-        {theme !== 'light' ? (
-          <Image style={styles.logo} source={images.logo_white} />
-        ) : (
-          <icons.Logo width={62} height={31} />
-        )}
+        <TouchableOpacity onPress={() => props.navigation.navigate('Tab')}>
+          {theme !== 'light' ? (
+            <Image style={styles.logo} source={images.logo_white} />
+          ) : (
+            <icons.Logo width={62} height={31} />
+          )}
+        </TouchableOpacity>
         <Toggler />
       </View>
       <Input

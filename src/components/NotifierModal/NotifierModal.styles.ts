@@ -7,21 +7,9 @@ export const styles = StyleSheet.create({
   },
   container: {
     width: '80%',
-    height: '30%',
+    minHeight: '40%',
     alignSelf: 'center',
     backgroundColor: CustomTheme.colors['light'].dark_green,
-  },
-  circle: {
-    backgroundColor: CustomTheme.colors['light'].light,
-    width: 70,
-    height: 70,
-    borderRadius: 50,
-    borderWidth: 2,
-    alignSelf: 'center',
-    borderColor: 'black',
-
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   title: {
     padding: 15,
@@ -31,9 +19,17 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttons: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+
+    paddingBottom: 10,
+  },
+  description: {
+    paddingHorizontal: 10,
+    paddingBottom: 15,
+    fontFamily: 'Poppins500',
+    fontSize: 14,
+    alignSelf: 'center',
   },
 });

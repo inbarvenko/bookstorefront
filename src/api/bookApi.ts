@@ -3,6 +3,7 @@ import {Book} from 'src/types/book';
 import {supabase} from './supabase';
 import {Comment} from 'src/types/comment';
 import {getAsyncStorageItem} from 'src/utils/asyncStorage';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 type GetBooksResponse = {
   data: Book[] | null;
@@ -16,6 +17,10 @@ type GetCommentsResponse = {
 
 type GetBooksProps = {
   page: number;
+};
+
+type GetOneBookProps = {
+  bookId: string;
 };
 
 type newCommentProps = {
@@ -38,9 +43,32 @@ export const getBooksRequest = async (params: GetBooksProps) => {
   });
 
   if (error) {
-    throw Error(error.message);
+    crashlytics().log('User cannot got books.');
+    throw crashlytics().recordError(Error(error.message));
   } else {
+    crashlytics().log('User got books.');
     return data;
+  }
+};
+
+export const getOneBookRequest = async (params: GetOneBookProps) => {
+  let {data, error}: GetBooksResponse = await supabase
+    .from('book')
+    .select('*')
+    .eq('id', params.bookId);
+
+  const {data: url} = supabase.storage
+    .from('books')
+    .getPublicUrl(`photos/${data![0]!.author + ' ' + data![0].name}.jpg`);
+
+  data![0].photoUrl = url.publicUrl;
+
+  if (error) {
+    crashlytics().log('User cannot get one book.');
+    throw crashlytics().recordError(Error(error.message));
+  } else {
+    crashlytics().log('User got one book.');
+    return data![0];
   }
 };
 
@@ -51,8 +79,10 @@ export const getCommentsRequest = async (bookId: string) => {
     .eq('book', bookId);
 
   if (error) {
-    throw Error(error.message);
+    crashlytics().log('User cannot get comments.');
+    throw crashlytics().recordError(Error(error.message));
   } else {
+    crashlytics().log('User got comments.');
     return data;
   }
 };
@@ -71,8 +101,10 @@ export const sendCommentRequest = async ({
     .insert([{author: authorId, book: bookId, comment_text: commentText}]);
 
   if (error) {
+    crashlytics().log('User cannot sent comment.');
     throw Error(error.message);
   } else {
+    crashlytics().log('User sent comment.');
     return data;
   }
 };

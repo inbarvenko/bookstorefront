@@ -1,5 +1,6 @@
 import {SignInData, SignUpData} from 'src/types/auth';
 import {supabase} from './supabase';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 export const signInWithEmail = async (info: SignInData) => {
   const {data, error} = await supabase.auth.signInWithPassword({
@@ -7,12 +8,6 @@ export const signInWithEmail = async (info: SignInData) => {
     password: info.passwordIn,
   });
 
-  // await supabase.auth.setSession(data.session!);
-
-  // setAsyncStorageItem('session', {
-  //   access_token: data.session!.access_token,
-  //   refresh_token: data.session!.refresh_token,
-  // });
   if (!data.user) {
     return {
       userInfo: null,
@@ -26,6 +21,9 @@ export const signInWithEmail = async (info: SignInData) => {
     .eq('id', data.user!.id);
 
   if (error) {
+    crashlytics().log('User cannot sign in.');
+    crashlytics().recordError(Error(error?.message));
+
     return {
       userInfo: null,
       error: error?.message,
@@ -33,11 +31,15 @@ export const signInWithEmail = async (info: SignInData) => {
   }
 
   if (profileError) {
+    crashlytics().log('User cannot sign in.');
+    crashlytics().recordError(Error(profileError?.message));
     return {
       userInfo: null,
       error: profileError?.message,
     };
   }
+
+  crashlytics().log('User signed in.');
 
   return {
     userInfo: {
@@ -53,7 +55,11 @@ export const signInWithEmail = async (info: SignInData) => {
 export const signOut = async () => {
   const {error} = await supabase.auth.signOut();
 
-  throw error;
+  if (error) {
+    crashlytics().log('User cannot sign out.');
+    throw crashlytics().recordError(Error(error?.message));
+  }
+  crashlytics().log('User signed out.');
 };
 
 export const userRegister = async (info: SignUpData) => {
@@ -69,8 +75,11 @@ export const userRegister = async (info: SignUpData) => {
   // });
 
   if (error) {
+    crashlytics().log('User cannot sign up.');
+    crashlytics().recordError(Error(error?.message));
     return {email: null, error};
   } else {
+    crashlytics().log('User signed up.');
     return {
       email: data.user?.email!,
       error: null,
@@ -80,6 +89,7 @@ export const userRegister = async (info: SignUpData) => {
 
 export const sentUserPhoto = async (url: string) => {
   const {data, error} = await supabase.from('profile').update({photoUrl: url});
+  crashlytics().log('User sent photo.');
 
   if (error) {
     throw error;

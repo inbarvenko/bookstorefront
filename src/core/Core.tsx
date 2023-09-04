@@ -5,6 +5,9 @@ import {Provider} from 'react-redux';
 import {NotifierWrapper} from 'react-native-notifier';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
+import {PermissionsAndroid} from 'react-native';
+
+PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
 
 function App(): JSX.Element {
   return (

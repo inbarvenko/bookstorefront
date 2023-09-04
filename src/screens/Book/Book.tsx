@@ -13,6 +13,7 @@ import {
   getBookById,
   setCommets,
 } from 'src/redux/slices/booksReducer';
+
 import {getStyle} from './Book.styles';
 import Rating from 'src/components/Rating';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -28,6 +29,7 @@ import Button from 'src/components/Button';
 import {cannotGetData, cannotSendData} from 'src/utils/notifications';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
+// import crashlytics from '@react-native-firebase/crashlytics';
 
 type ParamList = {
   Detail: {
@@ -65,6 +67,7 @@ const BookScreen: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, dispatch]);
 
   const sendComments = async (
@@ -79,7 +82,10 @@ const BookScreen: React.FC = () => {
         cannotSendData('comment');
       }
       dispatch(addComment(data!));
-    } catch (error) {
+    } catch (error: ErrorConstructor | any) {
+      // crashlytics().log('error send comment in');
+      // crashlytics().recordError(error);
+
       cannotSendData('comment');
       console.log(error);
     }
@@ -161,7 +167,12 @@ const BookScreen: React.FC = () => {
       </Text>
       <View style={styles.bookList}>
         {recomendation.map(item => {
-          return <BookCard key={item.author + item.name} book={item} />;
+          return (
+            <BookCard
+              key={item.author + item.name + Math.random()}
+              book={item}
+            />
+          );
         })}
       </View>
     </ScrollView>

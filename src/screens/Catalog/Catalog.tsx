@@ -11,6 +11,8 @@ import {setBooks} from 'src/redux/slices/booksReducer';
 import {cannotGetData} from 'src/utils/notifications';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
+import {AppStackParamList} from 'src/navigation/AppStack';
+import {setNotification} from 'src/redux/slices/appReducer';
 
 const CatalogPage: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -18,13 +20,22 @@ const CatalogPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const bookList = useAppSelector(state => state.bookData.bookList);
   const userEmail = useAppSelector(state => state.userData.email);
+  const notification = useAppSelector(state => state.appData.notification);
 
-  const navigation = useNavigation<StackNavigationProp<AuthStackParamList>>();
+  const navigation =
+    useNavigation<
+      StackNavigationProp<AuthStackParamList & AppStackParamList>
+    >();
+
   const route = useRoute();
 
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
 
+  const onNavigate = () => {
+    navigation.navigate('Book');
+    dispatch(setNotification(false));
+  };
   const handleBooks = async () => {
     const data = await getBooksRequest({page: 1});
 
@@ -32,18 +43,20 @@ const CatalogPage: React.FC = () => {
       cannotGetData('books');
     }
     dispatch(setBooks(data!));
+
+    if (notification) {
+      await onNavigate();
+    }
   };
 
   useEffect(() => {
     try {
-      if (!bookList.length) {
-        handleBooks();
-      }
+      handleBooks();
     } catch (error) {
       console.log(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, bookList.length]);
+  }, [dispatch, bookList.length, notification]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -76,15 +89,14 @@ const CatalogPage: React.FC = () => {
         />
         <Text style={styles.title}>Catalog</Text>
         <View style={styles.bookList}>
-          {bookList.length > 0 &&
-            bookList.map(item => {
-              return (
-                <BookCard
-                  key={item.author + item.name + route.name}
-                  book={item}
-                />
-              );
-            })}
+          {bookList.map(item => {
+            return (
+              <BookCard
+                key={item.author + item.name + route.name}
+                book={item}
+              />
+            );
+          })}
         </View>
         {!userEmail && (
           <Banner

@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
   },
   container: {
     width: '80%',
-    minHeight: '40%',
     alignSelf: 'center',
     backgroundColor: CustomTheme.colors['light'].dark_green,
   },

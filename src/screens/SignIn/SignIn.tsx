@@ -82,7 +82,7 @@ const SignIn: React.FC = () => {
             <Input
               placeholder="Email"
               errors={apiError || errors.emailIn?.message}
-              upPlaceholder={true}
+              upPlaceholder
               type="numbers-and-punctuation"
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors[theme].dark_blue}
@@ -106,7 +106,7 @@ const SignIn: React.FC = () => {
               placeholder="Password"
               errors={apiError || errors.passwordIn?.message}
               type="default"
-              upPlaceholder={true}
+              upPlaceholder
               hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}

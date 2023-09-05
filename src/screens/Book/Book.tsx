@@ -29,7 +29,6 @@ import Button from 'src/components/Button';
 import {cannotGetData, cannotSendData} from 'src/utils/notifications';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
-// import crashlytics from '@react-native-firebase/crashlytics';
 
 type ParamList = {
   Detail: {
@@ -62,7 +61,6 @@ const BookScreen: React.FC = () => {
   useEffect(() => {
     try {
       dispatch(getBookById(bookId));
-
       handleComments();
     } catch (error) {
       console.log(error);
@@ -83,9 +81,6 @@ const BookScreen: React.FC = () => {
       }
       dispatch(addComment(data!));
     } catch (error: ErrorConstructor | any) {
-      // crashlytics().log('error send comment in');
-      // crashlytics().recordError(error);
-
       cannotSendData('comment');
       console.log(error);
     }
@@ -95,11 +90,14 @@ const BookScreen: React.FC = () => {
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
         <View style={styles.title_book}>
-          <Image style={styles.photo} source={{uri: book.photoUrl}} />
+          <Image
+            style={styles.photo}
+            source={{uri: book?.photoUrl} || images.books}
+          />
           <View style={styles.text_box}>
             <Text style={styles.name}>{book.name}</Text>
             <Text style={styles.author}>{book.author}</Text>
-            <Rating size={135} rate={book.rate || 0} bookPage={true} />
+            <Rating size={135} rate={book.rate || 0} bookPage />
           </View>
         </View>
         <View style={styles.descr_container}>

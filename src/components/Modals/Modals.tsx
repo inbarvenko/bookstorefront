@@ -6,7 +6,8 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useAppDispatch} from 'src/redux/hooks';
 import {sentUserPhoto} from 'src/api/userApi';
 import {setPhoto} from 'src/redux/slices/userReducer';
-import {icons} from 'src/constants/icons';
+import Camera from 'src/assets/icons/Camera.svg';
+import Picture from 'src/assets/icons/Image.svg';
 
 type Props = {title: string; isVisible: boolean; toClose: () => void};
 
@@ -73,15 +74,15 @@ export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
     <Modal
       isVisible={isVisible}
       onBackdropPress={toClose}
-      hideModalContentWhileAnimating={true}>
+      hideModalContentWhileAnimating>
       <View style={[styles.container, styles.modal]}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.buttons}>
           <TouchableOpacity onPress={openCamera} style={styles.circle}>
-            <icons.Camera width={35} height={35} />
+            <Camera width={35} height={35} />
           </TouchableOpacity>
           <TouchableOpacity onPress={openGallery} style={styles.circle}>
-            <icons.Picture width={35} height={35} />
+            <Picture width={35} height={35} />
           </TouchableOpacity>
         </View>
       </View>

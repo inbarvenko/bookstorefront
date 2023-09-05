@@ -100,7 +100,7 @@ const SignUp: React.FC = () => {
               underlineColorAndroid="transparent"
               hintColor={CustomTheme.colors[theme].dark_blue}
               textStyle={styles.inputText}
-              upPlaceholder={true}
+              upPlaceholder
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
@@ -126,7 +126,7 @@ const SignUp: React.FC = () => {
               hintColor={CustomTheme.colors[theme].dark_blue}
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
-              upPlaceholder={true}
+              upPlaceholder
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}
               value={value}
@@ -152,7 +152,7 @@ const SignUp: React.FC = () => {
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
               textStyle={styles.inputText}
-              upPlaceholder={true}
+              upPlaceholder
               hintColor={CustomTheme.colors[theme].dark_blue}
               containerErrorStyle={styles.errorSectionStyle}
               textErrorStyle={styles.errorTextStyle}

@@ -23,7 +23,7 @@ export const cannotSendData = (title: string) => {
   });
 };
 
-export const notification = (
+export const notificationReact = (
   title: string,
   body: string,
   openModal: () => void,
@@ -32,7 +32,7 @@ export const notification = (
     title,
     description: body,
     duration: 0,
-    onShown: () => Vibration.vibrate(400),
+    onShown: () => Vibration.vibrate(300),
     showAnimationDuration: 800,
     showEasing: Easing.bounce,
     onPress: openModal,

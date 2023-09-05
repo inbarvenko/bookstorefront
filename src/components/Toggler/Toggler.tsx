@@ -2,7 +2,8 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import {setTheme} from 'src/redux/slices/appReducer';
-import {icons} from 'src/constants/icons';
+import Configure from 'src/assets/icons/dark/Configure.svg';
+import ConfigureLight from 'src/assets/icons/light/Configure_light.svg';
 import {styles} from './Toggler.styles';
 
 const Toggler: React.FC = () => {
@@ -20,9 +21,9 @@ const Toggler: React.FC = () => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleSwitchTheme}>
       {theme === 'light' ? (
-        <icons.Configure width={30} height={30} />
+        <Configure width={30} height={30} />
       ) : (
-        <icons.ConfigureLight width={30} height={30} />
+        <ConfigureLight width={30} height={30} />
       )}
     </TouchableOpacity>
   );

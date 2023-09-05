@@ -15,9 +15,9 @@ const initialState: InitialState = {
   comments: [],
   book: {
     id: '',
-    author: '',
-    description: '',
-    name: '',
+    author: 'No author',
+    description: 'No description',
+    name: 'No name',
     photoUrl: '',
   },
 };

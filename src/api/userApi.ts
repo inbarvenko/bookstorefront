@@ -68,6 +68,7 @@ export const userRegister = async (info: SignUpData) => {
     password: info.password,
   });
 
+  // TODO - проверить, сохранется ли сессия юзера при регистрации
   // await supabase.auth.setSession(data.session!);
   // setAsyncStorageItem('session', {
   //   access_token: data.session!.access_token,

@@ -64,8 +64,8 @@ const ProfilePage: React.FC = () => {
               //TODO: На блюр сохраняет значение инпута
             }}
             image={images.mail_grey}
-            upPlaceholder={true}
-            withLabel={true}
+            upPlaceholder
+            withLabel
             isEditable={editState.editInfo}
           />
           <Input
@@ -80,9 +80,9 @@ const ProfilePage: React.FC = () => {
               //TODO: На блюр сохраняет значение инпута
             }}
             image={images.user_grey}
-            upPlaceholder={true}
+            upPlaceholder
             isEditable={editState.editInfo}
-            withLabel={true}
+            withLabel
           />
           <Input
             type="numbers-and-punctuation"
@@ -96,8 +96,8 @@ const ProfilePage: React.FC = () => {
               //TODO: На блюр сохраняет значение инпута
             }}
             image={images.user_grey}
-            upPlaceholder={true}
-            withLabel={true}
+            upPlaceholder
+            withLabel
             isEditable={editState.editInfo}
           />
         </View>
@@ -119,7 +119,7 @@ const ProfilePage: React.FC = () => {
             <Input
               placeholder="Your old password"
               type="default"
-              upPlaceholder={true}
+              upPlaceholder
               hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
@@ -134,7 +134,7 @@ const ProfilePage: React.FC = () => {
             <Input
               placeholder="New password"
               type="default"
-              upPlaceholder={true}
+              upPlaceholder
               hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
@@ -149,7 +149,7 @@ const ProfilePage: React.FC = () => {
             <Input
               placeholder="Password replay"
               type="default"
-              upPlaceholder={true}
+              upPlaceholder
               hintColor={CustomTheme.colors[theme].dark_blue}
               underlineColorAndroid="transparent"
               containerStyle={styles.inputContainer}
@@ -175,13 +175,13 @@ const ProfilePage: React.FC = () => {
           <Input
             placeholder="Your password"
             type="default"
-            upPlaceholder={true}
+            upPlaceholder
             hintColor={CustomTheme.colors[theme].dark_blue}
             underlineColorAndroid="transparent"
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             value={'your password'}
-            withLabel={true}
+            withLabel
             isEditable={editState.editPassword}
             image={images.open_eye}
             onBlur={() => {

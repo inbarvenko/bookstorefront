@@ -91,10 +91,10 @@ export const sendCommentRequest = async ({
   commentText,
   bookId,
 }: newCommentProps) => {
-  const authorToken = getAsyncStorageItem('session');
+  const authorToken = await getAsyncStorageItem('session');
+  const getUser = await supabase.auth.getUser(authorToken);
 
-  const authorId = (await supabase.auth.getUser(await authorToken)).data.user
-    ?.id;
+  const authorId = getUser.data.user?.id;
 
   const {data, error} = await supabase
     .from('comments')

@@ -7,7 +7,7 @@ import {useAppSelector} from 'src/redux/hooks';
 import Toggler from '../Toggler/Toggler';
 import {images} from 'src/constants/images';
 import {StackHeaderProps} from '@react-navigation/stack';
-import {icons} from 'src/constants/icons';
+import Logo from 'src/assets/icons/logo.svg';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const HeaderAuthUser: React.FC<StackHeaderProps> = (
@@ -23,7 +23,7 @@ const HeaderAuthUser: React.FC<StackHeaderProps> = (
           {theme !== 'light' ? (
             <Image style={styles.logo} source={images.logo_white} />
           ) : (
-            <icons.Logo width={62} height={31} />
+            <Logo width={62} height={31} />
           )}
         </TouchableOpacity>
         <Toggler />
@@ -32,7 +32,7 @@ const HeaderAuthUser: React.FC<StackHeaderProps> = (
         image={images.search_icon}
         placeholder={'Search'}
         hintColor={CustomTheme.colors[theme].dark_grey}
-        upPlaceholder={true}
+        upPlaceholder
         textStyle={{color: CustomTheme.colors[theme].dark_blue}}
         containerStyle={styles.input}
         onBlur={() => {

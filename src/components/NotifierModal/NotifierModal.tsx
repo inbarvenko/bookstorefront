@@ -3,9 +3,8 @@ import {Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 import {styles} from './NotifierModal.styles';
 import Button from '../Button/Button';
-import {useNavigation} from '@react-navigation/core';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {AppStackParamList} from 'src/navigation/AppStack';
+import {setNotification} from 'src/redux/slices/appReducer';
+import {useAppDispatch} from 'src/redux/hooks';
 
 type Props = {
   title: string;
@@ -23,9 +22,11 @@ export const NotifierModal: React.FC<Props> = ({
   isVisible,
   toClose,
 }: Props) => {
-  const navigation = useNavigation<StackNavigationProp<AppStackParamList>>();
+  const dispatch = useAppDispatch();
+
   const onContinue = () => {
-    navigation.navigate('Book', {bookId: params!});
+    dispatch(setNotification(true));
+
     toClose();
   };
 

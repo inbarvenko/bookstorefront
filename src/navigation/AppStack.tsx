@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   StackHeaderProps,
   StackNavigationProp,
@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import analytics from '@react-native-firebase/analytics';
 import {useAppDispatch} from 'src/redux/hooks';
 import {setNotification} from 'src/redux/slices/appReducer';
+import {InitialParamsContext} from 'src/core/Core';
 
 export type AppStackParamList = {
   Book: {bookId: string} | undefined;
@@ -34,9 +35,11 @@ const AppStack: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const bookIdContext = useContext(InitialParamsContext);
   const [bookId, setBookId] = useState('');
 
   useEffect(() => {
+    setBookId(bookIdContext);
     messaging()
       .getInitialNotification()
       .then(async remoteMessage => {
@@ -48,7 +51,7 @@ const AppStack: React.FC = () => {
         }
         setLoading(false);
       });
-  }, [navigation, dispatch]);
+  }, [navigation, dispatch, bookIdContext]);
 
   const headerReturn = (props: StackHeaderProps) => {
     return <HeaderAuthUser {...props} />;

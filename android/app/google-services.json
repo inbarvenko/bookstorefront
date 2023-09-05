@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "416024082370",
+    "project_id": "bookstore-fusion-29255",
+    "storage_bucket": "bookstore-fusion-29255.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416024082370:android:a4e77567cdacb156db485b",
+        "android_client_info": {
+          "package_name": "com.bookstorefront"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416024082370-l68370bvhto6js8alevup3ld50rilcam.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bookstorefront",
+            "certificate_hash": "88e05add238665e6b676cde3f25e97dedb82402d"
+          }
+        },
+        {
+          "client_id": "416024082370-aouoq792hgjag6b9jpmp8uqnl6fkp6o9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQrL6GQ1KZtDTlBjyJ3IxoBXL5Z2lG8SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416024082370-aouoq792hgjag6b9jpmp8uqnl6fkp6o9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

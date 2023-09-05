@@ -1,17 +1,22 @@
 import {StyleSheet} from 'react-native';
-import CustomTheme from '@/theme';
+import CustomTheme from 'src/theme';
+import {Theme} from 'src/types/theme';
 
 type Props = {
   fontSize?: number;
   width?: number;
   height?: number;
   colorText?: string;
+  backColor?: string;
+  theme: Theme;
 };
 
 const styles = (props: Props) =>
   StyleSheet.create({
     appButtonContainer: {
-      backgroundColor: CustomTheme.colors.dark_blue,
+      backgroundColor: props.backColor
+        ? props.backColor
+        : CustomTheme.colors[props.theme.theme].dark_blue,
       borderRadius: 16,
       width: props.width,
       height: props.height,

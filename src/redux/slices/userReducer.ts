@@ -1,11 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
-import {IUser} from '@/types';
+import {IUser} from 'src/types/user';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const initialState: IUser = {
-  username: null,
+  last_name: undefined,
+  first_name: undefined,
   email: undefined,
-  access_token: '',
   photoUrl: undefined,
 };
 
@@ -15,10 +16,14 @@ const userData = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUser>) => {
       state.email = action.payload.email;
-      state.access_token = action.payload.access_token;
+      state.first_name = action.payload.first_name;
+      state.last_name = action.payload.last_name;
+      state.photoUrl = action.payload.photoUrl;
+      crashlytics().log('User is set');
     },
     setPhoto: (state, action: PayloadAction<string>) => {
       state.photoUrl = action.payload;
+      crashlytics().log('Photo is set');
     },
   },
 });

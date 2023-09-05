@@ -18,14 +18,15 @@ import {
   StyleProp,
   Image,
 } from 'react-native';
-import type {FieldError} from 'react-hook-form';
 
-import styles from './Input.styles';
-import CustomTheme from '@/theme';
+import getStyle from './Input.styles';
+import CustomTheme from 'src/theme';
+import {useAppSelector} from 'src/redux/hooks';
+import {images} from 'src/constants/images';
 
 type Props = {
   placeholder: string;
-  errors?: FieldError | undefined;
+  errors?: string | undefined;
   type?: KeyboardTypeOptions | undefined;
   secure?: boolean | undefined;
   containerStyle?: StyleProp<ViewStyle>;
@@ -36,6 +37,8 @@ type Props = {
   hintColor?: string;
   image?: ImageSourcePropType;
   hint?: string;
+  isEditable?: boolean;
+  withLabel?: boolean;
   upPlaceholder: boolean;
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 } & TextInputProps;
@@ -47,14 +50,19 @@ const Input: React.FC<Props> = ({
   containerErrorStyle,
   textErrorStyle,
   errors,
+  withLabel,
   image,
   secure,
   hint,
   upPlaceholder,
   hintColor,
   onBlur,
+  isEditable,
   ...props
 }) => {
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
+
   const [inputState, setInputState] = React.useState({
     visiblePassword: true,
     inputFocus: false,
@@ -81,13 +89,16 @@ const Input: React.FC<Props> = ({
     });
   };
 
+  const isLabelFocused = (inputState.inputFocus && upPlaceholder) || withLabel;
+
   return (
     <View style={containerStyle}>
       <View
         style={[
           styles.inputRowContainer,
+          withLabel && isEditable && styles.border,
           inputState.inputFocus && styles.inputFocusStyle,
-          !!errors?.message && containerErrorStyle,
+          !!errors! && containerErrorStyle,
         ]}>
         {image && (
           <TouchableOpacity
@@ -95,7 +106,7 @@ const Input: React.FC<Props> = ({
             disabled={!secure}
             style={styles.touchableStyle}>
             {secure && inputState.visiblePassword ? (
-              <Image source={require('+/Hide.png')} style={styles.img} />
+              <Image source={images.closed_eye} style={styles.img} />
             ) : (
               <Image source={image!} style={styles.img} />
             )}
@@ -104,9 +115,9 @@ const Input: React.FC<Props> = ({
         <View
           style={[
             inputState.inputFocus && styles.containerPlaceholderFocus,
-            styles.maxWidth,
+            styles.fullWidth,
           ]}>
-          {inputState.inputFocus && upPlaceholder && (
+          {isLabelFocused && (
             <Text style={[styles.hintText, {color: hintColor}]}>
               {placeholder}
             </Text>
@@ -118,17 +129,18 @@ const Input: React.FC<Props> = ({
             style={[
               styles.inputStyle,
               textStyle,
-              inputState.inputFocus && upPlaceholder && styles.textLittle,
-              upPlaceholder && styles.padding,
+              upPlaceholder ? styles.fullHeight : styles.paddings,
+              isLabelFocused && styles.textInput,
             ]}
+            editable={isEditable}
             onBlur={handleBlur}
-            placeholderTextColor={CustomTheme.colors.dark_grey}
+            placeholderTextColor={CustomTheme.colors[theme].dark_grey}
             onFocus={handleFocus}
           />
         </View>
       </View>
-      <Text style={[styles.hintText, !!errors?.message && textErrorStyle]}>
-        {(errors?.message || hint) as ReactNode}
+      <Text style={[styles.hintText, !!errors! && textErrorStyle]}>
+        {(errors! || hint) as ReactNode}
       </Text>
     </View>
   );

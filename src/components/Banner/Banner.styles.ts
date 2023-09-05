@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import CustomTheme from '@/theme';
+import CustomTheme from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,12 +13,12 @@ export const styles = StyleSheet.create({
   title: {
     fontFamily: 'Poppins700',
     fontSize: 18,
-    color: CustomTheme.colors.dark,
+    color: CustomTheme.colors['light'].dark,
   },
   text: {
     fontFamily: 'Poppins500',
     fontSize: 14,
-    color: CustomTheme.colors.dark_blue,
+    color: CustomTheme.colors['light'].dark_blue,
   },
   image: {
     borderRadius: 16,

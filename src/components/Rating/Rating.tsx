@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './Rating.styles';
+import {getStyle} from './Rating.styles';
+import {useAppSelector} from 'src/redux/hooks';
+import {images} from 'src/constants/images';
 
 type Props = {
   rate: number;
@@ -10,6 +12,8 @@ type Props = {
 
 const Rating = ({rate, bookPage, size}: Props) => {
   const [userRate, setUserRate] = useState(0);
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   const rating = (num: number) => {
     const components = [];
@@ -19,7 +23,7 @@ const Rating = ({rate, bookPage, size}: Props) => {
     for (let i = 0; i < end; i++) {
       components.push(
         <TouchableOpacity key={i + end} onPress={() => setUserRate(i + 1)}>
-          <Image key={i} style={styles.star} source={require('+/Star.png')} />
+          <Image key={i} style={styles.star} source={images.star} />
         </TouchableOpacity>,
       );
     }
@@ -31,11 +35,7 @@ const Rating = ({rate, bookPage, size}: Props) => {
     for (let j = userRate; j < num; j++) {
       components.push(
         <TouchableOpacity key={j + userRate} onPress={() => setUserRate(j + 1)}>
-          <Image
-            key={j}
-            style={styles.star}
-            source={require('+/star_less.png')}
-          />
+          <Image key={j} style={styles.star} source={images.star_less} />
         </TouchableOpacity>,
       );
     }
@@ -48,7 +48,7 @@ const Rating = ({rate, bookPage, size}: Props) => {
       <View style={styles.rating}>
         <View style={[styles.container, bookPage ? null : {width: size}]}>
           {bookPage ? (
-            <Image style={styles.star} source={require('+/Star.png')} />
+            <Image style={styles.star} source={images.star} />
           ) : (
             rating(rate)
           )}

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Image, ImageSourcePropType, Text, View} from 'react-native';
 import {styles} from './Banner.styles';
-import Button from '@/components/Button/Button';
-import CustomTheme from '@/theme';
+import Button from 'src/components/Button';
+import CustomTheme from 'src/theme';
 
 type Props = {
   back_image: ImageSourcePropType;
@@ -29,8 +29,9 @@ const Banner: React.FC<Props> = ({
           onPress={onButtonPress}
           title={button_title}
           width={200}
+          backColor={CustomTheme.colors['light'].dark_blue}
           height={38}
-          colorText={CustomTheme.colors.light}
+          colorText={CustomTheme.colors['light'].light}
         />
       </View>
     </View>

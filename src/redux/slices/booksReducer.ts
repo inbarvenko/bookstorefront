@@ -1,7 +1,8 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
-import {Book, Comment} from '@/types';
-import {getBooksRequest, getCommentsRequest} from '@/api/bookApi';
+import {Book} from 'src/types/book';
+import {Comment} from 'src/types/comment';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 type InitialState = {
   bookList: Book[];
@@ -14,22 +15,12 @@ const initialState: InitialState = {
   comments: [],
   book: {
     id: '',
-    author: '',
-    description: '',
-    name: '',
+    author: 'No author',
+    description: 'No description',
+    name: 'No name',
     photoUrl: '',
   },
 };
-
-export const getAllBooks = createAsyncThunk(
-  'books/getAllBooks',
-  getBooksRequest,
-);
-
-export const getComments = createAsyncThunk(
-  'books/getComments',
-  getCommentsRequest,
-);
 
 const bookData = createSlice({
   name: 'Book',
@@ -37,32 +28,30 @@ const bookData = createSlice({
   reducers: {
     setBooks: (state, action: PayloadAction<Book[]>) => {
       state.bookList = action.payload;
+      crashlytics().log('Books are set');
+    },
+    setOneBook: (state, action: PayloadAction<Book>) => {
+      state.book = action.payload;
+      crashlytics().log('Book is set');
     },
     getBookById: (state, action: PayloadAction<string>) => {
       state.book = state.bookList.filter(t => t.id === action.payload)[0];
+      crashlytics().log('Book is set');
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(getAllBooks.fulfilled, (state, action) => {
-      if (!action.payload) {
-        state.bookList = [];
-      }
-      state.bookList = action.payload || [];
-    });
-    builder.addCase(getAllBooks.rejected, () => {
-      console.log('Error! Unable to get books!');
-    });
-    builder.addCase(getComments.fulfilled, (state, action) => {
+    addComment: (state, action: PayloadAction<Comment>) => {
+      state.comments.push(action.payload!);
+      crashlytics().log('Comment is added');
+    },
+    setCommets: (state, action: PayloadAction<Comment[]>) => {
       if (!action.payload) {
         state.comments = [];
       }
       state.comments = action.payload || [];
-    });
-    builder.addCase(getComments.rejected, () => {
-      console.log('Error! Unable to get comments!');
-    });
+      crashlytics().log('Comment are set');
+    },
   },
 });
 
 export default bookData.reducer;
-export const {setBooks, getBookById} = bookData.actions;
+export const {setBooks, setOneBook, getBookById, addComment, setCommets} =
+  bookData.actions;

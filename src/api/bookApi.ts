@@ -1,6 +1,9 @@
 import {PostgrestError} from '@supabase/supabase-js';
-import {Book, Comment} from '../types';
+import {Book} from 'src/types/book';
 import {supabase} from './supabase';
+import {Comment} from 'src/types/comment';
+import {getAsyncStorageItem} from 'src/utils/asyncStorage';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 type GetBooksResponse = {
   data: Book[] | null;
@@ -16,10 +19,13 @@ type GetBooksProps = {
   page: number;
 };
 
+type GetOneBookProps = {
+  bookId: string;
+};
+
 type newCommentProps = {
   commentText: string;
   bookId: string;
-  authorToken: string;
 };
 
 export const getBooksRequest = async (params: GetBooksProps) => {
@@ -28,11 +34,7 @@ export const getBooksRequest = async (params: GetBooksProps) => {
     .select('*')
     .range(--params.page * 6, params.page * 6 + 6);
 
-  if (!data) {
-    return [];
-  }
-
-  data.forEach(book => {
+  data!.forEach(book => {
     const {data: url} = supabase.storage
       .from('books')
       .getPublicUrl(`photos/${book.author + ' ' + book.name}.jpg`);
@@ -41,9 +43,32 @@ export const getBooksRequest = async (params: GetBooksProps) => {
   });
 
   if (error) {
-    console.log(error.message);
+    crashlytics().log('User cannot got books.');
+    throw crashlytics().recordError(Error(error.message));
   } else {
+    crashlytics().log('User got books.');
     return data;
+  }
+};
+
+export const getOneBookRequest = async (params: GetOneBookProps) => {
+  let {data, error}: GetBooksResponse = await supabase
+    .from('book')
+    .select('*')
+    .eq('id', params.bookId);
+
+  const {data: url} = supabase.storage
+    .from('books')
+    .getPublicUrl(`photos/${data![0]!.author + ' ' + data![0].name}.jpg`);
+
+  data![0].photoUrl = url.publicUrl;
+
+  if (error) {
+    crashlytics().log('User cannot get one book.');
+    throw crashlytics().recordError(Error(error.message));
+  } else {
+    crashlytics().log('User got one book.');
+    return data![0];
   }
 };
 
@@ -54,8 +79,10 @@ export const getCommentsRequest = async (bookId: string) => {
     .eq('book', bookId);
 
   if (error) {
-    console.log(error.message);
+    crashlytics().log('User cannot get comments.');
+    throw crashlytics().recordError(Error(error.message));
   } else {
+    crashlytics().log('User got comments.');
     return data;
   }
 };
@@ -63,17 +90,21 @@ export const getCommentsRequest = async (bookId: string) => {
 export const sendCommentRequest = async ({
   commentText,
   bookId,
-  authorToken,
 }: newCommentProps) => {
-  const authorId = (await supabase.auth.getUser(authorToken)).data.user?.id;
+  const authorToken = await getAsyncStorageItem('session');
+  const getUser = await supabase.auth.getUser(authorToken);
+
+  const authorId = getUser.data.user?.id;
 
   const {data, error} = await supabase
     .from('comments')
     .insert([{author: authorId, book: bookId, comment_text: commentText}]);
 
   if (error) {
-    console.log(error.message);
+    crashlytics().log('User cannot sent comment.');
+    throw Error(error.message);
   } else {
-    console.log(data);
+    crashlytics().log('User sent comment.');
+    return data;
   }
 };

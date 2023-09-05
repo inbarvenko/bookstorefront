@@ -1,50 +1,43 @@
 import * as React from 'react';
-import {View, Image, Text} from 'react-native';
-import Button from '@/components/Button/Button';
-import Input from '@/components/Input/Input';
-import {styles} from './Header.styles';
-import CustomTheme from '@/theme';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {View, Image} from 'react-native';
+import Input from 'src/components/Input';
+import {getStyle} from './Header.styles';
+import CustomTheme from 'src/theme';
+import {useAppSelector} from 'src/redux/hooks';
+import Toggler from '../Toggler/Toggler';
+import {images} from 'src/constants/images';
+import {StackHeaderProps} from '@react-navigation/stack';
+import Logo from 'src/assets/icons/logo.svg';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-type RootStackParamList = {
-  Catalog: undefined;
-  SignIn: undefined;
-  SignUp: undefined;
-};
-
-const HeaderAuthUser: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const route = useRoute();
+const HeaderAuthUser: React.FC<StackHeaderProps> = (
+  props: StackHeaderProps,
+) => {
+  const theme = useAppSelector(state => state.appData.theme);
+  const styles = getStyle({theme});
 
   return (
     <View style={styles.header}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require('+/logo.png')} />
-        <Text
-          style={styles.catalog}
-          onPress={() => navigation.navigate('Catalog')}>
-          Catalog
-        </Text>
-        <Button
-          title="Log In/ Sign Up"
-          colorText={CustomTheme.colors.light}
-          fontSize={12}
-          height={38}
-          width={135}
-          onPress={() =>
-            navigation.navigate(route.name === 'SignIn' ? 'SignUp' : 'SignIn')
-          }
-        />
+        <TouchableOpacity onPress={() => props.navigation.navigate('Tab')}>
+          {theme !== 'light' ? (
+            <Image style={styles.logo} source={images.logo_white} />
+          ) : (
+            <Logo width={62} height={31} />
+          )}
+        </TouchableOpacity>
+        <Toggler />
       </View>
       <Input
-        image={require('+/Search.png')}
+        image={images.search_icon}
         placeholder={'Search'}
-        hintColor={CustomTheme.colors.dark_grey}
-        upPlaceholder={true}
-        textStyle={{color: CustomTheme.colors.dark_blue}}
+        hintColor={CustomTheme.colors[theme].dark_grey}
+        upPlaceholder
+        textStyle={{color: CustomTheme.colors[theme].dark_blue}}
         containerStyle={styles.input}
-        onBlur={() => {}}
+        onBlur={() => {
+          //TODO: Написать логику поиска книги или автора
+        }}
       />
     </View>
   );

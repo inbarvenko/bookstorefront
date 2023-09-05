@@ -1,20 +1,23 @@
 import React from 'react';
 import * as nativeStack from '@react-navigation/native-stack';
-import SignIn from '@/screens/SignIn/SignIn';
-import SignUp from '@/screens/SignUp/SignUp';
-import CatalogPage from '@/screens/Catalog/Catalog';
-import BookScreen from '@/screens/Book/Book';
+import SignIn from 'src/screens/SignIn/SignIn';
+import SignUp from 'src/screens/SignUp/SignUp';
 
-const Stack = nativeStack.createNativeStackNavigator();
+export type AuthStackParamList = {
+  SignIn: undefined;
+  SignUp: undefined;
+};
+
+const Stack = nativeStack.createNativeStackNavigator<AuthStackParamList>();
 
 const AuthStack: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName="SignIn">
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="SignIn">
       <Stack.Group>
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Catalog" component={CatalogPage} />
-        <Stack.Screen name="Book" component={BookScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

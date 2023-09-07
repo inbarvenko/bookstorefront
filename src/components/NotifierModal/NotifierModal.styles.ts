@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   container: {
     width: '80%',
     alignSelf: 'center',
-    backgroundColor: CustomTheme.colors['light'].dark_green,
+    backgroundColor: CustomTheme.colors.light.dark_green,
   },
   title: {
     padding: 15,

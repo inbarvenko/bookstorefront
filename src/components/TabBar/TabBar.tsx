@@ -17,11 +17,16 @@ import Animated, {useAnimatedStyle, withSpring} from 'react-native-reanimated';
 
 const TabBar = ({state, navigation}: BottomTabBarProps) => {
   const theme = useAppSelector(state => state.appData.theme);
-  const styles = getStyle({theme});
 
   const {width} = useWindowDimensions();
   const TABBAR_WIDTH = width - 2 * 15;
-  const TAB_WIDTH = TABBAR_WIDTH / state.routes.length;
+  const TAB_WIDTH = TABBAR_WIDTH / state.routes.length - 2;
+
+  const styles = getStyle({
+    theme: {theme},
+    tabBarWidth: TABBAR_WIDTH,
+    tabWidth: TAB_WIDTH,
+  });
 
   const translateAnimation = useAnimatedStyle(() => {
     return {
@@ -45,7 +50,7 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
       width: 27,
       height: 27,
       fill: focus
-        ? CustomTheme.colors[theme].dark_blue
+        ? CustomTheme.colors[theme].blob
         : CustomTheme.colors[theme].light,
     };
 
@@ -84,9 +89,8 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
   };
 
   return (
-    <View style={[styles.back, {width: TABBAR_WIDTH}]}>
-      <Animated.View
-        style={[styles.slidingTab, {width: TAB_WIDTH}, translateAnimation]}>
+    <View style={[styles.back]}>
+      <Animated.View style={[styles.slidingTab, translateAnimation]}>
         <View style={styles.circle} />
       </Animated.View>
       {state.routes.map((route, index) => {

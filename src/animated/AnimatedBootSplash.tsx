@@ -18,7 +18,7 @@ const AnimatedBootSplash: React.FC = () => {
 
   const config = {
     manifest: {
-      background: CustomTheme.colors['light'].light,
+      background: CustomTheme.colors.light.light,
       logo: {
         width: 60,
         height: 100,

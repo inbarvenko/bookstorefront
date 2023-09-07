@@ -30,9 +30,9 @@ const Banner: React.FC<Props> = ({
           onPress={onButtonPress}
           title={button_title}
           width={200}
-          backColor={CustomTheme.colors['light'].dark_blue}
+          backColor={CustomTheme.colors.light.dark_blue}
           height={38}
-          colorText={CustomTheme.colors['light'].light}
+          colorText={CustomTheme.colors.light.light}
         />
       </View>
     </View>

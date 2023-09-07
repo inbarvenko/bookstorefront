@@ -6,25 +6,37 @@ import {Theme} from 'src/types/theme';
 export const getStyle = (props: Theme) =>
   StyleSheet.create({
     back: {
-      width: '100%',
+      flex: 1,
       height: 60,
 
       backgroundColor: CustomTheme.colors[props.theme].light,
 
-      alignItems: 'center',
+      bottom: 10,
       flexDirection: 'row',
-      justifyContent: 'center',
-      gap: 40,
-      borderTopWidth: 2,
-      padding: 10,
+      justifyContent: 'space-around',
+      position: 'absolute',
+      alignSelf: 'center',
+      alignItems: 'center',
+      overflow: 'hidden',
+
+      borderRadius: 50,
+      borderWidth: 2,
     },
-    imageHome: {width: 25, height: 27},
-    img: {
-      height: 26,
-      width: 29,
+    circle: {
+      width: 45,
+      height: 45,
+      borderRadius: 100,
+      backgroundColor: CustomTheme.colors[props.theme].blob,
     },
     opasity: {
-      height: 35,
-      width: 38,
+      height: 40,
+      width: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    slidingTab: {
+      ...StyleSheet.absoluteFillObject,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   });

@@ -1,5 +1,5 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, useWindowDimensions} from 'react-native';
 import React from 'react';
 import {getStyle} from './TabBar.styles';
 import {useAppSelector} from 'src/redux/hooks';
@@ -13,10 +13,32 @@ import HomeLight from 'src/assets/icons/light/Home_light.svg';
 import FavoritesLight from 'src/assets/icons/light/Heart_light.svg';
 import UserProfileLight from 'src/assets/icons/light/UserProfile_light.svg';
 import BusketLight from 'src/assets/icons/light/Busket_light.svg';
+import Animated, {useAnimatedStyle, withSpring} from 'react-native-reanimated';
 
 const TabBar = ({state, navigation}: BottomTabBarProps) => {
   const theme = useAppSelector(state => state.appData.theme);
   const styles = getStyle({theme});
+
+  const {width} = useWindowDimensions();
+  const TABBAR_WIDTH = width - 2 * 15;
+  const TAB_WIDTH = TABBAR_WIDTH / state.routes.length;
+
+  const translateAnimation = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: withSpring(TAB_WIDTH * state.index, {
+            mass: 6,
+            damping: 60,
+            stiffness: 106,
+            overshootClamping: false,
+            restDisplacementThreshold: 5.43,
+            restSpeedThreshold: 2,
+          }),
+        },
+      ],
+    };
+  });
 
   const choosePicture = (route: string, focus: boolean) => {
     const svgProps = {
@@ -62,7 +84,11 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
   };
 
   return (
-    <View style={styles.back}>
+    <View style={[styles.back, {width: TABBAR_WIDTH}]}>
+      <Animated.View
+        style={[styles.slidingTab, {width: TAB_WIDTH}, translateAnimation]}>
+        <View style={styles.circle} />
+      </Animated.View>
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
 

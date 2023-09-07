@@ -17,8 +17,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Poppins500',
-    fontSize: 14,
-    color: CustomTheme.colors['light'].dark_blue,
+    color: CustomTheme.colors['light'].dark,
   },
   image: {
     borderRadius: 16,

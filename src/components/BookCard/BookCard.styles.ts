@@ -33,7 +33,6 @@ export const getStyle = (props: Theme) =>
     marginTop: {marginTop: 10},
     text: {
       fontFamily: 'Poppins500',
-      fontSize: 14,
       lineHeight: 21,
       paddingBottom: 3,
       paddingLeft: 5,

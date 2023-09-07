@@ -3,7 +3,6 @@ import {
   Image,
   NativeSyntheticEvent,
   ScrollView,
-  Text,
   TextInputFocusEventData,
   View,
 } from 'react-native';
@@ -29,6 +28,7 @@ import Button from 'src/components/Button';
 import {cannotGetData, cannotSendData} from 'src/utils/notifications';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
+import PoppinsText from 'src/components/PoppinsText/PoppinsText';
 
 type ParamList = {
   Detail: {
@@ -95,21 +95,23 @@ const BookScreen: React.FC = () => {
             source={{uri: book?.photoUrl} || images.books}
           />
           <View style={styles.text_box}>
-            <Text style={styles.name}>{book.name}</Text>
-            <Text style={styles.author}>{book.author}</Text>
+            <PoppinsText style={styles.name}>{book.name}</PoppinsText>
+            <PoppinsText style={styles.author}>{book.author}</PoppinsText>
             <Rating size={135} rate={book.rate || 0} bookPage />
           </View>
         </View>
         <View style={styles.descr_container}>
-          <Text style={styles.descr_title}>Description</Text>
-          <Text style={styles.descr_text}>{book.description}</Text>
+          <PoppinsText style={styles.descr_title}>Description</PoppinsText>
+          <PoppinsText style={styles.descr_text}>
+            {book.description}
+          </PoppinsText>
         </View>
       </View>
       <View style={styles.variants_container}>
         <View>
-          <Text style={[styles.descr_text, styles.paddingBottom]}>
+          <PoppinsText style={[styles.descr_text, styles.paddingBottom]}>
             Paperback
-          </Text>
+          </PoppinsText>
           <Button
             backColor={CustomTheme.colors[theme].dark_grey}
             width={150}
@@ -119,9 +121,9 @@ const BookScreen: React.FC = () => {
           />
         </View>
         <View>
-          <Text style={[styles.descr_text, styles.paddingBottom]}>
+          <PoppinsText style={[styles.descr_text, styles.paddingBottom]}>
             Hardcover
-          </Text>
+          </PoppinsText>
           <Button
             width={150}
             height={38}
@@ -148,7 +150,6 @@ const BookScreen: React.FC = () => {
         <View style={styles.paddingBottom}>
           <Input
             containerStyle={styles.input}
-            textStyle={styles.inputText}
             placeholder="Share a comment"
             upPlaceholder={false}
             onBlur={sendComments}
@@ -160,9 +161,9 @@ const BookScreen: React.FC = () => {
           />
         </View>
       )}
-      <Text style={[styles.descr_title, styles.name, styles.paddings]}>
+      <PoppinsText style={[styles.descr_title, styles.name, styles.paddings]}>
         Recommendations
-      </Text>
+      </PoppinsText>
       <View style={styles.bookList}>
         {recomendation.map(item => {
           return (

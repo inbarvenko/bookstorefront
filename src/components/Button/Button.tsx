@@ -1,8 +1,9 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import type {TouchableOpacityProps} from 'react-native';
 import getStyle from './Button.styles';
 import {useAppSelector} from 'src/redux/hooks';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {
   fontSize?: number;
@@ -39,7 +40,7 @@ const Button: React.FC<Props> = ({
   return (
     <View style={[styles.appButtonContainer, styleButton]}>
       <TouchableOpacity {...props}>
-        <Text style={styles.appButtonText}>{title}</Text>
+        <PoppinsText style={styles.appButtonText}>{title}</PoppinsText>
       </TouchableOpacity>
     </View>
   );

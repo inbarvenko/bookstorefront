@@ -22,6 +22,5 @@ export const getStyle = (props: Theme) =>
       margin: 15,
       fontSize: 18,
       lineHeight: 27,
-      color: CustomTheme.colors[props.theme].dark_blue,
     },
   });

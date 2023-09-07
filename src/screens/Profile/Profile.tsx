@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
 import {getStyle} from './Profile.styles';
 import Input from 'src/components/Input';
 import {useAppSelector} from 'src/redux/hooks';
@@ -7,6 +7,7 @@ import CustomTheme from 'src/theme';
 import Button from 'src/components/Button/Button';
 import Modals from 'src/components/Modals/Modals';
 import {images} from 'src/constants/images';
+import PoppinsText from 'src/components/PoppinsText/PoppinsText';
 
 const ProfilePage: React.FC = () => {
   const user = useAppSelector(state => state.userData);
@@ -44,14 +45,14 @@ const ProfilePage: React.FC = () => {
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={styles.title}>Personal information</Text>
-          <Text
+          <PoppinsText style={styles.title}>Personal information</PoppinsText>
+          <PoppinsText
             onPress={() => {
               setEditState({...editState, editInfo: !editState.editInfo});
             }}
             style={styles.text_link}>
             Change information
-          </Text>
+          </PoppinsText>
           <Input
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
@@ -101,95 +102,97 @@ const ProfilePage: React.FC = () => {
             isEditable={editState.editInfo}
           />
         </View>
-        <View style={styles.row}>
-          <Text style={styles.title}>Password</Text>
-          <Text
-            onPress={() => {
-              setEditState({
-                ...editState,
-                editPassword: !editState.editPassword,
-              });
-            }}
-            style={styles.text_link}>
-            Change password
-          </Text>
-        </View>
-        {editState.editPassword ? (
-          <View>
-            <Input
-              placeholder="Your old password"
-              type="default"
-              upPlaceholder
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              underlineColorAndroid="transparent"
-              containerStyle={styles.inputContainer}
-              textStyle={styles.inputText}
-              value={'your old password'}
-              image={images.open_eye}
-              onBlur={() => {
-                //TODO: На блюр сохраняет значение инпута
-              }}
-              secure
-            />
-            <Input
-              placeholder="New password"
-              type="default"
-              upPlaceholder
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              underlineColorAndroid="transparent"
-              containerStyle={styles.inputContainer}
-              textStyle={styles.inputText}
-              image={images.open_eye}
-              hint="Enter your password"
-              onBlur={() => {
-                //TODO: На блюр сохраняет значение инпута
-              }}
-              secure
-            />
-            <Input
-              placeholder="Password replay"
-              type="default"
-              upPlaceholder
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              underlineColorAndroid="transparent"
-              containerStyle={styles.inputContainer}
-              textStyle={styles.inputText}
-              image={images.open_eye}
-              hint="Repeat your password without errors"
-              onBlur={() => {
-                //TODO: На блюр сохраняет значение инпута
-              }}
-              secure
-            />
-            <Button
-              title="Confirm"
-              width={170}
-              height={44}
-              colorText={CustomTheme.colors[theme].light}
+        <View style={styles.passwordContainer}>
+          <View style={styles.row}>
+            <PoppinsText style={styles.title}>Password</PoppinsText>
+            <PoppinsText
               onPress={() => {
-                //TODO:  Написать логику change password для user
+                setEditState({
+                  ...editState,
+                  editPassword: !editState.editPassword,
+                });
               }}
-            />
+              style={styles.text_link}>
+              Change password
+            </PoppinsText>
           </View>
-        ) : (
-          <Input
-            placeholder="Your password"
-            type="default"
-            upPlaceholder
-            hintColor={CustomTheme.colors[theme].dark_blue}
-            underlineColorAndroid="transparent"
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            value={'your password'}
-            withLabel
-            isEditable={editState.editPassword}
-            image={images.open_eye}
-            onBlur={() => {
-              //TODO: На блюр сохраняет значение инпута
-            }}
-            secure
-          />
-        )}
+          {editState.editPassword ? (
+            <View>
+              <Input
+                placeholder="Your old password"
+                type="default"
+                upPlaceholder
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                underlineColorAndroid="transparent"
+                containerStyle={styles.inputContainer}
+                textStyle={styles.inputText}
+                value={'your old password'}
+                image={images.open_eye}
+                onBlur={() => {
+                  //TODO: На блюр сохраняет значение инпута
+                }}
+                secure
+              />
+              <Input
+                placeholder="New password"
+                type="default"
+                upPlaceholder
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                underlineColorAndroid="transparent"
+                containerStyle={styles.inputContainer}
+                textStyle={styles.inputText}
+                image={images.open_eye}
+                hint="Enter your password"
+                onBlur={() => {
+                  //TODO: На блюр сохраняет значение инпута
+                }}
+                secure
+              />
+              <Input
+                placeholder="Password replay"
+                type="default"
+                upPlaceholder
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                underlineColorAndroid="transparent"
+                containerStyle={styles.inputContainer}
+                textStyle={styles.inputText}
+                image={images.open_eye}
+                hint="Repeat your password without errors"
+                onBlur={() => {
+                  //TODO: На блюр сохраняет значение инпута
+                }}
+                secure
+              />
+              <Button
+                title="Confirm"
+                width={170}
+                height={44}
+                colorText={CustomTheme.colors[theme].light}
+                onPress={() => {
+                  //TODO:  Написать логику change password для user
+                }}
+              />
+            </View>
+          ) : (
+            <Input
+              placeholder="Your password"
+              type="default"
+              upPlaceholder
+              hintColor={CustomTheme.colors[theme].dark_blue}
+              underlineColorAndroid="transparent"
+              containerStyle={styles.inputContainer}
+              textStyle={styles.inputText}
+              value={'your password'}
+              withLabel
+              isEditable={editState.editPassword}
+              image={images.open_eye}
+              onBlur={() => {
+                //TODO: На блюр сохраняет значение инпута
+              }}
+              secure
+            />
+          )}
+        </View>
       </View>
     </ScrollView>
   );

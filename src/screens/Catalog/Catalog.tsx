@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, Text, View} from 'react-native';
+import {RefreshControl, ScrollView, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import BookCard from 'src/components/BookCard';
 import {getStyle} from './Catalog.styles';
@@ -13,6 +13,7 @@ import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
 import {AppStackParamList} from 'src/navigation/AppStack';
 import {setNotification} from 'src/redux/slices/appReducer';
+import PoppinsText from 'src/components/PoppinsText/PoppinsText';
 
 const CatalogPage: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -87,7 +88,7 @@ const CatalogPage: React.FC = () => {
           button_title="Choose a book"
           onButtonPress={() => {}}
         />
-        <Text style={styles.title}>Catalog</Text>
+        <PoppinsText style={styles.title}>Catalog</PoppinsText>
         <View style={styles.bookList}>
           {bookList.map(item => {
             return (

@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {getStyle} from './Rating.styles';
 import {useAppSelector} from 'src/redux/hooks';
 import {images} from 'src/constants/images';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {
   rate: number;
@@ -53,14 +54,16 @@ const Rating = ({rate, bookPage, size}: Props) => {
             rating(rate)
           )}
         </View>
-        <Text style={styles.text}>{rate}</Text>
+        <PoppinsText style={styles.text}>{rate}</PoppinsText>
       </View>
       {bookPage ? (
         <View style={styles.user_rate}>
           <View style={[styles.container, !bookPage ? null : {width: size}]}>
             {rating(5)}
           </View>
-          <Text style={[styles.text, styles.descr]}>Rate this book</Text>
+          <PoppinsText style={[styles.text, styles.descr]}>
+            Rate this book
+          </PoppinsText>
         </View>
       ) : null}
     </View>

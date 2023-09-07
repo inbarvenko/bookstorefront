@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 import {styles} from './Modals.styles';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -8,6 +8,7 @@ import {sentUserPhoto} from 'src/api/userApi';
 import {setPhoto} from 'src/redux/slices/userReducer';
 import Camera from 'src/assets/icons/Camera.svg';
 import Picture from 'src/assets/icons/Image.svg';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {title: string; isVisible: boolean; toClose: () => void};
 
@@ -76,7 +77,7 @@ export const Modals: React.FC<Props> = ({title, isVisible, toClose}: Props) => {
       onBackdropPress={toClose}
       hideModalContentWhileAnimating>
       <View style={[styles.container, styles.modal]}>
-        <Text style={styles.title}>{title}</Text>
+        <PoppinsText style={styles.title}>{title}</PoppinsText>
         <View style={styles.buttons}>
           <TouchableOpacity onPress={openCamera} style={styles.circle}>
             <Camera width={35} height={35} />

@@ -27,8 +27,6 @@ export const styles = StyleSheet.create({
   description: {
     paddingHorizontal: 10,
     paddingBottom: 15,
-    fontFamily: 'Poppins500',
-    fontSize: 14,
     alignSelf: 'center',
   },
 });

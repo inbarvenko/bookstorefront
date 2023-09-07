@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   TextInput,
   TouchableOpacity,
-  Text,
   ImageSourcePropType,
 } from 'react-native';
 
-import type {ReactNode} from 'react';
 import {
   KeyboardTypeOptions,
   TextStyle,
@@ -23,6 +21,12 @@ import getStyle from './Input.styles';
 import CustomTheme from 'src/theme';
 import {useAppSelector} from 'src/redux/hooks';
 import {images} from 'src/constants/images';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {
   placeholder: string;
@@ -81,6 +85,11 @@ const Input: React.FC<Props> = ({
     });
   };
 
+  useEffect(() => {
+    changeColor();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditable, inputState.inputFocus]);
+
   const handleBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
     onBlur(event);
     setInputState({
@@ -91,57 +100,76 @@ const Input: React.FC<Props> = ({
 
   const isLabelFocused = (inputState.inputFocus && upPlaceholder) || withLabel;
 
+  const initialColor = useSharedValue(CustomTheme.colors[theme].light);
+
+  const changeColor = () => {
+    initialColor.value = withTiming(
+      inputState.inputFocus
+        ? CustomTheme.colors[theme].dark_blue
+        : isEditable
+        ? CustomTheme.colors[theme].dark_grey
+        : CustomTheme.colors[theme].light,
+      {
+        duration: 1000,
+      },
+    );
+  };
+  const animatedBorder = useAnimatedStyle(() => {
+    return {
+      borderColor: initialColor.value,
+      borderWidth: 2,
+      borderRadius: 16,
+    };
+  });
+
   return (
     <View style={containerStyle}>
-      <View
-        style={[
-          styles.inputRowContainer,
-          withLabel && isEditable && styles.border,
-          inputState.inputFocus && styles.inputFocusStyle,
-          !!errors! && containerErrorStyle,
-        ]}>
-        {image && (
-          <TouchableOpacity
-            onPress={handleVisibleText}
-            disabled={!secure}
-            style={styles.touchableStyle}>
-            {secure && inputState.visiblePassword ? (
-              <Image source={images.closed_eye} style={styles.img} />
-            ) : (
-              <Image source={image!} style={styles.img} />
-            )}
-          </TouchableOpacity>
-        )}
+      <Animated.View style={animatedBorder}>
         <View
-          style={[
-            inputState.inputFocus && styles.containerPlaceholderFocus,
-            styles.fullWidth,
-          ]}>
-          {isLabelFocused && (
-            <Text style={[styles.hintText, {color: hintColor}]}>
-              {placeholder}
-            </Text>
+          style={[styles.inputRowContainer, !!errors! && containerErrorStyle]}>
+          {image && (
+            <TouchableOpacity
+              onPress={handleVisibleText}
+              disabled={!secure}
+              style={styles.touchableStyle}>
+              {secure && inputState.visiblePassword ? (
+                <Image source={images.closed_eye} style={styles.img} />
+              ) : (
+                <Image source={image!} style={styles.img} />
+              )}
+            </TouchableOpacity>
           )}
-          <TextInput
-            {...props}
-            placeholder={inputState.inputFocus ? '' : placeholder}
-            secureTextEntry={secure && inputState.visiblePassword}
+          <View
             style={[
-              styles.inputStyle,
-              textStyle,
-              upPlaceholder ? styles.fullHeight : styles.paddings,
-              isLabelFocused && styles.textInput,
-            ]}
-            editable={isEditable}
-            onBlur={handleBlur}
-            placeholderTextColor={CustomTheme.colors[theme].dark_grey}
-            onFocus={handleFocus}
-          />
+              inputState.inputFocus && styles.containerPlaceholderFocus,
+              styles.fullWidth,
+            ]}>
+            {isLabelFocused && (
+              <PoppinsText style={[styles.hintText, {color: hintColor}]}>
+                {placeholder}
+              </PoppinsText>
+            )}
+            <TextInput
+              {...props}
+              placeholder={inputState.inputFocus ? '' : placeholder}
+              secureTextEntry={secure && inputState.visiblePassword}
+              style={[
+                styles.inputStyle,
+                textStyle,
+                upPlaceholder ? styles.fullHeight : styles.paddings,
+                isLabelFocused && styles.textInput,
+              ]}
+              editable={isEditable}
+              onBlur={handleBlur}
+              placeholderTextColor={CustomTheme.colors[theme].dark_grey}
+              onFocus={handleFocus}
+            />
+          </View>
         </View>
-      </View>
-      <Text style={[styles.hintText, !!errors! && textErrorStyle]}>
-        {(errors! || hint) as ReactNode}
-      </Text>
+      </Animated.View>
+      <PoppinsText style={[styles.hintText, !!errors! && textErrorStyle]}>
+        {errors! || hint!}
+      </PoppinsText>
     </View>
   );
 };

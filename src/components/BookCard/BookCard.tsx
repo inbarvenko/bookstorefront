@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {getStyle} from './BookCard.styles';
 import CustomTheme from 'src/theme';
 import Rating from 'src/components/Rating';
@@ -10,6 +10,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useAppSelector} from 'src/redux/hooks';
 import {images} from 'src/constants/images';
 import {AppStackParamList} from 'src/navigation/AppStack';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {
   book: Book;
@@ -38,11 +39,11 @@ const BookCard: React.FC<Props> = ({book}: Props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.text_container}>
-          <Text style={styles.text}>{book.name}</Text>
-          <Text
+          <PoppinsText style={styles.text}>{book.name}</PoppinsText>
+          <PoppinsText
             style={[styles.text, {color: CustomTheme.colors[theme].dark_grey}]}>
             {book.author}
-          </Text>
+          </PoppinsText>
         </View>
         <Rating size={103} rate={book.rate || 0} />
         <Button

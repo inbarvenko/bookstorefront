@@ -21,11 +21,12 @@ export const getStyle = (props: Theme) =>
       backgroundColor: CustomTheme.colors[props.theme].background,
     },
     row: {
+      width: '100%',
       paddingTop: 15,
       paddingBottom: 10,
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-around',
+      justifyContent: 'space-between',
     },
     photo: {
       width: 310,
@@ -48,7 +49,6 @@ export const getStyle = (props: Theme) =>
       height: 60,
     },
     title: {
-      color: CustomTheme.colors[props.theme].dark_blue,
       fontFamily: 'Poppins700',
       fontSize: 18,
       paddingBottom: 10,
@@ -64,11 +64,12 @@ export const getStyle = (props: Theme) =>
       marginBottom: 10,
       height: 64,
     },
+    passwordContainer: {
+      marginBottom: 60,
+      alignItems: 'flex-start',
+    },
     inputText: {
-      fontSize: 14,
-      fontFamily: 'Poppins400',
       letterSpacing: 0.75,
-      color: CustomTheme.colors[props.theme].dark_blue,
       paddingBottom: 7,
     },
     image: {

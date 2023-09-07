@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {getStyle} from './Favorites.styles';
 import Button from 'src/components/Button';
@@ -8,6 +8,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useAppSelector} from 'src/redux/hooks';
 import {images} from 'src/constants/images';
 import {TabParamListLog} from 'src/navigation/TabNavigation';
+import PoppinsText from 'src/components/PoppinsText/PoppinsText';
 
 const FavoritesPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<TabParamListLog>>();
@@ -18,11 +19,13 @@ const FavoritesPage: React.FC = () => {
     <ScrollView style={styles.scroll}>
       <View style={styles.screenContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.textTitle}>Your favorites is empty</Text>
-          <Text style={styles.text}>
+          <PoppinsText style={styles.textTitle}>
+            Your favorites is empty
+          </PoppinsText>
+          <PoppinsText style={styles.text}>
             Add items to your favorites to save them for future. Go to the
             catalogue now.
-          </Text>
+          </PoppinsText>
           <Button
             onPress={() => navigation.navigate('Catalog')}
             title="Go to catalog"

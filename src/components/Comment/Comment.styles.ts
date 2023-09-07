@@ -34,7 +34,6 @@ export const getStyle = (props: Theme) =>
     },
     username: {
       fontFamily: 'Poppins700',
-      fontSize: 14,
       lineHeight: 21,
 
       color: CustomTheme.colors[props.theme].dark_blue,
@@ -42,7 +41,6 @@ export const getStyle = (props: Theme) =>
     text: {
       lineHeight: 18,
       fontSize: 12,
-      fontFamily: 'Poppins500',
 
       color: CustomTheme.colors[props.theme].dark_blue,
     },

@@ -1,8 +1,9 @@
 import React from 'react';
-import {Image, ImageSourcePropType, Text, View} from 'react-native';
+import {Image, ImageSourcePropType, View} from 'react-native';
 import {styles} from './Banner.styles';
 import Button from 'src/components/Button';
 import CustomTheme from 'src/theme';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {
   back_image: ImageSourcePropType;
@@ -23,8 +24,8 @@ const Banner: React.FC<Props> = ({
     <View style={styles.container}>
       <Image style={styles.image} source={back_image} />
       <View style={styles.text_container}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.text}>{description}</Text>
+        <PoppinsText style={styles.title}>{title}</PoppinsText>
+        <PoppinsText style={styles.text}>{description}</PoppinsText>
         <Button
           onPress={onButtonPress}
           title={button_title}

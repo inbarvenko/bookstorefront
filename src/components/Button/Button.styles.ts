@@ -25,8 +25,6 @@ const styles = (props: Props) =>
     appButtonText: {
       fontSize: props.fontSize,
       color: props.colorText,
-      fontFamily: 'Poppins400',
-      fontWeight: '500',
       alignSelf: 'center',
     },
   });

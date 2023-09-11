@@ -52,10 +52,20 @@ export const getStyle = ({screenWidth}: Props) =>
 
 export const styles = StyleSheet.create({
   dots: {
-    backgroundColor: CustomTheme.colors.light.dark_blue,
+    backgroundColor: CustomTheme.colors.light.dark_grey,
     height: 10,
+    width: 10,
     marginHorizontal: 10,
     borderRadius: 5,
+  },
+  absoluteDot: {
+    left: 10,
+    height: 10,
+    width: 10,
+    borderRadius: 5,
+    backgroundColor: CustomTheme.colors.light.dark_green,
+    position: 'absolute',
+    alignSelf: 'center',
   },
   paginationContainer: {
     flexDirection: 'row',

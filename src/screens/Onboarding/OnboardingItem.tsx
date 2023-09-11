@@ -4,58 +4,51 @@ import {OnboardingDataType} from 'src/constants/onboarding/data';
 import {getStyle} from './Onboarding.styles';
 import PoppinsText from 'src/components/PoppinsText/PoppinsText';
 import Animated, {
-  Extrapolation,
-  interpolate,
+  SharedValue,
   useAnimatedStyle,
-  useSharedValue,
-  withDecay,
+  withSpring,
 } from 'react-native-reanimated';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 
 type Props = {
   item: OnboardingDataType;
+  angle: SharedValue<number>;
+  index: number;
+  activeIndex: number;
 };
 
-const OnboardingItem = ({item}: Props) => {
+const OnboardingItem = ({item, angle, index, activeIndex}: Props) => {
   const width = Dimensions.get('window').width;
   const styles = getStyle({screenWidth: width});
-  const rotationAngle = useSharedValue(0);
-
-  const pan = Gesture.Pan()
-    .onChange(event => {
-      console.log('rotationAngle.value', rotationAngle.value);
-      rotationAngle.value += interpolate(
-        event.changeX,
-        [-360, 360],
-        [-90, 90],
-        {extrapolateRight: Extrapolation.CLAMP},
-      );
-    })
-    .onFinalize(event => {
-      rotationAngle.value = withDecay({
-        velocity: event.velocityY,
-      });
-      console.log('rotationAngle.value', rotationAngle.value);
-    });
 
   const rotatedStyle = useAnimatedStyle(() => {
-    console.log();
     return {
-      transform: [{perspective: 850}, {rotateY: `${rotationAngle.value}deg`}],
+      transform: [
+        {
+          rotateY: withSpring(
+            index === activeIndex ? `${angle.value}deg` : `-${angle.value}deg`,
+            {
+              mass: 7.1,
+              damping: 64,
+              stiffness: 150,
+              overshootClamping: true,
+              restDisplacementThreshold: 26.66,
+              restSpeedThreshold: 81.84,
+            },
+          ),
+        },
+      ],
     };
   });
 
   return (
-    <GestureDetector gesture={pan}>
-      <Animated.View style={styles.container}>
-        <PoppinsText style={styles.title}>{item.title}</PoppinsText>
-        <Animated.Image
-          style={[styles.image, rotatedStyle]}
-          source={item.image}
-        />
-        <PoppinsText style={styles.text}>{item.descr}</PoppinsText>
-      </Animated.View>
-    </GestureDetector>
+    <Animated.View style={styles.container}>
+      <PoppinsText style={styles.title}>{item.title}</PoppinsText>
+      <Animated.Image
+        style={[styles.image, rotatedStyle]}
+        source={item.image}
+      />
+      <PoppinsText style={styles.text}>{item.descr}</PoppinsText>
+    </Animated.View>
   );
 };
 

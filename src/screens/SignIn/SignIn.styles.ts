@@ -17,8 +17,6 @@ export const getStyle = (props: Theme) =>
     },
     buttonText: {
       fontSize: 18,
-      color: '#fff',
-      fontWeight: 'bold',
       alignSelf: 'center',
       textTransform: 'uppercase',
     },
@@ -32,7 +30,6 @@ export const getStyle = (props: Theme) =>
       lineHeight: 27,
       paddingStart: 15,
       paddingTop: 30,
-      color: CustomTheme.colors[props.theme].dark_blue,
 
       justifyContent: 'flex-start',
       alignItems: 'center',
@@ -53,10 +50,7 @@ export const getStyle = (props: Theme) =>
       paddingHorizontal: 15,
     },
     inputText: {
-      fontSize: 14,
-      fontFamily: 'Poppins400',
       letterSpacing: 0.75,
-      color: CustomTheme.colors[props.theme].dark_blue,
       paddingBottom: 7,
     },
     image: {

@@ -31,7 +31,6 @@ export const getStyle = (props: Theme) =>
       fontSize: 18,
       lineHeight: 27,
       paddingStart: 15,
-      color: CustomTheme.colors[props.theme].dark_blue,
 
       justifyContent: 'flex-start',
       alignItems: 'center',
@@ -52,10 +51,7 @@ export const getStyle = (props: Theme) =>
       paddingHorizontal: 15,
     },
     inputText: {
-      fontSize: 14,
-      fontFamily: 'Poppins400',
       letterSpacing: 0.75,
-      color: CustomTheme.colors[props.theme].dark_blue,
       paddingBottom: 7,
     },
     buttonsSection: {

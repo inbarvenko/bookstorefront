@@ -45,10 +45,6 @@ export const getStyle = (props: Theme) =>
 
       borderRadius: 16,
     },
-    inputText: {
-      fontFamily: 'Poppins400',
-      color: CustomTheme.colors[props.theme].dark_blue,
-    },
     photo: {
       width: '45%',
       height: 230,
@@ -64,7 +60,6 @@ export const getStyle = (props: Theme) =>
       paddingBottom: 20,
     },
     name: {
-      color: CustomTheme.colors[props.theme].dark_blue,
       fontFamily: 'Poppins700',
       fontSize: 20,
 
@@ -76,9 +71,7 @@ export const getStyle = (props: Theme) =>
       flexWrap: 'wrap',
     },
     author: {
-      color: CustomTheme.colors[props.theme].dark_blue,
       fontFamily: 'Poppins500',
-      fontSize: 14,
       width: '50%',
 
       paddingBottom: 20,
@@ -87,12 +80,9 @@ export const getStyle = (props: Theme) =>
     descr_title: {
       fontFamily: 'Poppins500',
       fontSize: 16,
-      color: CustomTheme.colors[props.theme].dark_blue,
       paddingBottom: 10,
     },
     descr_text: {
       fontFamily: 'Poppins500',
-      color: CustomTheme.colors[props.theme].dark_blue,
-      fontSize: 14,
     },
   });

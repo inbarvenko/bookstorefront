@@ -20,7 +20,6 @@ export const getStyle = (props: Theme) =>
     text: {
       fontFamily: 'Poppins500',
       fontSize: 12,
-      color: CustomTheme.colors[props.theme].dark_blue,
       lineHeight: 18,
       width: 310,
     },
@@ -30,7 +29,6 @@ export const getStyle = (props: Theme) =>
     textTitle: {
       fontFamily: 'Poppins700',
       fontSize: 18,
-      color: CustomTheme.colors[props.theme].dark_blue,
       lineHeight: 21,
     },
     titleContainer: {

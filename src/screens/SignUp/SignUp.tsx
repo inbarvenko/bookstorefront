@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import {View, ScrollView, Image} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
-
+import PoppinsText from 'src/components/PoppinsText/PoppinsText';
 import getStyle from './SignUp.styles';
 import Button from 'src/components/Button';
 import {SignUpData} from 'src/types/auth';
@@ -23,6 +23,7 @@ import {setAsyncStorageItem} from 'src/utils/asyncStorage';
 import {images} from 'src/constants/images';
 import {AuthStackParamList} from 'src/navigation/AuthStack';
 import {TabParamListLog} from 'src/navigation/TabNavigation';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const SignUp: React.FC = () => {
   const navigation =
@@ -83,87 +84,90 @@ const SignUp: React.FC = () => {
   return (
     <View style={styles.flex}>
       <ScrollView style={styles.screenContainer}>
-        <Text style={styles.titleStyle}>Sign Up</Text>
-        <Controller
-          control={control}
-          name="email"
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              placeholder="Email"
-              errors={
-                (apiError.code !== 422 && apiError.message) ||
-                errors.email?.message
-              }
-              type="numbers-and-punctuation"
-              image={images.mail_grey}
-              containerStyle={styles.inputContainer}
-              underlineColorAndroid="transparent"
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              textStyle={styles.inputText}
-              upPlaceholder
-              containerErrorStyle={styles.errorSectionStyle}
-              textErrorStyle={styles.errorTextStyle}
-              value={value}
-              hint="Enter your email"
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="password"
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              placeholder="Password"
-              errors={
-                (apiError.code !== 400 && apiError.message) ||
-                errors.password?.message
-              }
-              type="default"
-              image={images.open_eye}
-              underlineColorAndroid="transparent"
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              containerStyle={styles.inputContainer}
-              textStyle={styles.inputText}
-              upPlaceholder
-              containerErrorStyle={styles.errorSectionStyle}
-              textErrorStyle={styles.errorTextStyle}
-              value={value}
-              hint="Enter your password"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              secure
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="repeatPassword"
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              placeholder="Password"
-              errors={
-                (apiError.code !== 400 && apiError.message) ||
-                errors.repeatPassword?.message
-              }
-              type="default"
-              image={images.open_eye}
-              underlineColorAndroid="transparent"
-              containerStyle={styles.inputContainer}
-              textStyle={styles.inputText}
-              upPlaceholder
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              containerErrorStyle={styles.errorSectionStyle}
-              textErrorStyle={styles.errorTextStyle}
-              value={value}
-              hint="Repeat your password without errors"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              secure
-            />
-          )}
-        />
+        <KeyboardAwareScrollView resetScrollToCoords={{x: 0, y: 0}}>
+          <PoppinsText style={styles.titleStyle}>Sign Up</PoppinsText>
+          <Controller
+            control={control}
+            name="email"
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                placeholder="Email"
+                errors={
+                  (apiError.code !== 422 && apiError.message) ||
+                  errors.email?.message
+                }
+                type="numbers-and-punctuation"
+                image={images.mail_grey}
+                containerStyle={styles.inputContainer}
+                underlineColorAndroid="transparent"
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                textStyle={styles.inputText}
+                upPlaceholder
+                containerErrorStyle={styles.errorSectionStyle}
+                textErrorStyle={styles.errorTextStyle}
+                value={value}
+                hint="Enter your email"
+                onBlur={onBlur}
+                onChangeText={onChange}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="password"
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                placeholder="Password"
+                errors={
+                  (apiError.code !== 400 && apiError.message) ||
+                  errors.password?.message
+                }
+                type="default"
+                image={images.open_eye}
+                underlineColorAndroid="transparent"
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                containerStyle={styles.inputContainer}
+                textStyle={styles.inputText}
+                upPlaceholder
+                containerErrorStyle={styles.errorSectionStyle}
+                textErrorStyle={styles.errorTextStyle}
+                value={value}
+                hint="Enter your password"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                secure
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="repeatPassword"
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                placeholder="Password"
+                errors={
+                  (apiError.code !== 400 && apiError.message) ||
+                  errors.repeatPassword?.message
+                }
+                type="default"
+                image={images.open_eye}
+                underlineColorAndroid="transparent"
+                containerStyle={styles.inputContainer}
+                textStyle={styles.inputText}
+                upPlaceholder
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                containerErrorStyle={styles.errorSectionStyle}
+                textErrorStyle={styles.errorTextStyle}
+                value={value}
+                hint="Repeat your password without errors"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                secure
+              />
+            )}
+          />
+        </KeyboardAwareScrollView>
+
         <View style={styles.buttonsSection}>
           <Button
             activeOpacity={0.8}

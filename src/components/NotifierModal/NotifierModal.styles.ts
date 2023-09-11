@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   container: {
     width: '80%',
     alignSelf: 'center',
-    backgroundColor: CustomTheme.colors['light'].dark_green,
+    backgroundColor: CustomTheme.colors.light.dark_green,
   },
   title: {
     padding: 15,
@@ -27,8 +27,6 @@ export const styles = StyleSheet.create({
   description: {
     paddingHorizontal: 10,
     paddingBottom: 15,
-    fontFamily: 'Poppins500',
-    fontSize: 14,
     alignSelf: 'center',
   },
 });

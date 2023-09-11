@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
-import BootSplash from 'react-native-bootsplash';
 import messaging from '@react-native-firebase/messaging';
 import AppStack from './AppStack';
 import {useAppDispatch} from 'src/redux/hooks';
 import {setToken} from 'src/redux/slices/appReducer';
+import AnimatedBootSplash from 'src/animated/AnimatedBootSplash';
 
 const RootStackComponent: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,8 +20,8 @@ const RootStackComponent: React.FC = () => {
     <NavigationContainer
       onReady={() => {
         getToken();
-        BootSplash.hide();
       }}>
+      <AnimatedBootSplash />
       <AppStack />
     </NavigationContainer>
   );

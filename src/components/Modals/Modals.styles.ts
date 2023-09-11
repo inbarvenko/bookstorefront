@@ -9,10 +9,10 @@ export const styles = StyleSheet.create({
     width: '80%',
     height: '30%',
     alignSelf: 'center',
-    backgroundColor: CustomTheme.colors['light'].dark_green,
+    backgroundColor: CustomTheme.colors.light.dark_green,
   },
   circle: {
-    backgroundColor: CustomTheme.colors['light'].light,
+    backgroundColor: CustomTheme.colors.light.light,
     width: 70,
     height: 70,
     borderRadius: 50,

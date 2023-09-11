@@ -13,12 +13,11 @@ export const styles = StyleSheet.create({
   title: {
     fontFamily: 'Poppins700',
     fontSize: 18,
-    color: CustomTheme.colors['light'].dark,
+    color: CustomTheme.colors.light.dark,
   },
   text: {
     fontFamily: 'Poppins500',
-    fontSize: 14,
-    color: CustomTheme.colors['light'].dark_blue,
+    color: CustomTheme.colors.light.dark,
   },
   image: {
     borderRadius: 16,

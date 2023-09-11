@@ -27,7 +27,6 @@ export const getStyle = (props: Theme) =>
     },
     catalog: {
       fontFamily: 'Poppins500',
-      fontSize: 14,
       lineHeight: 21,
       color: 'rgba(0, 0, 0, 1)',
     },

@@ -1,9 +1,10 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, View} from 'react-native';
 import {getStyle} from './Comment.styles';
 import {Comment} from 'src/types/comment';
 import {useAppSelector} from 'src/redux/hooks';
 import {images} from 'src/constants/images';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {
   comment: Comment;
@@ -23,15 +24,15 @@ const CommentComponent: React.FC<Props> = ({comment}: Props) => {
           style={styles.img}
         />
         <View style={styles.text_container}>
-          <Text style={styles.username}>
+          <PoppinsText style={styles.username}>
             {comment.author.first_name + ' ' + comment.author.last_name}
-          </Text>
-          <Text style={[styles.username, styles.date]}>
+          </PoppinsText>
+          <PoppinsText style={[styles.username, styles.date]}>
             {comment.created_at}
-          </Text>
+          </PoppinsText>
         </View>
       </View>
-      <Text style={styles.text}>{comment.comment_text}</Text>
+      <PoppinsText style={styles.text}>{comment.comment_text}</PoppinsText>
     </View>
   );
 };

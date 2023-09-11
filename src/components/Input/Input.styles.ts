@@ -10,7 +10,7 @@ const getStyle = (props: Theme) =>
       height: '100%',
 
       paddingLeft: 8,
-      borderRadius: 16,
+      borderRadius: 14,
       borderWidth: 2,
       borderColor: CustomTheme.colors[props.theme].light,
     },
@@ -18,10 +18,6 @@ const getStyle = (props: Theme) =>
       fontFamily: 'Poppins400',
       width: '100%',
       marginLeft: 16,
-    },
-    inputFocusStyle: {
-      backgroundColor: CustomTheme.colors[props.theme].light,
-      borderColor: CustomTheme.colors[props.theme].dark_blue,
     },
     containerPlaceholderFocus: {
       flex: 1,
@@ -48,10 +44,6 @@ const getStyle = (props: Theme) =>
       fontSize: 12,
       paddingVertical: 0,
       height: '50%',
-    },
-    border: {
-      borderColor: CustomTheme.colors[props.theme].dark_grey,
-      borderWidth: 2,
     },
     fullHeight: {height: '100%'},
     fullWidth: {width: '100%'},

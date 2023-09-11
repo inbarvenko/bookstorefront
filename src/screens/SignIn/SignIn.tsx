@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Image, ScrollView} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -19,6 +19,8 @@ import {AuthStackParamList} from 'src/navigation/AuthStack';
 import {TabParamListLog} from 'src/navigation/TabNavigation';
 import crashlytics from '@react-native-firebase/crashlytics';
 import analytics from '@react-native-firebase/analytics';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import PoppinsText from 'src/components/PoppinsText/PoppinsText';
 
 const SignIn: React.FC = () => {
   const navigation =
@@ -74,54 +76,57 @@ const SignIn: React.FC = () => {
   return (
     <View style={styles.flex}>
       <ScrollView style={styles.screenContainer}>
-        <Text style={styles.titleStyle}>Log In</Text>
-        <Controller
-          control={control}
-          name="emailIn"
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              placeholder="Email"
-              errors={apiError || errors.emailIn?.message}
-              upPlaceholder
-              type="numbers-and-punctuation"
-              underlineColorAndroid="transparent"
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              containerStyle={styles.inputContainer}
-              textStyle={styles.inputText}
-              containerErrorStyle={styles.errorSectionStyle}
-              textErrorStyle={styles.errorTextStyle}
-              value={value}
-              image={images.mail_grey}
-              hint="Enter your email"
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="passwordIn"
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              placeholder="Password"
-              errors={apiError || errors.passwordIn?.message}
-              type="default"
-              upPlaceholder
-              hintColor={CustomTheme.colors[theme].dark_blue}
-              underlineColorAndroid="transparent"
-              containerStyle={styles.inputContainer}
-              textStyle={styles.inputText}
-              containerErrorStyle={styles.errorSectionStyle}
-              textErrorStyle={styles.errorTextStyle}
-              value={value}
-              image={images.open_eye}
-              hint="Enter your password"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              secure
-            />
-          )}
-        />
+        <KeyboardAwareScrollView resetScrollToCoords={{x: 0, y: 0}}>
+          <PoppinsText style={styles.titleStyle}>Log In</PoppinsText>
+          <Controller
+            control={control}
+            name="emailIn"
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                placeholder="Email"
+                errors={apiError || errors.emailIn?.message}
+                upPlaceholder
+                type="numbers-and-punctuation"
+                underlineColorAndroid="transparent"
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                containerStyle={styles.inputContainer}
+                textStyle={styles.inputText}
+                containerErrorStyle={styles.errorSectionStyle}
+                textErrorStyle={styles.errorTextStyle}
+                value={value}
+                image={images.mail_grey}
+                hint="Enter your email"
+                onBlur={onBlur}
+                onChangeText={onChange}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="passwordIn"
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                placeholder="Password"
+                errors={apiError || errors.passwordIn?.message}
+                type="default"
+                upPlaceholder
+                hintColor={CustomTheme.colors[theme].dark_blue}
+                underlineColorAndroid="transparent"
+                containerStyle={styles.inputContainer}
+                textStyle={styles.inputText}
+                containerErrorStyle={styles.errorSectionStyle}
+                textErrorStyle={styles.errorTextStyle}
+                value={value}
+                image={images.open_eye}
+                hint="Enter your password"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                secure
+              />
+            )}
+          />
+        </KeyboardAwareScrollView>
+
         <View style={styles.buttonsSection}>
           <Button
             activeOpacity={0.8}

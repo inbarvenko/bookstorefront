@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import Modal from 'react-native-modal';
 import {styles} from './NotifierModal.styles';
 import Button from '../Button/Button';
 import {setNotification} from 'src/redux/slices/appReducer';
 import {useAppDispatch} from 'src/redux/hooks';
+import PoppinsText from '../PoppinsText/PoppinsText';
 
 type Props = {
   title: string;
@@ -37,8 +38,8 @@ export const NotifierModal: React.FC<Props> = ({
       onBackdropPress={toClose}
       hideModalContentWhileAnimating>
       <View style={[styles.container, styles.modal]}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description}</Text>
+        <PoppinsText style={styles.title}>{title}</PoppinsText>
+        <PoppinsText style={styles.description}>{description}</PoppinsText>
         {params && (
           <View style={styles.buttons}>
             <Button width={60} title="Close" onPress={toClose} />

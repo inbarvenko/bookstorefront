@@ -13,6 +13,7 @@ const CustomTheme = {
       error_dark: 'rgba(195, 0, 82, 1)',
       error_light: 'rgba(255, 242, 247, 1)',
       dark_green: 'rgba(141, 159, 79, 1)',
+      blob: 'rgba(255, 161, 166, 1)',
     },
     dark: {
       background: '#0D1821',
@@ -23,6 +24,7 @@ const CustomTheme = {
       error_dark: 'rgba(255, 242, 247, 1)',
       error_light: 'rgba(195, 0, 82, 1)',
       dark_green: 'rgba(141, 159, 79, 1)',
+      blob: 'rgba(255, 161, 166, 1)',
     },
   },
 };

@@ -15,7 +15,6 @@ export const getStyle = (props: Theme) =>
     },
     text: {
       fontFamily: 'Poppins500',
-      fontSize: 14,
       color: CustomTheme.colors[props.theme].dark_grey,
 
       paddingLeft: 12,
@@ -24,7 +23,7 @@ export const getStyle = (props: Theme) =>
       width: 15,
       height: 15,
     },
-    descr: {fontSize: 14, paddingTop: 9, paddingLeft: 0},
+    descr: {paddingTop: 9, paddingLeft: 0},
     user_rate: {
       paddingTop: 15,
     },

@@ -13,10 +13,12 @@ import analytics from '@react-native-firebase/analytics';
 import {useAppDispatch} from 'src/redux/hooks';
 import {setNotification} from 'src/redux/slices/appReducer';
 import {InitialParamsContext} from 'src/core/Core';
+import OnboardingScreen from 'src/screens/Onboarding/OnboardingScreen';
 
 export type AppStackParamList = {
   Book: {bookId: string} | undefined;
   Tab: undefined;
+  Onboarding: undefined;
   Modal:
     | {
         title?: string;
@@ -63,9 +65,14 @@ const AppStack: React.FC = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={'Tab'}
+      initialRouteName={'Onboarding'}
       screenOptions={{header: headerReturn}}>
       <Stack.Group>
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Onboarding"
+          component={OnboardingScreen}
+        />
         <Stack.Screen
           name="Book"
           initialParams={{bookId: bookId}}

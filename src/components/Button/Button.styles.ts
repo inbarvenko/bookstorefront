@@ -24,7 +24,7 @@ const styles = (props: Props) =>
     },
     appButtonText: {
       fontSize: props.fontSize,
-      color: props.colorText,
+      color: props.colorText || CustomTheme.colors.light.light,
       alignSelf: 'center',
     },
   });

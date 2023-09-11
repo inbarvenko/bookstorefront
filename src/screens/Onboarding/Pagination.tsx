@@ -1,0 +1,22 @@
+import {View} from 'react-native';
+import React from 'react';
+import {SharedValue} from 'react-native-reanimated';
+import Dot from './Dot';
+import {onboardingData} from 'src/constants/onboarding/data';
+import {styles} from './Onboarding.styles';
+
+type Props = {
+  data: onboardingData[];
+  x: SharedValue<number>;
+};
+const Pagination = ({data, x}: Props) => {
+  return (
+    <View style={styles.paginationContainer}>
+      {data.map((item, index) => {
+        return <Dot index={index} x={x} key={index} />;
+      })}
+    </View>
+  );
+};
+
+export default Pagination;

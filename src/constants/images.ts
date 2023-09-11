@@ -16,4 +16,6 @@ export const images = {
   search_icon: require('src/assets/img/Search.png'),
   star: require('src/assets/img/Star.png'),
   star_less: require('src/assets/img/star_less.png'),
+  human_going: require('src/assets/img/humanGoing.png'),
+  onboarding_book: require('src/assets/img/onboarding_book.png'),
 };

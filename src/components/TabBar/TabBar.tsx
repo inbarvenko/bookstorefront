@@ -33,9 +33,9 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
       transform: [
         {
           translateX: withSpring(TAB_WIDTH * state.index, {
-            mass: 6,
-            damping: 60,
-            stiffness: 106,
+            mass: 2,
+            damping: 20,
+            stiffness: 126,
             overshootClamping: false,
             restDisplacementThreshold: 5.43,
             restSpeedThreshold: 2,

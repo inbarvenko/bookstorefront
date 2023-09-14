@@ -15,7 +15,8 @@ const getStyle = (props: Theme) =>
       borderColor: CustomTheme.colors[props.theme].light,
     },
     inputStyle: {
-      fontFamily: 'Poppins400',
+      color: CustomTheme.colors[props.theme].dark_blue,
+
       width: '100%',
       marginLeft: 16,
     },

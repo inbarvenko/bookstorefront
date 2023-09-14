@@ -4,7 +4,9 @@ import Animated, {
   interpolate,
   useAnimatedRef,
   useAnimatedScrollHandler,
+  useAnimatedStyle,
   useSharedValue,
+  withSpring,
 } from 'react-native-reanimated';
 import onboardingData, {
   OnboardingDataType,
@@ -16,7 +18,6 @@ import {useNavigation} from '@react-navigation/core';
 import {AppStackParamList} from 'src/navigation/AppStack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {getStyle} from './Onboarding.styles';
-import Pagination from './Pagination';
 import CustomTheme from 'src/theme';
 
 const OnboardingScreen = () => {
@@ -24,9 +25,10 @@ const OnboardingScreen = () => {
   const {width} = useWindowDimensions();
   const flatListRef = useAnimatedRef<FlatList<OnboardingDataType>>();
   const flatListIndex = useSharedValue(0);
-  const x = useSharedValue(0);
+  const position = useSharedValue(0);
   const imageRotation = useSharedValue(0);
   const [indexState, setIndexState] = useState(0);
+  const scale = useSharedValue(0);
 
   const changePage = () => {
     if (indexState >= 2) {
@@ -48,7 +50,9 @@ const OnboardingScreen = () => {
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: event => {
-      x.value = event.contentOffset.x;
+      position.value = indexState * 30 + (event.contentOffset.x % width) / 12;
+
+      // console.log(indexState * 30, position.value);
 
       imageRotation.value = interpolate(
         event.contentOffset.x % width,
@@ -57,6 +61,33 @@ const OnboardingScreen = () => {
         Extrapolation.CLAMP,
       );
     },
+  });
+
+  const scrollStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: withSpring(position.value, {
+            mass: 1,
+            damping: 60,
+            stiffness: 76,
+            overshootClamping: false,
+            restDisplacementThreshold: 5.43,
+            restSpeedThreshold: 2,
+          }),
+        },
+      ],
+    };
+  });
+
+  const scaleStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scaleX: scale.value,
+        },
+      ],
+    };
   });
 
   const styles = getStyle({screenWidth: width});
@@ -91,11 +122,15 @@ const OnboardingScreen = () => {
         pagingEnabled
         bounces={false}
         viewabilityConfig={{
-          minimumViewTime: 300,
           viewAreaCoveragePercentThreshold: 10,
         }}
       />
-      <Pagination activeIndex={indexState} data={onboardingData} />
+      <View style={styles.paginationContainer}>
+        {onboardingData.map((item, index) => {
+          return <View style={styles.dots} key={index} />;
+        })}
+        <Animated.View style={[styles.absoluteDot, scaleStyle, scrollStyle]} />
+      </View>
       <Button
         onPress={changePage}
         styleButton={styles.button}

@@ -48,29 +48,26 @@ export const getStyle = ({screenWidth}: Props) =>
       alignSelf: 'flex-end',
       marginHorizontal: 15,
     },
+    dots: {
+      backgroundColor: CustomTheme.colors.light.dark_grey,
+      height: 10,
+      width: 10,
+      marginHorizontal: 10,
+      borderRadius: 5,
+    },
+    absoluteDot: {
+      left: 10,
+      height: 10,
+      width: 10,
+      borderRadius: 5,
+      backgroundColor: CustomTheme.colors.light.dark_green,
+      position: 'absolute',
+      alignSelf: 'center',
+    },
+    paginationContainer: {
+      flexDirection: 'row',
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   });
-
-export const styles = StyleSheet.create({
-  dots: {
-    backgroundColor: CustomTheme.colors.light.dark_grey,
-    height: 10,
-    width: 10,
-    marginHorizontal: 10,
-    borderRadius: 5,
-  },
-  absoluteDot: {
-    left: 10,
-    height: 10,
-    width: 10,
-    borderRadius: 5,
-    backgroundColor: CustomTheme.colors.light.dark_green,
-    position: 'absolute',
-    alignSelf: 'center',
-  },
-  paginationContainer: {
-    flexDirection: 'row',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

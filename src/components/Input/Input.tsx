@@ -161,7 +161,7 @@ const Input: React.FC<Props> = ({
               ]}
               editable={isEditable}
               onBlur={handleBlur}
-              placeholderTextColor={CustomTheme.colors[theme].dark_grey}
+              placeholderTextColor={CustomTheme.colors.light.dark_grey}
               onFocus={handleFocus}
             />
           </View>

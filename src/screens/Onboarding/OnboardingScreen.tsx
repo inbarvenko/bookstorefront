@@ -1,12 +1,13 @@
 import React, {useCallback, useState} from 'react';
 import Animated, {
+  Easing,
   Extrapolation,
   interpolate,
   useAnimatedRef,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 import onboardingData, {
   OnboardingDataType,
@@ -15,6 +16,7 @@ import OnboardingItem from './OnboardingItem';
 import {FlatList, View, ViewToken, useWindowDimensions} from 'react-native';
 import Button from 'src/components/Button/Button';
 import {useNavigation} from '@react-navigation/core';
+
 import {AppStackParamList} from 'src/navigation/AppStack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {getStyle} from './Onboarding.styles';
@@ -39,10 +41,9 @@ const OnboardingScreen = () => {
 
   const onPageChangeIndex = useCallback(
     (view: {viewableItems: ViewToken[]; changed: ViewToken[]}) => {
-      if (view.viewableItems![0]?.index) {
+      console.log(view.viewableItems![0]);
+      if (view.viewableItems![0]?.index !== null) {
         setIndexState(view.viewableItems[0].index);
-      } else {
-        setIndexState(0);
       }
     },
     [],
@@ -50,9 +51,9 @@ const OnboardingScreen = () => {
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: event => {
-      position.value = indexState * 30 + (event.contentOffset.x % width) / 12;
-
-      // console.log(indexState * 30, position.value);
+      console.log(indexState);
+      position.value = interpolate(event.contentOffset.x, [0, 720], [0, 60]);
+      scale.value = interpolate(event.contentOffset.x % 180, [0, 180], [1, 4]);
 
       imageRotation.value = interpolate(
         event.contentOffset.x % width,
@@ -67,24 +68,16 @@ const OnboardingScreen = () => {
     return {
       transform: [
         {
-          translateX: withSpring(position.value, {
-            mass: 1,
-            damping: 60,
-            stiffness: 76,
-            overshootClamping: false,
-            restDisplacementThreshold: 5.43,
-            restSpeedThreshold: 2,
+          translateX: withTiming(position.value, {
+            duration: 200,
+            easing: Easing.linear,
           }),
         },
-      ],
-    };
-  });
-
-  const scaleStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
         {
-          scaleX: scale.value,
+          scaleX: withTiming(scale.value, {
+            duration: 200,
+            easing: Easing.linear,
+          }),
         },
       ],
     };
@@ -129,7 +122,7 @@ const OnboardingScreen = () => {
         {onboardingData.map((item, index) => {
           return <View style={styles.dots} key={index} />;
         })}
-        <Animated.View style={[styles.absoluteDot, scaleStyle, scrollStyle]} />
+        <Animated.View style={[styles.absoluteDot, scrollStyle]} />
       </View>
       <Button
         onPress={changePage}
